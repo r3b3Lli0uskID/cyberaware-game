@@ -426,32 +426,7 @@
       </div>
     </div>
 
-    <!-- Avatar Picker -->
-    <h3 class="section-heading">Change Avatar</h3>
-    <div class="prof-avatar-picker" id="prof-avatar-picker"></div>
-    <button class="btn btn-primary btn-sm" style="margin-top:.75rem" onclick="saveAvatarChange()">💾 Save Avatar</button>
-
-    <!-- Change Password -->
-    <h3 class="section-heading" style="margin-top:2rem">Change Password</h3>
-    <form class="change-pw-form" onsubmit="handleChangePassword(event)">
-      <div class="form-group">
-        <label>New Password <small>(min 8 · A–Z · a–z · 0–9 · symbol)</small></label>
-        <div class="pw-wrap">
-          <input id="cp-new" type="password" placeholder="New password" minlength="8" required />
-          <button type="button" class="pw-toggle" onclick="togglePw('cp-new', this)" tabindex="-1">👁</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Confirm New Password</label>
-        <div class="pw-wrap">
-          <input id="cp-confirm" type="password" placeholder="Repeat password" required />
-          <button type="button" class="pw-toggle" onclick="togglePw('cp-confirm', this)" tabindex="-1">👁</button>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">🔒 Update Password</button>
-    </form>
-
-    <h3 class="section-heading" style="margin-top:2rem">Badges & Achievements</h3>
+    <h3 class="section-heading">Badges & Achievements</h3>
     <div class="badge-grid" id="badge-grid"></div>
   </div>
 </div>
@@ -619,12 +594,6 @@
     🔊
   </button>
 
-  <!-- BGM toggle -->
-  <button class="sound-toggle-btn" id="bgm-toggle-btn"
-          onclick="toggleBGM()" title="Music: Off (click to enable)"
-          aria-label="Toggle background music">
-    🎵
-  </button>
 
 </div>
 

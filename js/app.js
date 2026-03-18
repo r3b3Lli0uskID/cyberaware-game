@@ -57,26 +57,16 @@ function formatScore(n) { return n.toLocaleString(); }
 
 // ─── AUTH ────────────────────────────────────────────────────────────────────
 async function initAuth() {
-  // Detect Supabase password recovery redirect (#type=recovery in hash)
-  // Must check BEFORE getSession() so the recovery session doesn't trigger loadProfile()
-  const isRecovery = window.location.hash.includes('type=recovery');
-  if (isRecovery) {
-    // Clear hash so refresh doesn't re-trigger
-    history.replaceState(null, '', window.location.pathname + window.location.search);
-    showScreen('screen-reset');
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    App.user = session.user;
+    await loadProfile();
   } else {
-    const { data: { session } } = await db.auth.getSession();
-    if (session) {
-      App.user = session.user;
-      await loadProfile();
-    } else {
-      showScreen('screen-landing');
-    }
+    showScreen('screen-landing');
   }
 
   db.auth.onAuthStateChange(async (event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
-      App.user = session?.user || null;
       showScreen('screen-reset');
       return;
     }
@@ -221,19 +211,11 @@ async function createProfile(username, ageGroup, avatar) {
 }
 
 // ─── DASHBOARD ───────────────────────────────────────────────────────────────
-// Track which group the admin is currently browsing (defaults to own group)
-App.adminBrowseGroup = null;
-
-function renderDashboard(overrideGroup) {
+function renderDashboard() {
   const p = App.profile;
   if (!p) return;
-
-  // Admin can browse any group; regular users always see their own
-  const activeGroup = p.is_admin ? (overrideGroup || App.adminBrowseGroup || p.age_group) : p.age_group;
-  if (p.is_admin) App.adminBrowseGroup = activeGroup;
-
-  const group = AGE_GROUPS[activeGroup];
-  const missions = getMissions(activeGroup);
+  const group = AGE_GROUPS[p.age_group];
+  const missions = getMissions(p.age_group);
 
   // Show admin nav button if admin
   const adminBtn = $('nav-admin-btn');
@@ -242,42 +224,23 @@ function renderDashboard(overrideGroup) {
   // Header
   $('dash-avatar').textContent = p.avatar;
   $('dash-username').textContent = p.username;
-  $('dash-group').textContent = `${AGE_GROUPS[p.age_group].emoji} ${AGE_GROUPS[p.age_group].label}`;
+  $('dash-group').textContent = `${group.emoji} ${group.label}`;
   $('dash-score').textContent = formatScore(p.total_score);
   $('dash-missions').textContent = p.missions_completed;
   $('dash-badges').textContent = (p.badges || []).length;
-
-  // Admin group switcher tabs
-  let adminBar = $('admin-group-bar');
-  if (p.is_admin) {
-    if (!adminBar) {
-      adminBar = el('div', 'admin-group-bar', '');
-      adminBar.id = 'admin-group-bar';
-      const grid = $('mission-grid');
-      grid.parentNode.insertBefore(adminBar, grid);
-    }
-    adminBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) =>
-      `<button class="group-tab-btn ${key === activeGroup ? 'active' : ''}" onclick="renderDashboard('${key}')">
-        ${g.emoji} ${g.label}
-      </button>`
-    ).join('');
-  } else if (adminBar) {
-    adminBar.remove();
-  }
 
   // Mission cards
   const grid = $('mission-grid');
   grid.innerHTML = '';
   missions.forEach(m => {
-    const card = buildMissionCard(m, activeGroup);
+    const card = buildMissionCard(m);
     grid.appendChild(card);
   });
 }
 
-function buildMissionCard(mission, ageGroup) {
+function buildMissionCard(mission) {
   const types = { quiz: { label: 'Quiz', icon: '❓', color: 'var(--accent)' }, 'spot-threat': { label: 'Spot the Threat', icon: '🔍', color: '#f59e0b' }, 'decision-tree': { label: 'Decision Tree', icon: '🌿', color: '#10b981' } };
   const t = types[mission.type];
-  const group = ageGroup || App.profile?.age_group;
 
   const card = el('div', 'mission-card');
   card.innerHTML = `
@@ -292,7 +255,7 @@ function buildMissionCard(mission, ageGroup) {
     <p class="mc-sub">${mission.subtitle}</p>
     <div class="mc-footer">
       <span class="mc-xp">⚡ ${mission.xp} XP</span>
-      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')">▶ Start Mission</button>
+      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}')">▶ Start Mission</button>
     </div>
   `;
   return card;
@@ -328,10 +291,8 @@ function normalizeMission(mission) {
   return mission;
 }
 
-async function startMission(missionId, ageGroup) {
-  // Admin can launch missions from any group; others use their own group
-  const group = ageGroup || App.profile.age_group;
-  const raw = getMission(group, missionId);
+async function startMission(missionId) {
+  const raw = getMission(App.profile.age_group, missionId);
   if (!raw) return;
   const mission = normalizeMission(JSON.parse(JSON.stringify(raw))); // deep-clone before normalizing
 
@@ -353,7 +314,7 @@ async function startMission(missionId, ageGroup) {
   // Create DB session
   const { data, error } = await db.from('game_sessions').insert({
     user_id:      App.user.id,
-    age_group:    group,
+    age_group:    App.profile.age_group,
     mission_id:   mission.id,
     mission_type: mission.type,
     score:        0,
@@ -891,27 +852,6 @@ function renderProfilePage() {
   $('prof-score').textContent = formatScore(p.total_score);
   $('prof-missions').textContent = p.missions_completed;
 
-  // Build avatar picker
-  const apicker = $('prof-avatar-picker');
-  if (apicker) {
-    apicker.innerHTML = '';
-    Object.entries(AVATARS).forEach(([category, emojis]) => {
-      const catLabel = el('div', 'avatar-cat-label', category);
-      apicker.appendChild(catLabel);
-      const row = el('div', 'avatar-cat-row', '');
-      emojis.forEach(av => {
-        const btn = el('button', `avatar-btn${av === p.avatar ? ' selected' : ''}`, av);
-        btn.title = av;
-        btn.onclick = () => {
-          apicker.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-        };
-        row.appendChild(btn);
-      });
-      apicker.appendChild(row);
-    });
-  }
-
   const grid = $('badge-grid');
   grid.innerHTML = '';
   Object.values(BADGES).forEach(b => {
@@ -926,49 +866,14 @@ function renderProfilePage() {
   });
 }
 
-async function saveAvatarChange() {
-  const selected = document.querySelector('#prof-avatar-picker .avatar-btn.selected');
-  if (!selected) { toast('Select an avatar first', 'error'); return; }
-  const newAvatar = selected.textContent;
-  loading(true);
-  const { error } = await db.from('profiles').update({ avatar: newAvatar }).eq('id', App.user.id);
-  loading(false);
-  if (error) { toast(error.message, 'error'); return; }
-  App.profile.avatar = newAvatar;
-  $('prof-avatar').textContent = newAvatar;
-  $('dash-avatar').textContent = newAvatar;
-  toast('Avatar updated! ✨', 'success');
-}
-
-async function handleChangePassword(e) {
-  e.preventDefault();
-  const newPw  = $('cp-new').value;
-  const confirm = $('cp-confirm').value;
-  if (newPw !== confirm) { toast('Passwords do not match', 'error'); return; }
-  if (newPw.length < 8)             { toast('Minimum 8 characters', 'error'); return; }
-  if (!/[A-Z]/.test(newPw))         { toast('Need at least one uppercase letter', 'error'); return; }
-  if (!/[a-z]/.test(newPw))         { toast('Need at least one lowercase letter', 'error'); return; }
-  if (!/[0-9]/.test(newPw))         { toast('Need at least one number', 'error'); return; }
-  if (!/[^A-Za-z0-9]/.test(newPw))  { toast('Need at least one symbol', 'error'); return; }
-  loading(true);
-  const { error } = await db.auth.updateUser({ password: newPw });
-  loading(false);
-  if (error) { toast(error.message, 'error'); return; }
-  $('cp-new').value = '';
-  $('cp-confirm').value = '';
-  toast('Password changed successfully! 🔒', 'success');
-}
-
 // ─── PROFILE SETUP ────────────────────────────────────────────────────────────
 function renderProfileSetup() {
   const avatarGrid = $('avatar-picker');
   if (!avatarGrid) return;
   avatarGrid.innerHTML = '';
-  // AVATARS is now { category: [emoji, ...], ... }
-  const allAvatars = Object.values(AVATARS).flat();
-  allAvatars.forEach(av => {
+  AVATARS.forEach(av => {
     const btn = el('button', 'avatar-btn', av);
-    btn.onclick = () => { document.querySelectorAll('#avatar-picker .avatar-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
+    btn.onclick = () => { document.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
     avatarGrid.appendChild(btn);
   });
 
@@ -1334,113 +1239,6 @@ const SFX = (() => {
 
 function toggleSound() { SFX.toggleMute(); }
 
-// ─── BACKGROUND MUSIC (Web Audio API ambient drone) ───────────────────────────
-const BGM = (() => {
-  let ctx = null, masterGain = null, droneNodes = [];
-  let playing = false;
-  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true'); // off by default
-
-  function getCtx() {
-    if (!ctx) {
-      ctx = new (window.AudioContext || window.webkitAudioContext)();
-      masterGain = ctx.createGain();
-      masterGain.gain.value = 0;
-      masterGain.connect(ctx.destination);
-    }
-    if (ctx.state === 'suspended') ctx.resume();
-    return ctx;
-  }
-
-  function buildReverb(ac) {
-    const conv = ac.createConvolver();
-    const len = ac.sampleRate * 2.5;
-    const buf = ac.createBuffer(2, len, ac.sampleRate);
-    for (let c = 0; c < 2; c++) {
-      const d = buf.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.5);
-    }
-    conv.buffer = buf;
-    return conv;
-  }
-
-  function startDrone() {
-    if (playing) return;
-    const ac = getCtx();
-    const reverb = buildReverb(ac);
-    const rvGain = ac.createGain();
-    rvGain.gain.value = 0.35;
-    reverb.connect(rvGain);
-    rvGain.connect(masterGain);
-
-    // Ambient pad: A minor drone (A2, E3, A3, C4, E4)
-    const notes = [110, 164.81, 220, 261.63, 329.63];
-    const waveTypes = ['sine', 'sine', 'triangle', 'sine', 'triangle'];
-    notes.forEach((freq, i) => {
-      const osc = ac.createOscillator();
-      const oGain = ac.createGain();
-      osc.type = waveTypes[i];
-      osc.frequency.value = freq + (Math.random() * 0.4 - 0.2); // micro-detune
-      oGain.gain.value = 0.035 / (i + 1);
-      osc.connect(oGain);
-      oGain.connect(masterGain);
-      oGain.connect(reverb);
-      osc.start();
-      droneNodes.push(osc);
-
-      // Slow tremolo LFO
-      const lfo = ac.createOscillator();
-      const lfoGain = ac.createGain();
-      lfo.frequency.value = 0.07 + i * 0.015;
-      lfoGain.gain.value = 0.012;
-      lfo.connect(lfoGain);
-      lfoGain.connect(oGain.gain);
-      lfo.start();
-      droneNodes.push(lfo);
-    });
-
-    // Fade in
-    masterGain.gain.setTargetAtTime(0.12, ac.currentTime, 1.5);
-    playing = true;
-  }
-
-  function stopDrone() {
-    if (!playing || !ctx) return;
-    masterGain.gain.setTargetAtTime(0, ctx.currentTime, 0.8);
-    setTimeout(() => {
-      droneNodes.forEach(n => { try { n.stop(); } catch(e) {} });
-      droneNodes = [];
-      playing = false;
-    }, 2000);
-  }
-
-  function play() {
-    if (muted) return;
-    startDrone();
-  }
-
-  function stop() { stopDrone(); }
-
-  function toggleMute() {
-    muted = !muted;
-    localStorage.setItem('cg-bgm-muted', JSON.stringify(muted));
-    const btn = document.getElementById('bgm-toggle-btn');
-    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
-    if (muted) stopDrone();
-    else startDrone();
-    return muted;
-  }
-
-  function initUI() {
-    muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true');
-    const btn = document.getElementById('bgm-toggle-btn');
-    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
-  }
-
-  return { play, stop, toggleMute, initUI, get muted() { return muted; } };
-})();
-
-function toggleBGM() { BGM.toggleMute(); }
-
 // ─── PARTICLE HERO BACKGROUND ─────────────────────────────────────────────────
 function initParticles() {
   const container = document.getElementById('hero-particles');
@@ -1590,19 +1388,9 @@ function _updateThemePills(activeTheme) {
 document.addEventListener('DOMContentLoaded', async () => {
   initThemeControls();
   SFX.initUI();
-  BGM.initUI();
   initParticles();
   renderProfileSetup();
   await initAuth();
-
-  // Start BGM on first user interaction (required by browser autoplay policy)
-  const startBGMOnce = () => {
-    BGM.play();
-    document.removeEventListener('click', startBGMOnce);
-    document.removeEventListener('keydown', startBGMOnce);
-  };
-  document.addEventListener('click', startBGMOnce);
-  document.addEventListener('keydown', startBGMOnce);
 
   // Button click sound (global — attaches to all .btn, .nav-btn, .quiz-option)
   document.addEventListener('click', e => {
