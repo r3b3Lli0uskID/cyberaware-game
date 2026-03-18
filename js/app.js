@@ -80,6 +80,8 @@ async function initAuth() {
       showScreen('screen-reset');
       return;
     }
+    // USER_UPDATED fires when updateUser() is called — handled by the calling function
+    if (event === 'USER_UPDATED') return;
     App.user = session?.user || null;
     if (App.user) {
       await loadProfile();
