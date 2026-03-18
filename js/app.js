@@ -187,9 +187,11 @@ async function loadProfile() {
 
   App.profile = data;
   setTheme(AGE_GROUPS[data.age_group]?.theme || 'default');
-  // Auto-apply matching visual theme per age group (only if user hasn't picked a custom one)
+  // Re-apply visual theme: saved user choice wins; fall back to age-group auto-theme
   const savedVisual = localStorage.getItem('cg-vtheme');
-  if (!savedVisual || savedVisual === 'default') {
+  if (savedVisual && savedVisual !== 'default') {
+    applyVisualTheme(savedVisual);
+  } else {
     const ageVisualMap = { kids: 'kiddy', teens: 'teen', adults: 'adult', seniors: 'default' };
     const autoTheme = ageVisualMap[data.age_group];
     if (autoTheme) applyVisualTheme(autoTheme);
