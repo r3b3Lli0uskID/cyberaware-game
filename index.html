@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberGuard — Stay Safe Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── THEME VARIABLES ─── */
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d2e;
+      --surface2: #252840;
+      --border: #2e3150;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --warn: #ff6b6b;
+      --text: #e8eaf6;
+      --muted: #8892b0;
+      --heading: #ffffff;
+      --radius: 16px;
+      --font-body: 'Inter', sans-serif;
+      --font-game: 'Nunito', sans-serif;
+      --font-size: 16px;
+    }
+
+    /* ─── AGE THEMES ─── */
+    [data-theme="kids"] {
+      --bg: #fff8e7;
+      --surface: #ffffff;
+      --surface2: #fff0d4;
+      --border: #ffd89b;
+      --accent: #ff6b6b;
+      --accent2: #48c774;
+      --warn: #ff3860;
+      --text: #2c3e50;
+      --muted: #7a8a99;
+      --heading: #1a1a2e;
+      --font-size: 17px;
+    }
+    [data-theme="teens"] {
+      --bg: #0d0d1a;
+      --surface: #12122a;
+      --surface2: #1a1a3e;
+      --border: #2d2d6b;
+      --accent: #c77dff;
+      --accent2: #00f5d4;
+      --warn: #ff4d6d;
+      --text: #e0e0ff;
+      --muted: #7b7bab;
+      --heading: #ffffff;
+      --font-size: 16px;
+    }
+    [data-theme="adults"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #e8edf3;
+      --border: #d0d8e4;
+      --accent: #1770b5;
+      --accent2: #10b981;
+      --warn: #dc2626;
+      --text: #1e293b;
+      --muted: #64748b;
+      --heading: #0f172a;
+      --font-size: 16px;
+    }
+    [data-theme="seniors"] {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --surface2: #eef1f6;
+      --border: #c5d0de;
+      --accent: #1a56db;
+      --accent2: #057a55;
+      --warn: #c81e1e;
+      --text: #111827;
+      --muted: #4b5563;
+      --heading: #111827;
+      --font-size: 19px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      font-size: var(--font-size);
+      min-height: 100vh;
+      transition: background .4s, color .4s;
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      animation: fadeIn .4s ease;
+    }
+    .screen.active { display: flex; flex-direction: column; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    /* ─── LANDING SCREEN ─── */
+    #screen-landing {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #0f1117 0%, #1a1d2e 50%, #0f1117 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #screen-landing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(108,99,255,.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,212,170,.1) 0%, transparent 50%);
+    }
+
+    .landing-content { position: relative; z-index: 1; max-width: 600px; }
+
+    .shield-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+
+    .landing-title {
+      font-family: var(--font-game);
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: .5rem;
+    }
+    .landing-title span { color: #6c63ff; }
+
+    .landing-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .age-card {
+      background: rgba(255,255,255,.06);
+      border: 2px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      cursor: pointer;
+      transition: all .25s;
+      text-align: center;
+    }
+    .age-card:hover, .age-card.selected {
+      border-color: var(--card-color, #6c63ff);
+      background: rgba(255,255,255,.1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    .age-card.selected { box-shadow: 0 0 0 3px var(--card-color, #6c63ff); }
+
+    .age-card .age-emoji { font-size: 2.5rem; display: block; margin-bottom: .5rem; }
+    .age-card .age-label {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      display: block;
+    }
+    .age-card .age-range { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: .2rem; }
+
+    .age-card[data-group="kids"]    { --card-color: #ff6b6b; }
+    .age-card[data-group="teens"]   { --card-color: #c77dff; }
+    .age-card[data-group="adults"]  { --card-color: #1770b5; }
+    .age-card[data-group="seniors"] { --card-color: #10b981; }
+
+    .btn-start {
+      font-family: var(--font-game);
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6c63ff, #9b59b6);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 3rem;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: 0 4px 20px rgba(108,99,255,.4);
+      letter-spacing: .04em;
+    }
+    .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,.5); }
+    .btn-start:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* ─── GAME HEADER ─── */
+    .game-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: .8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .game-logo {
+      font-family: var(--font-game);
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .score-badge {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: .9rem;
+      padding: .3rem .8rem;
+      border-radius: 50px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .progress-wrap { flex: 1; max-width: 300px; }
+    .progress-label { font-size: .75rem; color: var(--muted); margin-bottom: .3rem; display: flex; justify-content: space-between; }
+    .progress-bar-bg { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width .5s ease; }
+
+    .btn-quit {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: .4rem .8rem;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-quit:hover { border-color: var(--warn); color: var(--warn); }
+
+    /* ─── GAME SCREEN ─── */
+    #screen-game {
+      flex-direction: column;
+    }
+
+    .game-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ─── LEVEL INTRO CARD ─── */
+    .level-intro {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-game);
+      font-weight: 700;
+      font-size: .8rem;
+      padding: .25rem .7rem;
+      border-radius: 50px;
+      margin-bottom: .8rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .level-title {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--heading);
+      margin-bottom: .5rem;
+    }
+
+    .level-story {
+      font-size: .95rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: .8rem;
+    }
+
+    /* ─── SCENARIO CARD ─── */
+    .scenario-card {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .scenario-icon {
+      font-size: 2rem;
+      margin-bottom: .8rem;
+      display: block;
+    }
+
+    .scenario-text {
+      font-size: 1.05rem;
+      color: var(--heading);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* ─── QUESTION ─── */
+    .question-text {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--heading);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    /* ─── OPTIONS ─── */
+    .options-grid {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .option-btn {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      text-align: left;
+      cursor: pointer;
+      font-size: var(--font-size);
+      color: var(--text);
+      font-family: var(--font-body);
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      line-height: 1.5;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--surface2);
+      transform: translateX(4px);
+    }
+    .option-btn .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .85rem;
+      flex-shrink: 0;
+      color: var(--accent);
+      transition: all .2s;
+    }
+    .option-btn:hover:not(:disabled) .opt-letter {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .option-btn.correct {
+      border-color: #10b981;
+      background: rgba(16,185,129,.1);
+      color: var(--heading);
+    }
+    .option-btn.correct .opt-letter { background: #10b981; border-color: #10b981; color: #fff; }
+
+    .option-btn.wrong {
+      border-color: var(--warn);
+      background: rgba(255,107,107,.1);
+      color: var(--muted);
+    }
+    .option-btn.wrong .opt-letter { background: var(--warn); border-color: var(--warn); color: #fff; }
+
+    .option-btn:disabled { cursor: default; }
+
+    /* ─── FEEDBACK OVERLAY ─── */
+    .feedback-box {
+      width: 100%;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.2rem;
+      display: none;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .feedback-box.correct-fb {
+      background: rgba(16,185,129,.15);
+      border: 1.5px solid #10b981;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .feedback-box.wrong-fb {
+      background: rgba(255,107,107,.12);
+      border: 1.5px solid var(--warn);
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .feedback-title {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .correct-fb .feedback-title { color: #10b981; }
+    .wrong-fb .feedback-title { color: var(--warn); }
+
+    .feedback-text { font-size: .9rem; color: var(--text); line-height: 1.5; }
+
+    /* ─── TIP CARD ─── */
+    .tip-card {
+      width: 100%;
+      background: rgba(108,99,255,.1);
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+    .tip-card.show { display: flex; gap: .8rem; align-items: flex-start; animation: slideUp .3s ease; }
+    .tip-label { font-family: var(--font-game); font-weight: 800; color: var(--accent); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
+    .tip-text { font-size: .9rem; color: var(--text); line-height: 1.5; }
+
+    /* ─── NEXT BUTTON ─── */
+    .btn-next {
+      font-family: var(--font-game);
+      font-size: 1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: .85rem 2.5rem;
+      cursor: pointer;
+      transition: all .2s;
+      display: none;
+      margin: 0 auto;
+    }
+    .btn-next.show { display: block; animation: fadeIn .3s ease; }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(108,99,255,.35); }
+
+    /* ─── RESULT SCREEN ─── */
+    #screen-result {
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .result-emoji { font-size: 4rem; display: block; margin-bottom: 1rem; }
+    .result-title {
+      font-family: var(--font-game);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--heading);
+      margin-bottom: .5rem;
+    }
+    .result-sub { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
+
+    .score-display {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .score-number {
+      font-family: var(--font-game);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent);
+      display: block;
+    }
+    .score-label { font-size: .85rem; color: var(--muted); }
+
+    .stars { font-size: 2rem; letter-spacing: .3rem; margin-bottom: 1.5rem; display: block; }
+
+    .result-actions { display: flex; flex-direction: column; gap: .8rem; }
+
+    .btn-action {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all .2s;
+      border: none;
+    }
+    .btn-action.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-action.secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-action:hover { transform: translateY(-2px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 480px) {
+      .landing-title { font-size: 2rem; }
+      .age-grid { grid-template-columns: 1fr 1fr; }
+      .game-body { padding: 1rem .75rem; }
+    }
+
+    /* ─── KIDS THEME EXTRAS ─── */
+    [data-theme="kids"] .option-btn { font-size: 1.05rem; padding: 1.1rem 1.2rem; }
+    [data-theme="kids"] .question-text { font-size: 1.3rem; }
+
+    /* ─── SENIORS THEME EXTRAS ─── */
+    [data-theme="seniors"] .option-btn { font-size: 1.1rem; padding: 1.2rem 1.4rem; border-width: 2px; }
+    [data-theme="seniors"] .question-text { font-size: 1.35rem; }
+    [data-theme="seniors"] .scenario-text { font-size: 1.1rem; }
+    [data-theme="seniors"] .btn-next { font-size: 1.1rem; padding: 1rem 2.8rem; }
+
+    /* ─── TEENS THEME EXTRAS ─── */
+    [data-theme="teens"] .game-header { background: #0d0d1a; }
+    [data-theme="teens"] .level-badge { background: linear-gradient(135deg, #c77dff, #7b2fff); }
+
+    /* ─── LOADING ─── */
+    .loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.7);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(255,255,255,.2);
+      border-top-color: #6c63ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { color: #fff; font-family: var(--font-game); font-weight: 700; }
+
+    /* ─── LEVEL MAP ─── */
+    .level-map {
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      padding: 1.5rem 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .level-map-title {
+      font-family: var(--font-game);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--heading);
+      text-align: center;
+      margin-bottom: .5rem;
+    }
+    .map-level {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .map-level.available:hover { border-color: var(--accent); transform: translateX(4px); }
+    .map-level.locked { opacity: .4; cursor: not-allowed; }
+    .map-level.completed { border-color: #10b981; background: rgba(16,185,129,.06); }
+    .map-level-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-game);
+      font-weight: 900;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .map-level.completed .map-level-num { background: #10b981; }
+    .map-level.locked .map-level-num { background: var(--border); }
+    .map-level-info { flex: 1; }
+    .map-level-title { font-weight: 700; color: var(--heading); font-size: .95rem; }
+    .map-level-status { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+    .map-level-pts {
+      font-family: var(--font-game);
+      font-weight: 800;
+      font-size: .85rem;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── LANDING SCREEN ─── -->
+  <div id="screen-landing" class="screen active">
+    <div class="landing-content">
+      <span class="shield-icon">🛡️</span>
+      <h1 class="landing-title">Cyber<span>Guard</span></h1>
+      <p class="landing-sub">Stay Safe Online — Interactive cybersecurity awareness for everyone, from kids to adults.</p>
+
+      <div class="age-grid">
+        <div class="age-card" data-group="kids" onclick="selectAge(this)">
+          <span class="age-emoji">🧒</span>
+          <span class="age-label">Kids</span>
+          <span class="age-range">Ages 7 – 12</span>
+        </div>
+        <div class="age-card" data-group="teens" onclick="selectAge(this)">
+          <span class="age-emoji">🧑‍💻</span>
+          <span class="age-label">Teens</span>
+          <span class="age-range">Ages 13 – 17</span>
+        </div>
+        <div class="age-card" data-group="adults" onclick="selectAge(this)">
+          <span class="age-emoji">👩‍💼</span>
+          <span class="age-label">Adults</span>
+          <span class="age-range">Ages 18 – 45</span>
+        </div>
+        <div class="age-card" data-group="seniors" onclick="selectAge(this)">
+          <span class="age-emoji">👴</span>
+          <span class="age-label">Seniors</span>
+          <span class="age-range">Ages 46 – 65+</span>
+        </div>
+      </div>
+
+      <button class="btn-start" id="btn-start" disabled onclick="startGame()">
+        🚀 Start Mission
+      </button>
+    </div>
+  </div>
+
+  <!-- ─── LEVEL MAP SCREEN ─── -->
+  <div id="screen-map" class="screen">
+    <div class="game-header">
+      <div class="game-logo">🛡️ CyberGuard</div>
+      <div class="score-badge" id="map-score">0 pts</div>
+      <button class="btn-quit" onclick="quitGame()">✕ Quit</button>
+    </div>
+    <div id="level-map-content" class="level-map"></div>
+  </div>
+
+  <!-- ─── GAME SCREEN ─── -->
+  <div id="screen-game" class="screen">
+    <div class="game-header">
+      <div class="game-logo">🛡️ CyberGuard</div>
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span id="level-label">Level 1</span>
+          <span id="level-progress">1 / 5</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="score-badge" id="score-display">0 pts</div>
+      <button class="btn-quit" onclick="quitGame()">✕ Quit</button>
+    </div>
+
+    <div class="game-body">
+      <div class="level-intro" id="level-intro">
+        <div class="level-badge" id="level-badge">📍 Level 1</div>
+        <div class="level-title" id="level-title"></div>
+        <div class="level-story" id="level-story"></div>
+      </div>
+
+      <div class="scenario-card">
+        <span class="scenario-icon" id="scenario-icon">🔍</span>
+        <div class="scenario-text" id="scenario-text"></div>
+      </div>
+
+      <div class="question-text" id="question-text"></div>
+
+      <div class="options-grid" id="options-grid"></div>
+
+      <div class="feedback-box" id="feedback-box">
+        <div class="feedback-title" id="feedback-title"></div>
+        <div class="feedback-text" id="feedback-text"></div>
+      </div>
+
+      <div class="tip-card" id="tip-card">
+        <span>💡</span>
+        <div>
+          <div class="tip-label">Pro Tip</div>
+          <div class="tip-text" id="tip-text"></div>
+        </div>
+      </div>
+
+      <button class="btn-next" id="btn-next" onclick="nextLevel()">Next Level →</button>
+    </div>
+  </div>
+
+  <!-- ─── RESULT SCREEN ─── -->
+  <div id="screen-result" class="screen">
+    <div class="result-card" id="result-card">
+      <span class="result-emoji" id="result-emoji">🏆</span>
+      <div class="result-title" id="result-title">Mission Complete!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <div class="score-display">
+        <span class="score-number" id="final-score">0</span>
+        <div class="score-label">Total Points</div>
+      </div>
+      <span class="stars" id="result-stars">⭐⭐⭐</span>
+      <div class="result-actions">
+        <button class="btn-action primary" onclick="restartSame()">🔄 Play Again</button>
+        <button class="btn-action secondary" onclick="goHome()">🏠 Choose Age Group</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ─── GAME DATA ───────────────────────────────────────────────────────────────
+const GAME_DATA = {
+  kids: {
+    label: "Kids (7–12)",
+    theme: "kids",
+    avatar: "🧒",
+    color: "#ff6b6b",
+    intro: "Hey hero! 🦸 Time to learn how to stay safe online! Complete all levels to become a Cyber Champion!",
+    levels: [
+      {
+        id: 1,
+        title: "The Password Castle",
+        story: "You're building a magical castle online to keep your toys safe. But you need a super strong password to lock the door! Your friend Jake used '123456' as his password and now someone got in and stole his game scores! 😱",
+        scenario: "You need to pick a password for your new online game account. Which one is the BEST password?",
+        scenarioIcon: "🔐",
+        question: "Which password is the STRONGEST and SAFEST?",
+        options: [
+          { text: "Your name and birthday: 'alex2015'", correct: false, feedback: "Oops! Using your name and birthday is easy for bad guys to guess. They could look it up!" },
+          { text: "A mix of letters, numbers and symbols: 'Sunny$Dog7#Rain'", correct: true, feedback: "Amazing! A long mix of words, numbers and symbols is super hard to guess. You're a password hero! 🦸" },
+          { text: "The word 'password'", correct: false, feedback: "Oh no! 'password' is the MOST common password ever. Hackers try this first every time!" }
+        ],
+        tip: "A great password is like a secret code — long, mixed up, and only YOU know it! Never share it with anyone except your parents. 🔒",
+        points: 100
+      },
+      {
+        id: 2,
+        title: "The Info Trap",
+        story: "You're playing your favourite game online when a pop-up appears: 'CONGRATULATIONS! You won a free PlayStation! Enter your home address and phone number to claim your prize!' The pop-up has bright flashing stars and balloons. 🎊",
+        scenario: "A website you've never heard of is asking for your full name, home address, phone number and school name to 'claim a prize'.",
+        scenarioIcon: "🎁",
+        question: "What should you do?",
+        options: [
+          { text: "Fill in all the details quickly before the prize is gone!", correct: false, feedback: "Stop! Real prizes don't need your home address from random websites. This is a TRAP! Bad people could come to your house." },
+          { text: "Close the pop-up and tell a trusted adult immediately", correct: true, feedback: "Perfect! You were SO smart! Never give personal information to websites you don't know. Always tell a parent or teacher. 🌟" },
+          { text: "Only enter your name, not your address", correct: false, feedback: "Even just your name can help bad guys find out more about you. It's safer to close it all and ask an adult." }
+        ],
+        tip: "Your personal information is like treasure — protect it! Never share your address, phone number, school name, or full name with websites you don't know. 🏴‍☠️",
+        points: 100
+      },
+      {
+        id: 3,
+        title: "Safe Website Detective",
+        story: "You want to play a cool new game you saw on TV. You search for it online and find two websites: 'www.superfungames.com' with a green padlock icon, and 'www.free-gamez-4-u.xyz' with bright flashing ads and no padlock.",
+        scenario: "Both websites say they have the game you want. One has a padlock (https), the other doesn't and has many flashing pop-up ads.",
+        scenarioIcon: "🔍",
+        question: "Which website is safer to visit?",
+        options: [
+          { text: "The one with flashing ads — they look exciting!", correct: false, feedback: "Flashing ads and weird website names are warning signs! These can try to steal information from your computer." },
+          { text: "The one with the padlock (https) — it's a safer website", correct: true, feedback: "Great detective work! 🕵️ The padlock means the website is safer. Always look for 'https' at the start of a website address!" },
+          { text: "Both are the same, it doesn't matter", correct: false, feedback: "It does matter! Websites without a padlock and with lots of pop-ups can be dangerous for your computer and your information." }
+        ],
+        tip: "Always look for the padlock 🔒 in your browser before clicking on a website. Ask an adult if you're unsure about a website! And never click on flashing ads.",
+        points: 100
+      },
+      {
+        id: 4,
+        title: "The Mean Message",
+        story: "Your classmate Amy sends you a mean message in your class group chat, saying 'Everyone thinks you're weird and nobody wants to play with you.' Other kids start sending laughing emojis. You feel really hurt and sad. 😢",
+        scenario: "You receive a hurtful message about you in a group chat. Other classmates are laughing along. This is happening online but it feels very real.",
+        scenarioIcon: "💬",
+        question: "What is the BEST thing to do?",
+        options: [
+          { text: "Send an even meaner message back to Amy", correct: false, feedback: "Sending mean messages back makes things worse and you could get in trouble too. Two wrongs don't make a right!" },
+          { text: "Say nothing and keep it secret forever", correct: false, feedback: "Keeping cyberbullying secret lets it continue. You deserve to feel safe — please tell a trusted adult!" },
+          { text: "Screenshot the messages, don't reply, and tell a trusted adult", correct: true, feedback: "You handled that brilliantly! 🌟 Save the evidence, don't fight back online, and always tell a parent or teacher. You are not alone!" }
+        ],
+        tip: "Cyberbullying is NEVER okay. If someone is mean to you online: Stop (don't respond), Block (block the person), Tell (tell a trusted adult). Save screenshots as evidence. 📱",
+        points: 100
+      },
+      {
+        id: 5,
+        title: "The Online Stranger",
+        story: "You're playing an online game and a player named 'CoolGamer99' starts chatting with you. He says he's 11 years old, lives nearby, and wants to meet at the park to play together. He says 'don't tell your parents, it'll be more fun as a surprise!' 🎮",
+        scenario: "An online gaming friend you've never met in real life wants to meet you in person, and asks you to keep it secret from your parents.",
+        scenarioIcon: "👾",
+        question: "What should you do?",
+        options: [
+          { text: "Go meet them — they seem nice and are your age!", correct: false, feedback: "DANGER! You can never really know who someone is online. 'CoolGamer99' could be an adult pretending to be a kid. NEVER meet an online stranger!" },
+          { text: "Tell your parents right away and do NOT meet this person", correct: true, feedback: "100% correct! 🦸 Real friends would never ask you to keep secrets from your parents. Always tell a trusted adult about strangers who contact you online!" },
+          { text: "Meet them but bring your little sister", correct: false, feedback: "No! Never meet an online stranger in real life, even with someone else. Always tell a parent — they will keep you safe." }
+        ],
+        tip: "Online friends are STRANGERS until a trusted adult says otherwise. The rule is simple: NEVER agree to meet someone you only know online without your parent's knowledge and supervision. 🚫",
+        points: 100
+      }
+    ]
+  },
+
+  teens: {
+    label: "Teens (13–17)",
+    theme: "teens",
+    avatar: "🧑‍💻",
+    color: "#c77dff",
+    intro: "Level up your cyber skills! 🎮 These scenarios are based on real threats teens face. Can you outsmart the hackers?",
+    levels: [
+      {
+        id: 1,
+        title: "Social Media Privacy Fail",
+        story: "You just got back from an amazing beach trip and uploaded 23 photos on Instagram. One photo shows your school uniform. Another has your house in the background with your street name visible. Your account is set to Public. 📸",
+        scenario: "Your public Instagram has photos showing your school uniform, neighbourhood, and a post saying 'Home alone this weekend while parents are at Batam!' with your address tagged.",
+        scenarioIcon: "📱",
+        question: "What's the BIGGEST risk with this situation?",
+        options: [
+          { text: "Too many people will like your photos", correct: false, feedback: "Likes aren't the problem here. The real danger is what strangers can piece together from your posts." },
+          { text: "Strangers can identify where you live, go to school, and know when you're alone", correct: true, feedback: "Exactly right! 🎯 That combination — school, home address, being alone — is exactly what predators and burglars look for online. Privacy settings exist for a reason!" },
+          { text: "Your friends might get jealous of the holiday photos", correct: false, feedback: "Social drama isn't the cybersecurity concern here. Focus on what a stranger could do with all that location information." }
+        ],
+        tip: "Audit your social media RIGHT NOW: set to private, remove location tags, and never post when you're home alone. Think: 'Would I put this on a poster at the bus stop?' If not, don't post it. 🔒",
+        points: 120
+      },
+      {
+        id: 2,
+        title: "The Phishing DM",
+        story: "Your favourite YouTuber 'TechWithAlex' just DMed you on Instagram! The message says: 'Hey! I'm giving FREE AirPods to my top 100 fans! Just click this link and log in with your Instagram to claim: www.instagrarn-gifts.com 🎧'",
+        scenario: "You receive a DM that looks like it's from a verified creator, asking you to log in through a slightly misspelled website link to claim a free prize.",
+        scenarioIcon: "🎣",
+        question: "What is happening here and what should you do?",
+        options: [
+          { text: "Log in quickly — free AirPods are real and limited!", correct: false, feedback: "PHISHING ATTACK! Notice 'instagrarn' — that's not Instagram! Logging in here hands your username and password straight to a hacker." },
+          { text: "This is a phishing attempt — report the account and don't click the link", correct: true, feedback: "Perfect catch! 🕵️ The misspelled URL ('instagrarn' not 'instagram') is a giveaway. Real giveaways never ask for your login through a DM. Report & ignore!" },
+          { text: "Ask your friend if they got the same DM before deciding", correct: false, feedback: "Not bad thinking, but the right answer is to report it immediately. Even waiting gives the attacker time if your friend falls for it." }
+        ],
+        tip: "Always check URLs character by character before clicking. Phishers use lookalike domains (rn looks like m, 0 looks like o). Legitimate companies NEVER ask for your password through a DM. 🔗",
+        points: 120
+      },
+      {
+        id: 3,
+        title: "Free WiFi Danger",
+        story: "You're at a mall café doing homework and spot 'FREE_MALL_WIFI' — no password needed! You connect and start checking your school email, then quickly log into your bank account your parents set up for your allowance. 📶",
+        scenario: "You're using an open public WiFi network (no password) to access your school email and bank account.",
+        scenarioIcon: "📶",
+        question: "What's the danger and what should you do instead?",
+        options: [
+          { text: "There's no danger — free WiFi is always safe to use", correct: false, feedback: "WRONG! Open WiFi has NO encryption. Anyone on the same network can potentially intercept your data — including passwords and bank details." },
+          { text: "Use your mobile data for sensitive sites, or use a VPN if on public WiFi", correct: true, feedback: "Smart move! 💡 On public WiFi, your data travels unencrypted. Always use mobile data for banking, email and passwords, or a VPN to encrypt your connection." },
+          { text: "It's fine if you log out after you're done", correct: false, feedback: "Logging out helps, but the damage is already done — your password was sent unencrypted and could have been captured in real-time while you were typing it." }
+        ],
+        tip: "Rule: Never access bank accounts, school accounts, or enter passwords on public/open WiFi without a VPN. Your mobile data is safer for sensitive stuff. 📵",
+        points: 120
+      },
+      {
+        id: 4,
+        title: "Gaming Account Hijack",
+        story: "Your friend sends you a Steam trade offer: 'I'm giving away my rare CS:GO knife skin! Just verify your account age at: www.steam-community-verify.net and sign in with Steam.' The link looks official with a Steam logo. 🎮",
+        scenario: "A trade offer requiring you to log in on a website with 'steam' in the name but it's not the official steam.com domain.",
+        scenarioIcon: "🕹️",
+        question: "What should you do?",
+        options: [
+          { text: "Log in — the site has the Steam logo so it must be real", correct: false, feedback: "Anyone can copy a logo! The real Steam website is only 'store.steampowered.com'. Any other domain claiming to be Steam is FAKE. This is a credential harvesting attack." },
+          { text: "Don't sign in — verify with your friend directly on Steam chat, report the link", correct: true, feedback: "Pro gamer move! 🏆 Always verify through the actual app or platform. Your friend's account was likely already hacked and used to spread this phishing link to their friends list." },
+          { text: "Sign in but change your password immediately after", correct: false, feedback: "Too late by then! The moment you enter your credentials on a fake site, they're stolen. Changing your password won't help if they captured it already." }
+        ],
+        tip: "Gaming accounts are prime targets. Use Steam Guard (2FA), never sign in through links in chats, and bookmark the REAL URLs of games you play. Verify directly in-app. 🎯",
+        points: 120
+      },
+      {
+        id: 5,
+        title: "The Digital Footprint",
+        story: "It's 2 AM and you're venting online about how much you hate your school. You post: 'I literally want to burn this school down 😡 everyone there is so fake and I hate the principal'. You delete it after 30 minutes. But your dream university is checking applicants' online presence... 💻",
+        scenario: "You posted an angry rant with threatening-sounding language late at night, then deleted it. But screenshots exist, and universities and employers Google applicants.",
+        scenarioIcon: "🌐",
+        question: "What's the key lesson about your digital footprint?",
+        options: [
+          { text: "Deleting a post means it's gone forever — no problem", correct: false, feedback: "MYTH BUSTED. Screenshots, Google cache, and the Wayback Machine can preserve deleted posts. 'Delete' doesn't mean 'gone'. It was live for 30 minutes — that's enough." },
+          { text: "Once posted online, content can last forever and affect your future opportunities", correct: true, feedback: "Exactly. 💡 Universities, employers, and even police can find deleted posts. The internet has a very long memory. Think before you post — always!" },
+          { text: "Only your followers can see posts, and they won't tell anyone", correct: false, feedback: "Anyone who saw it could screenshot it and share it. Plus, depending on your privacy settings, it might have been public. Never assume a post is 'just between friends'." }
+        ],
+        tip: "Google yourself RIGHT NOW. Before posting anything, ask: 'Would I be okay if my future employer, parent, or school principal saw this?' Your digital footprint follows you for life. 🌍",
+        points: 120
+      }
+    ]
+  },
+
+  adults: {
+    label: "Adults (18–45)",
+    theme: "adults",
+    avatar: "👩‍💼",
+    color: "#1770b5",
+    intro: "Real threats, real consequences. These scenarios are based on actual attacks used against working adults. How well can you spot them?",
+    levels: [
+      {
+        id: 1,
+        title: "The CEO Email Fraud",
+        story: "It's Friday at 4:45 PM. You receive an urgent email from your CEO (ceo@company-sg.co — note the '.co' not '.com'): 'Sarah, I'm in a board meeting and need you to urgently transfer $15,000 to a new vendor account. Wire to: DBS Account 123-456-789. Reply only to this email, not my normal one. Confidential.' 📧",
+        scenario: "An urgent after-hours email apparently from your CEO requests an immediate bank transfer to an unfamiliar account, asking you to bypass normal approval processes.",
+        scenarioIcon: "📧",
+        question: "What should you do?",
+        options: [
+          { text: "Process the transfer — your CEO is urgent and it's confidential", correct: false, feedback: "BUSINESS EMAIL COMPROMISE (BEC) ATTACK! This is the most costly cyber fraud — Singapore businesses lose millions to this annually. Always verify wire transfers via a SEPARATE communication channel." },
+          { text: "Call your CEO directly on their known phone number to verify before doing anything", correct: true, feedback: "Correct! ✅ Always verify financial requests through a completely separate channel (phone call to a known number, not the one in the email). BEC scams cost Singapore companies over $30M yearly." },
+          { text: "Reply to the email asking for more details first", correct: false, feedback: "Replying to the email communicates directly with the scammer — they're monitoring it. Call your CEO on their mobile directly. Never use contact info provided in the suspicious email." }
+        ],
+        tip: "Any urgent request that bypasses normal approval, asks for secrecy, or involves money is a RED FLAG. Call the person on a KNOWN number to verify. Report suspicious emails to your IT security team immediately. 🚨",
+        points: 150
+      },
+      {
+        id: 2,
+        title: "The Vishing Call",
+        story: "You receive a call from +65 6225 XXXX. The caller says: 'Good afternoon, I'm Officer Tan from the Singapore Police Force Cybercrime Division. Your NRIC has been used for illegal activities. You are under investigation. To avoid arrest, you must transfer your funds to a 'safe account' we control until the investigation clears. This is confidential — do not tell family.' ☎️",
+        scenario: "A caller claiming to be a police officer demands you transfer money to a 'safe account' to avoid arrest, and warns you not to tell anyone.",
+        scenarioIcon: "☎️",
+        question: "This is a classic scam. What should you do?",
+        options: [
+          { text: "Transfer the money — you don't want to get arrested", correct: false, feedback: "THIS IS THE 'OFFICIAL IMPERSONATION SCAM' — Singapore's #1 scam type! SPF officers NEVER ask you to transfer money. No legitimate authority will ever ask you to move funds to a 'safe account'." },
+          { text: "Hang up, call SPF directly at 1800-255-0000, and report the scam call", correct: true, feedback: "Perfect response! ✅ Real police will NEVER call asking for money transfers. Hang up, call SPF at 1800-255-0000 or visit scamalert.sg. Your calm action protects you and helps others!" },
+          { text: "Ask them for their badge number and call them back on the number they give you", correct: false, feedback: "Never call back a number provided by the suspicious caller — it'll go straight back to the scammer. Call SPF's official number directly: 1800-255-0000." }
+        ],
+        tip: "SPF, MAS, IRAS, CPF Board — NO Singapore government agency will ever ask you to transfer money over the phone. If in doubt: hang up, look up the official number yourself, and call back. 🇸🇬",
+        points: 150
+      },
+      {
+        id: 3,
+        title: "The Phishing Attachment",
+        story: "You receive an email from 'hr@company-hr-portal.com' with subject 'Urgent: Your December Payslip — Action Required'. The email says your payslip couldn't be processed due to a bank detail error. Attached is 'Payslip_Dec_2025.pdf.exe'. You're worried about your salary. 💼",
+        scenario: "A payslip email from a slightly off HR domain contains a file with a double extension: .pdf.exe — designed to look like a PDF but is actually an executable program.",
+        scenarioIcon: "📎",
+        question: "What should you do with this email?",
+        options: [
+          { text: "Open the attachment — it's from HR and you need your payslip", correct: false, feedback: "MALWARE ATTACK! The '.exe' extension means it's a program, not a PDF. Running it could install ransomware or a keylogger on your work computer. The domain 'company-hr-portal.com' is also suspicious." },
+          { text: "Do not open the attachment — report it to IT security and verify with HR directly", correct: true, feedback: "Excellent! 🎯 Double extensions (.pdf.exe) are a classic malware delivery trick. Report to IT immediately, and verify with HR using their known internal contact — not the email address in the suspicious message." },
+          { text: "Forward to your personal Gmail and open it there — safer", correct: false, feedback: "This spreads the malware risk to your personal machine! Never forward suspicious files to another account. Report and delete." }
+        ],
+        tip: "Enable 'show file extensions' in Windows settings. A file ending in .pdf.exe, .doc.exe, or .jpg.exe is ALWAYS malware. Your real HR will never send payslips as executable files. 📁",
+        points: 150
+      },
+      {
+        id: 4,
+        title: "Public WiFi Banking",
+        story: "You're at Changi Airport waiting for a flight. You need to check your DBS account urgently to confirm a payment cleared. You see 'Changi_Free_WiFi' available. You're in a hurry and your roaming data is expensive. 🛫",
+        scenario: "You need to access your bank account urgently and the only available option seems to be an open public WiFi network.",
+        scenarioIcon: "🏦",
+        question: "What is the safest approach?",
+        options: [
+          { text: "Use the airport WiFi — it's official Changi Airport so it must be secure", correct: false, feedback: "Even legitimate public WiFi is a risk. Also, 'Changi_Free_WiFi' could be a rogue hotspot set up by an attacker — a 'man in the middle' attack. Anyone can name a hotspot anything." },
+          { text: "Use your mobile data hotspot — or wait until you're on a secure network", correct: true, feedback: "Correct! ✅ Your SingTel/Starhub/M1 mobile data is encrypted end-to-end. For banking, always use mobile data or your home WiFi. The extra roaming cost is nothing compared to your bank account being compromised." },
+          { text: "Use airport WiFi but log out immediately after checking", correct: false, feedback: "Logging out helps with session hijacking but your credentials were already transmitted over an unencrypted channel when you logged IN. The damage happens at login, not logout." }
+        ],
+        tip: "For banking, email, and any password entry: mobile data > home WiFi > VPN on public WiFi > DO NOT USE open public WiFi. Set up a travel data plan — it costs much less than recovering from fraud. 📶",
+        points: 150
+      },
+      {
+        id: 5,
+        title: "Data Breach Response",
+        story: "You receive an email from HaveIBeenPwned: 'Your email and password were found in the LinkedIn data breach (560M records exposed). Your password 'P@ssw0rd2020' is now publicly known.' You also use this same password for your Singpass, DBS iBanking, and work email. 🚨",
+        scenario: "Your password has been exposed in a major data breach and you use the same password across multiple critical accounts.",
+        scenarioIcon: "💥",
+        question: "What is your IMMEDIATE priority?",
+        options: [
+          { text: "Change just the LinkedIn password since that's where the breach happened", correct: false, feedback: "Password reuse is the critical vulnerability here! Attackers immediately use leaked credentials to try logging into banking, email and government portals. You must change ALL accounts using that password NOW." },
+          { text: "Immediately change passwords on ALL accounts that use that password, starting with Singpass, banking and work email — and enable 2FA everywhere", correct: true, feedback: "Exactly right! ✅ Prioritize: 1) Singpass 2) DBS/banking 3) Work email 4) Everything else. Enable 2FA on all of them. Then use a password manager so you never reuse passwords again." },
+          { text: "Wait to see if fraudulent activity appears before taking action", correct: false, feedback: "Attackers use automated tools — by the time you notice fraudulent activity, significant damage is done. Password breaches require IMMEDIATE action, not a wait-and-see approach." }
+        ],
+        tip: "Use a password manager (Bitwarden is free) to generate unique passwords for every site. Enable 2FA on Singpass, banking, and email immediately. Check haveibeenpwned.com monthly. 🔑",
+        points: 150
+      },
+      {
+        id: 6,
+        title: "The IT Social Engineer",
+        story: "Someone calls your office: 'Hi, this is Mike from IT Support. We've detected suspicious activity on your PC. I need to remote into your computer to fix it urgently. Can you go to anydesk.com and give me the 9-digit code? Also, what's your Windows login password?' 🖥️",
+        scenario: "An unsolicited call from 'IT support' requests remote access to your computer and your login password.",
+        scenarioIcon: "🖥️",
+        question: "This is social engineering. What do you do?",
+        options: [
+          { text: "Give them access — you need your computer fixed and they said it's urgent", correct: false, feedback: "SOCIAL ENGINEERING ATTACK! Legitimate IT support never calls out of the blue asking for your password. This is a classic pretexting attack — 'Mike' could be anyone gaining full access to your system." },
+          { text: "Hang up, call your real IT helpdesk directly, and report the call", correct: true, feedback: "Perfect! ✅ Verify through your company's official IT helpdesk number (from your intranet, not the caller). Report the incident to your IT security team — others in your company may have received the same call." },
+          { text: "Give remote access but refuse to share your password", correct: false, feedback: "Remote access alone is extremely dangerous — they can see everything on your screen, install malware, and access all your files and saved passwords. Never give remote access to unverified callers." }
+        ],
+        tip: "IT teams DO NOT call you out of the blue asking for passwords or remote access. Always verify by calling your official IT helpdesk. Your password should NEVER be shared with anyone — including real IT staff. 🛡️",
+        points: 150
+      }
+    ]
+  },
+
+  seniors: {
+    label: "Seniors (46–65+)",
+    theme: "seniors",
+    avatar: "👴",
+    color: "#10b981",
+    intro: "Welcome! These lessons will help you recognize and avoid the most common scams in Singapore. Take your time with each question — you've got this! 💪",
+    levels: [
+      {
+        id: 1,
+        title: "The Grandchild Emergency Scam",
+        story: "Your phone rings. The caller sounds distressed: 'Grandma? It's me, your grandson Wei Ming! I'm in trouble — I had an accident and I'm at the police station. I need $3,000 in PayNow urgently. Please don't tell Mum and Dad, they'll be very angry with me. Can you help me?' 📞",
+        scenario: "An emotional caller claiming to be your grandchild needs urgent money via PayNow and asks you to keep it secret from their parents.",
+        scenarioIcon: "📞",
+        question: "What should you do?",
+        options: [
+          { text: "Send the money immediately — your grandchild is in trouble!", correct: false, feedback: "This is the 'Grandchild Impersonation Scam'! Scammers research families on social media to get names. The 'secrecy' request is a major red flag. NEVER send money without verifying first!" },
+          { text: "Hang up and call your grandchild directly on their known number to verify", correct: true, feedback: "Absolutely correct! ✅ Call Wei Ming directly on the number you already have saved. If you can't reach them, call their parents immediately. No real emergency requires money before you can verify." },
+          { text: "Ask the caller to prove they are your grandchild", correct: false, feedback: "Better than sending money, but scammers can use details from social media to answer verification questions. The safest action is to hang up and call your grandchild yourself on their actual number." }
+        ],
+        tip: "If anyone calls asking for urgent money and asks you to keep it secret — STOP and call the person directly on a number YOU already have. No real emergency requires secrecy from family. 🚫",
+        points: 150
+      },
+      {
+        id: 2,
+        title: "The Fake Bank Call",
+        story: "You receive a call from +65 6222-9999. The caller says: 'Good morning, I'm calling from DBS Bank. Your account has been compromised. Fraudulent transactions have been detected. To protect your money, please verify your details: what is your full NRIC, date of birth, and internet banking password?' 🏦",
+        scenario: "Someone calling from what appears to be a Singapore phone number claims to be your bank, asking for your NRIC number, date of birth, and internet banking password.",
+        scenarioIcon: "🏦",
+        question: "What should you do?",
+        options: [
+          { text: "Give them your details to protect your account", correct: false, feedback: "BANK IMPERSONATION SCAM! DBS, OCBC, UOB — NO bank will EVER ask for your internet banking password over the phone. They already know your NRIC. This caller wants to steal your money." },
+          { text: "Hang up and call DBS directly using the number on the back of your bank card or from their official website", correct: true, feedback: "Exactly right! ✅ Hang up. Use the phone number on the back of your DBS card or go to the official dbs.com.sg website to find the real hotline. Your bank can see if there's really a problem." },
+          { text: "Give your NRIC but not your password", correct: false, feedback: "Even partial information helps scammers. Your NRIC combined with your date of birth can be used for identity theft. Hang up and call your bank directly." }
+        ],
+        tip: "Your bank will NEVER ask for your internet banking password, PIN, or one-time password (OTP) over the phone. If you're unsure, hang up and call the number on the BACK of your bank card. 🏧",
+        points: 150
+      },
+      {
+        id: 3,
+        title: "You've Won a Prize!",
+        story: "You receive an SMS: 'Congratulations! Your number has been selected in the NTUC FairPrice Lucky Draw. You have won $15,000! To claim, click: bit.ly/FP-prize and provide your bank account number for transfer.' The logo looks exactly like NTUC FairPrice. 🎉",
+        scenario: "An SMS with a link and the NTUC FairPrice logo claims you've won a large cash prize, asking for your bank account number.",
+        scenarioIcon: "🎰",
+        question: "What is happening here?",
+        options: [
+          { text: "Claim the prize — you can use the money for your family!", correct: false, feedback: "This is a PRIZE SCAM. Real lottery wins don't come via SMS. The link leads to a fake site that steals your banking details. Once you enter your account number, they drain it." },
+          { text: "This is a scam — delete the SMS and report it to ScamShield or call 1800-722-6688", correct: true, feedback: "Correct! ✅ NTUC FairPrice does not run WhatsApp or SMS lucky draws. Report this to ScamShield (download the app) or call the Anti-Scam Hotline at 1800-722-6688. Help protect others!" },
+          { text: "Call the number in the SMS to verify if it's real", correct: false, feedback: "Calling the scammer's number confirms your number is active and may lead to more scam calls. Delete the SMS and report it to ScamShield instead." }
+        ],
+        tip: "Real prize notifications from official organisations NEVER ask for your bank account via SMS. If you didn't enter a contest, you can't win it. Install ScamShield on your phone — it blocks known scam numbers! 📱",
+        points: 150
+      },
+      {
+        id: 4,
+        title: "Fake Tech Support",
+        story: "A pop-up fills your computer screen: 'URGENT WARNING! Your computer is infected with 5 viruses! Your personal files are at risk! Call Microsoft Support NOW: +65-3158-XXXX. Do NOT turn off your computer!' The screen is flashing red. 💻",
+        scenario: "A frightening full-screen warning appears claiming to be from Microsoft, saying your computer is infected and displaying a phone number to call.",
+        scenarioIcon: "💻",
+        question: "What should you do?",
+        options: [
+          { text: "Call the number immediately — the warning looks very official", correct: false, feedback: "TECH SUPPORT SCAM! Microsoft never displays phone numbers in pop-ups. Calling this number reaches scammers who will charge you hundreds of dollars to 'fix' a fake problem and may steal your financial details." },
+          { text: "Close the browser or restart your computer. Real Microsoft warnings never include phone numbers.", correct: true, feedback: "Perfect! ✅ This is a browser pop-up trick — not a real virus. Close the tab (Ctrl+W) or restart your computer. Real Microsoft security alerts NEVER include a phone number to call. If unsure, ask a trusted family member to check." },
+          { text: "Pay the fee they ask for to clean the computer", correct: false, feedback: "You would be paying for a fake problem and possibly giving scammers access to your bank account. Close the browser and ask a trusted family member or real computer shop to check." }
+        ],
+        tip: "Legitimate tech companies like Microsoft, Apple, or Singtel will NEVER display pop-up warnings with phone numbers on your screen. These are ALWAYS scams. When in doubt, restart your computer and ask a family member for help. 🔴",
+        points: 150
+      },
+      {
+        id: 5,
+        title: "The Online Romance Trap",
+        story: "For 3 months, you've been chatting with 'Dr. James' on Facebook — a handsome widowed doctor who works in the US. He sends you beautiful messages daily and understands you perfectly. Now he's in trouble: 'My money is stuck in a bank transfer. I need just $2,000 to come to Singapore to meet you. I'll pay you back triple when I arrive.' 💕",
+        scenario: "An online friend you've never met in person, after months of building emotional trust, asks you to send money claiming he'll repay you when he comes to meet you.",
+        scenarioIcon: "💕",
+        question: "What should you recognise about this situation?",
+        options: [
+          { text: "Send the money — he's been so kind and wants to meet you", correct: false, feedback: "ROMANCE SCAM — Singapore's most heartbreaking fraud. The 'Dr. James' profile is fake. After you send money, there will always be another reason to send more. He will never come. Total losses can reach thousands of dollars." },
+          { text: "This is a romance scam. Stop all contact, do not send money, and talk to family or call the Anti-Scam Hotline: 1800-722-6688", correct: true, feedback: "Correct, and this took courage to recognize. ❤️ Romance scams are sophisticated and cruel. If you've already sent money, report to SPF immediately. You are not alone — call the Anti-Scam Hotline 1800-722-6688 for support." },
+          { text: "Send a small amount to test if he's real — just $100", correct: false, feedback: "This is how romance scams grow. The first $100 leads to requests for $1,000, then $10,000. The emotional investment makes it harder to stop. Please call the Anti-Scam Hotline for confidential advice." }
+        ],
+        tip: "If an online friend you've NEVER MET IN PERSON asks for money — no matter how long you've been chatting — it is almost certainly a scam. Never send money to someone you haven't met. Call 1800-722-6688 for free, confidential support. 💛",
+        points: 150
+      },
+      {
+        id: 6,
+        title: "The Fake Invoice",
+        story: "You receive a WhatsApp message with a PDF attachment: 'Dear customer, your Singtel bill of $387.50 is overdue. Your service will be cut off within 24 hours. Pay now via PayNow to UEN: 12345678X to avoid disruption. Scan QR code below.' You're worried about losing your internet service. 📱",
+        scenario: "A WhatsApp message with a Singtel logo claims your bill is overdue and provides PayNow details, warning of service cutoff within 24 hours.",
+        scenarioIcon: "📄",
+        question: "How do you verify if this is legitimate?",
+        options: [
+          { text: "Pay immediately to avoid your internet being cut off", correct: false, feedback: "INVOICE SCAM! Singtel sends bills via email or post, not WhatsApp. PayNow UEN for Singtel is publicly listed — this is a different UEN. Always verify bills through the official app or website, not WhatsApp messages." },
+          { text: "Log in to your official Singtel app or website to check your actual bill amount and payment status", correct: true, feedback: "Excellent! ✅ Always verify bills through the official company app or website. If your Singtel bill was genuinely overdue, it would show in your official account. Real companies don't threaten via WhatsApp." },
+          { text: "Pay via the PayNow QR code — it's faster", correct: false, feedback: "Never scan PayNow QR codes from unsolicited WhatsApp messages. The QR code sends money to the scammer, not to Singtel. Always pay through official channels." }
+        ],
+        tip: "Real utility companies (Singtel, SP Group, PUB) send bills by email or post — NOT WhatsApp. Always check your actual bill through the official app. When in doubt, call the company's official number to verify before paying anything. 💡",
+        points: 150
+      }
+    ]
+  }
+};
+
+// ─── GAME STATE ───────────────────────────────────────────────────────────────
+let state = {
+  group: null,
+  currentLevel: 0,
+  score: 0,
+  completedLevels: [],
+  answered: false
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function $(id) { return document.getElementById(id); }
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+function updateScoreDisplay() {
+  $('score-display').textContent = state.score + ' pts';
+  $('map-score').textContent = state.score + ' pts';
+}
+
+// ─── LANDING ─────────────────────────────────────────────────────────────────
+function selectAge(card) {
+  document.querySelectorAll('.age-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  state.group = card.dataset.group;
+  $('btn-start').disabled = false;
+}
+
+function startGame() {
+  if (!state.group) return;
+  state.score = 0;
+  state.currentLevel = 0;
+  state.completedLevels = [];
+  setTheme(GAME_DATA[state.group].theme);
+  updateScoreDisplay();
+  renderLevelMap();
+  showScreen('screen-map');
+}
+
+// ─── LEVEL MAP ────────────────────────────────────────────────────────────────
+function renderLevelMap() {
+  const data = GAME_DATA[state.group];
+  const container = $('level-map-content');
+  container.innerHTML = `
+    <div class="level-map-title">${data.avatar} ${data.label}</div>
+    <p style="text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:1rem;">${data.intro}</p>
+  `;
+
+  data.levels.forEach((level, idx) => {
+    const completed = state.completedLevels.includes(idx);
+    const available = idx === 0 || state.completedLevels.includes(idx - 1);
+    const locked = !available && !completed;
+
+    const div = document.createElement('div');
+    div.className = `map-level ${completed ? 'completed' : available ? 'available' : 'locked'}`;
+    div.innerHTML = `
+      <div class="map-level-num">${completed ? '✓' : locked ? '🔒' : idx + 1}</div>
+      <div class="map-level-info">
+        <div class="map-level-title">${level.title}</div>
+        <div class="map-level-status">${completed ? 'Completed' : locked ? 'Complete previous level first' : 'Ready to play'}</div>
+      </div>
+      <div class="map-level-pts">${level.points} pts</div>
+    `;
+    if (!locked) div.onclick = () => loadLevel(idx);
+    container.appendChild(div);
+  });
+}
+
+// ─── LOAD LEVEL ───────────────────────────────────────────────────────────────
+function loadLevel(idx) {
+  const data = GAME_DATA[state.group];
+  const level = data.levels[idx];
+  state.currentLevel = idx;
+  state.answered = false;
+
+  // Header
+  const total = data.levels.length;
+  $('level-label').textContent = `Level ${idx + 1}`;
+  $('level-progress').textContent = `${idx + 1} / ${total}`;
+  $('progress-fill').style.width = ((idx / total) * 100) + '%';
+
+  // Level intro
+  $('level-badge').textContent = `📍 Level ${idx + 1}`;
+  $('level-title').textContent = level.title;
+  $('level-story').textContent = level.story;
+
+  // Scenario
+  $('scenario-icon').textContent = level.scenarioIcon || '🔍';
+  $('scenario-text').textContent = level.scenario;
+
+  // Question
+  $('question-text').textContent = level.question;
+
+  // Options
+  const letters = ['A', 'B', 'C', 'D'];
+  const grid = $('options-grid');
+  grid.innerHTML = '';
+  level.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectAnswer(btn, opt, level);
+    grid.appendChild(btn);
+  });
+
+  // Reset feedback / tip / next
+  const fb = $('feedback-box');
+  fb.className = 'feedback-box';
+  fb.style.display = 'none';
+  $('tip-card').className = 'tip-card';
+  $('btn-next').className = 'btn-next';
+
+  showScreen('screen-game');
+}
+
+// ─── ANSWER ───────────────────────────────────────────────────────────────────
+function selectAnswer(btn, opt, level) {
+  if (state.answered) return;
+  state.answered = true;
+
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+  // Highlight
+  btn.classList.add(opt.correct ? 'correct' : 'wrong');
+  if (!opt.correct) {
+    document.querySelectorAll('.option-btn').forEach(b => {
+      const text = b.querySelector('span:last-child').textContent;
+      const matching = level.options.find(o => o.text === text && o.correct);
+      if (matching) b.classList.add('correct');
+    });
+  }
+
+  // Score
+  if (opt.correct) state.score += level.points;
+  updateScoreDisplay();
+
+  // Feedback
+  const fb = $('feedback-box');
+  if (opt.correct) {
+    fb.className = 'feedback-box correct-fb';
+    $('feedback-title').textContent = '✅ Correct!';
+  } else {
+    fb.className = 'feedback-box wrong-fb';
+    $('feedback-title').textContent = '❌ Not quite right...';
+  }
+  $('feedback-text').textContent = opt.feedback;
+
+  // Tip
+  $('tip-text').textContent = level.tip;
+  $('tip-card').className = 'tip-card show';
+
+  // Next button
+  const btn_next = $('btn-next');
+  const data = GAME_DATA[state.group];
+  const isLast = state.currentLevel === data.levels.length - 1;
+  btn_next.textContent = isLast ? '🏆 See Results' : 'Next Level →';
+  btn_next.className = 'btn-next show';
+
+  // Mark completed
+  if (!state.completedLevels.includes(state.currentLevel)) {
+    state.completedLevels.push(state.currentLevel);
+  }
+}
+
+// ─── NEXT LEVEL ───────────────────────────────────────────────────────────────
+function nextLevel() {
+  const data = GAME_DATA[state.group];
+  const nextIdx = state.currentLevel + 1;
+
+  if (nextIdx >= data.levels.length) {
+    showResults();
+  } else {
+    renderLevelMap();
+    // Auto-load next
+    loadLevel(nextIdx);
+  }
+}
+
+// ─── RESULTS ─────────────────────────────────────────────────────────────────
+function showResults() {
+  const data = GAME_DATA[state.group];
+  const maxScore = data.levels.reduce((s, l) => s + l.points, 0);
+  const pct = state.score / maxScore;
+
+  let emoji, title, sub, stars;
+  if (pct >= 0.9) {
+    emoji = '🏆'; title = 'Cyber Champion!';
+    sub = "Outstanding! You've mastered cybersecurity awareness. Share what you've learned with your family and friends — you could help protect them too!";
+    stars = '⭐⭐⭐';
+  } else if (pct >= 0.6) {
+    emoji = '🥈'; title = 'Cyber Defender!';
+    sub = "Great work! You know the key threats. Review the levels you missed to strengthen your awareness — a little more practice and you'll be unstoppable!";
+    stars = '⭐⭐';
+  } else {
+    emoji = '🛡️'; title = 'Cyber Learner!';
+    sub = "Good effort! Cybersecurity is a skill that improves with practice. Play again to reinforce the lessons — each replay makes you safer online!";
+    stars = '⭐';
+  }
+
+  $('result-emoji').textContent = emoji;
+  $('result-title').textContent = title;
+  $('result-sub').textContent = sub;
+  $('final-score').textContent = state.score + ' / ' + maxScore;
+  $('result-stars').textContent = stars;
+
+  // Update progress bar to 100%
+  $('progress-fill').style.width = '100%';
+
+  setTheme(data.theme);
+  showScreen('screen-result');
+}
+
+// ─── CONTROLS ────────────────────────────────────────────────────────────────
+function quitGame() {
+  if (confirm('Quit this mission? Your progress will be lost.')) goHome();
+}
+
+function goHome() {
+  state = { group: null, currentLevel: 0, score: 0, completedLevels: [], answered: false };
+  setTheme('default');
+  document.querySelectorAll('.age-card').forEach(c => c.classList.remove('selected'));
+  $('btn-start').disabled = true;
+  showScreen('screen-landing');
+}
+
+function restartSame() {
+  const group = state.group;
+  state = { group, currentLevel: 0, score: 0, completedLevels: [], answered: false };
+  updateScoreDisplay();
+  renderLevelMap();
+  showScreen('screen-map');
+}
+</script>
+</body>
+</html>
