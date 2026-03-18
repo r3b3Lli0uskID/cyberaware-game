@@ -24,6 +24,19 @@ const App = {
 const $ = id => document.getElementById(id);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
 
+// ─── XP MULTIPLIER ───────────────────────────────────────────────────────────
+// Difficulty: kids=1, teens=2, seniors=2, adults=3
+// Attempting a harder group's missions gives bonus XP; easier gives reduced XP.
+const GROUP_DIFFICULTY = { kids: 1, teens: 2, seniors: 2, adults: 3 };
+function xpMultiplier(playerGroup, missionGroup) {
+  const diff = (GROUP_DIFFICULTY[missionGroup] || 1) - (GROUP_DIFFICULTY[playerGroup] || 1);
+  if (diff <= -2) return 0.50;
+  if (diff === -1) return 0.75;
+  if (diff ===  0) return 1.00;
+  if (diff ===  1) return 1.50;
+  return 2.00; // diff >= 2
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const s = $(id);
@@ -165,6 +178,7 @@ async function signOut() {
   await db.auth.signOut();
   App.user = null;
   App.profile = null;
+  App.browsedGroup = null;
   setTheme('default');
   showScreen('screen-landing');
   toast('Signed out. See you next time! 👋');
@@ -226,17 +240,16 @@ async function createProfile(username, ageGroup, avatar) {
 
 // ─── DASHBOARD ───────────────────────────────────────────────────────────────
 // Track which group the admin is currently browsing (defaults to own group)
-App.adminBrowseGroup = null;
+App.browsedGroup = null;
 
 function renderDashboard(overrideGroup) {
   const p = App.profile;
   if (!p) return;
 
-  // Admin can browse any group; regular users always see their own
-  const activeGroup = p.is_admin ? (overrideGroup || App.adminBrowseGroup || p.age_group) : p.age_group;
-  if (p.is_admin) App.adminBrowseGroup = activeGroup;
+  // All users can browse any group; default to their own group
+  const activeGroup = overrideGroup || App.browsedGroup || p.age_group;
+  App.browsedGroup = activeGroup;
 
-  const group = AGE_GROUPS[activeGroup];
   const missions = getMissions(activeGroup);
 
   // Show admin nav button if admin
@@ -251,23 +264,23 @@ function renderDashboard(overrideGroup) {
   $('dash-missions').textContent = p.missions_completed;
   $('dash-badges').textContent = (p.badges || []).length;
 
-  // Admin group switcher tabs
-  let adminBar = $('admin-group-bar');
-  if (p.is_admin) {
-    if (!adminBar) {
-      adminBar = el('div', 'admin-group-bar', '');
-      adminBar.id = 'admin-group-bar';
-      const grid = $('mission-grid');
-      grid.parentNode.insertBefore(adminBar, grid);
-    }
-    adminBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) =>
-      `<button class="group-tab-btn ${key === activeGroup ? 'active' : ''}" onclick="renderDashboard('${key}')">
-        ${g.emoji} ${g.label}
-      </button>`
-    ).join('');
-  } else if (adminBar) {
-    adminBar.remove();
+  // Group browser tabs (all users)
+  let groupBar = $('admin-group-bar');
+  if (!groupBar) {
+    groupBar = el('div', 'admin-group-bar', '');
+    groupBar.id = 'admin-group-bar';
+    const grid = $('mission-grid');
+    grid.parentNode.insertBefore(groupBar, grid);
   }
+  groupBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) => {
+    const mult = xpMultiplier(p.age_group, key);
+    const tag = mult > 1 ? `<span class="xp-mult-tag bonus">🔥×${mult}</span>`
+               : mult < 1 ? `<span class="xp-mult-tag penalty">📉×${mult}</span>`
+               : '';
+    return `<button class="group-tab-btn ${key === activeGroup ? 'active' : ''}" onclick="renderDashboard('${key}')">
+      ${g.emoji} ${g.label}${tag}
+    </button>`;
+  }).join('');
 
   // Mission cards
   const grid = $('mission-grid');
@@ -282,6 +295,14 @@ function buildMissionCard(mission, ageGroup) {
   const types = { quiz: { label: 'Quiz', icon: '❓', color: 'var(--accent)' }, 'spot-threat': { label: 'Spot the Threat', icon: '🔍', color: '#f59e0b' }, 'decision-tree': { label: 'Decision Tree', icon: '🌿', color: '#10b981' } };
   const t = types[mission.type];
   const group = ageGroup || App.profile?.age_group;
+  const playerGroup = App.profile?.age_group;
+  const mult = xpMultiplier(playerGroup, group);
+  const effectiveXP = Math.round(mission.xp * mult);
+  const xpLabel = mult > 1
+    ? `<span class="mc-xp bonus">⚡ ${effectiveXP} XP <span class="xp-mult-tag bonus">🔥 ×${mult}</span></span>`
+    : mult < 1
+    ? `<span class="mc-xp penalty">⚡ ${effectiveXP} XP <span class="xp-mult-tag penalty">📉 ×${mult}</span></span>`
+    : `<span class="mc-xp">⚡ ${effectiveXP} XP</span>`;
 
   const card = el('div', 'mission-card');
   card.innerHTML = `
@@ -295,7 +316,7 @@ function buildMissionCard(mission, ageGroup) {
     <h3 class="mc-title">${mission.title}</h3>
     <p class="mc-sub">${mission.subtitle}</p>
     <div class="mc-footer">
-      <span class="mc-xp">⚡ ${mission.xp} XP</span>
+      ${xpLabel}
       <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')">▶ Start Mission</button>
     </div>
   `;
@@ -341,6 +362,7 @@ async function startMission(missionId, ageGroup) {
 
   App.game = {
     mission,
+    missionGroup: group,
     currentQ:     0,
     currentNode:  'start',
     score:        0,
@@ -726,11 +748,16 @@ async function chooseDtOption(idx) {
 
 // ─── MISSION COMPLETE ─────────────────────────────────────────────────────────
 async function completeMission() {
-  const { mission, score, maxScore, startTime, session } = App.game;
+  const { mission, missionGroup, score, maxScore, startTime } = App.game;
   const timeTaken = Math.round((Date.now() - startTime) / 1000);
   const pct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
 
-  // Update DB session
+  // Calculate XP multiplier for cross-group play
+  const mult = xpMultiplier(App.profile?.age_group, missionGroup);
+  const effectiveScore = Math.round(score * mult);
+  const bonus = effectiveScore - score; // positive = bonus, negative = penalty
+
+  // Update DB session (trigger adds raw score to total_score)
   if (App.session) {
     await db.from('game_sessions').update({
       score,
@@ -739,10 +766,18 @@ async function completeMission() {
     }).eq('id', App.session.id);
   }
 
+  // Apply bonus/penalty on top of what the trigger already added
+  if (bonus !== 0 && App.user) {
+    const { data: fresh } = await db.from('profiles').select('total_score').eq('id', App.user.id).single();
+    if (fresh) {
+      await db.from('profiles').update({ total_score: fresh.total_score + bonus }).eq('id', App.user.id);
+    }
+  }
+
   // Check + award badges
   const newBadges = await awardBadges(pct, mission.type);
 
-  renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges);
+  renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges, mult);
   showScreen('screen-mission-complete');
 
   // Sound + confetti
@@ -763,13 +798,19 @@ async function loadProfileData() {
   if (data) App.profile = data;
 }
 
-function renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges) {
+function renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges, mult = 1) {
   let emoji, title, sub;
   if (pct >= 90)      { emoji = '🏆'; title = 'Outstanding!'; sub = 'You nailed it. Perfect score range!'; }
   else if (pct >= 60) { emoji = '🥈'; title = 'Well Done!';   sub = 'Solid performance. Review the tips to go even higher next time.'; }
   else                { emoji = '📚'; title = 'Keep Learning!'; sub = 'Each attempt makes you more secure. Try again to improve!'; }
 
   const stars = pct >= 90 ? '⭐⭐⭐' : pct >= 60 ? '⭐⭐' : '⭐';
+  const effectiveXP = Math.round(mission.xp * mult);
+  const multLabel = mult > 1
+    ? ` <span class="xp-mult-tag bonus">🔥 ×${mult} Bonus!</span>`
+    : mult < 1
+    ? ` <span class="xp-mult-tag penalty">📉 ×${mult} Reduced</span>`
+    : '';
 
   $('complete-emoji').textContent = emoji;
   $('complete-title').textContent = title;
@@ -778,7 +819,7 @@ function renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadg
   $('complete-pct').textContent = pct + '%';
   $('complete-time').textContent = timeTaken + 's';
   $('complete-stars').textContent = stars;
-  $('complete-xp').textContent = `+${mission.xp} XP`;
+  $('complete-xp').innerHTML = `+${effectiveXP} XP${multLabel}`;
 
   const badgeRow = $('complete-new-badges');
   badgeRow.innerHTML = newBadges.length
