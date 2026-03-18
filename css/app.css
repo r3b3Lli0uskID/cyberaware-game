@@ -4818,3 +4818,74 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 /* ─── BGM BUTTON STYLING ────────────────────────────────────────────────── */
 #bgm-toggle-btn { font-size: 1.1rem; }
 #bgm-toggle-btn.muted { opacity: .55; }
+
+/* ─── HOBBY PICKER ──────────────────────────────────────────────────────── */
+.hobby-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .25rem;
+}
+.hobby-btn {
+  padding: .4rem .85rem;
+  border-radius: 99px;
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  font-size: .85rem;
+  cursor: pointer;
+  transition: all .15s;
+}
+.hobby-btn:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.hobby-btn.selected { background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 600; }
+
+/* ─── HOBBY MATCH TAG ───────────────────────────────────────────────────── */
+.hobby-match-tag {
+  display: inline-block;
+  font-size: .72rem;
+  color: #a78bfa;
+  margin: .1rem 0 .4rem;
+  font-weight: 600;
+}
+
+/* ─── MANDATORY / FOUNDATION MISSION CARD ──────────────────────────────── */
+.mission-mandatory {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px rgba(99,102,241,.18);
+}
+.mandatory-banner {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: rgba(99,102,241,.08);
+  border-radius: 6px;
+  padding: .3rem .6rem;
+  margin-bottom: .6rem;
+  letter-spacing: .02em;
+}
+.mandatory-banner.done { color: var(--color-success); background: rgba(16,185,129,.08); }
+.badge-foundation { background: rgba(99,102,241,.12) !important; color: #818cf8 !important; border-color: rgba(99,102,241,.3) !important; }
+
+/* ─── INTRO STORYLINE ───────────────────────────────────────────────────── */
+.intro-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.intro-slide { width: 100%; animation: fadeIn .4s ease; }
+.intro-icon { font-size: 4rem; margin-bottom: 1.25rem; }
+.intro-title { font-size: 1.65rem; font-weight: 800; margin: 0 0 1rem; }
+.intro-body { font-size: 1rem; line-height: 1.7; color: var(--color-text-muted); max-width: 500px; margin: 0 auto; }
+.intro-nav { margin-top: 2.5rem; width: 100%; }
+.intro-dots { display: flex; gap: .5rem; justify-content: center; margin-bottom: .5rem; }
+.intro-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--color-border); transition: all .2s; }
+.intro-dot.active { background: var(--color-primary); width: 22px; }
+
+/* ─── LEVEL BADGE-DIFF EXTENSION ───────────────────────────────────────── */
+.badge-diff.badge-expert { background: rgba(139,92,246,.15); color: #8b5cf6; border-color: rgba(139,92,246,.35); }

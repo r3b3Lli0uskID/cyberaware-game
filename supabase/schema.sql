@@ -5,16 +5,26 @@
 
 -- ─── PROFILES ────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.profiles (
-  id            UUID        REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-  username      TEXT        UNIQUE NOT NULL,
-  age_group     TEXT        NOT NULL CHECK (age_group IN ('kids', 'teens', 'adults', 'seniors')),
-  avatar        TEXT        NOT NULL DEFAULT '🛡️',
-  total_score   INTEGER     NOT NULL DEFAULT 0,
-  missions_completed INTEGER NOT NULL DEFAULT 0,
-  badges        TEXT[]      NOT NULL DEFAULT '{}',
-  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id                    UUID        REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+  username              TEXT        UNIQUE NOT NULL,
+  age_group             TEXT        NOT NULL CHECK (age_group IN ('kids', 'teens', 'adults', 'seniors')),
+  avatar                TEXT        NOT NULL DEFAULT '🛡️',
+  level                 TEXT        NOT NULL DEFAULT 'beginner' CHECK (level IN ('beginner', 'intermediate', 'hard', 'expert')),
+  hobby                 TEXT        NOT NULL DEFAULT 'general',
+  intro_completed       BOOLEAN     NOT NULL DEFAULT FALSE,
+  foundational_completed BOOLEAN    NOT NULL DEFAULT FALSE,
+  total_score           INTEGER     NOT NULL DEFAULT 0,
+  missions_completed    INTEGER     NOT NULL DEFAULT 0,
+  badges                TEXT[]      NOT NULL DEFAULT '{}',
+  created_at            TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at            TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Migration: add new columns to existing profiles table
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS level TEXT NOT NULL DEFAULT 'beginner';
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS hobby TEXT NOT NULL DEFAULT 'general';
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS intro_completed BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS foundational_completed BOOLEAN NOT NULL DEFAULT FALSE;
 
 -- ─── GAME SESSIONS ───────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.game_sessions (

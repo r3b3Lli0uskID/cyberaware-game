@@ -614,7 +614,7 @@ const MISSIONS = {
       title: 'Account Takeover',
       subtitle: 'Defend Your Gaming Account',
       icon: '🕹️',
-      difficulty: 'Advanced',
+      difficulty: 'Hard',
       xp: 450,
       briefing: 'INTEL REPORT: Your Steam gaming account is under targeted attack. Threat actors are using social engineering to gain access. Every decision you make in the next few minutes determines whether you keep your account — and your $400 inventory. Make the right calls. 🎮',
       maxScore: 300,
@@ -1048,7 +1048,7 @@ const MISSIONS = {
       title: 'Email Forensics',
       subtitle: 'Analyse the BEC Attack Email',
       icon: '🔬',
-      difficulty: 'Advanced',
+      difficulty: 'Hard',
       xp: 500,
       briefing: 'A suspicious email has been quarantined by your security team. Conduct a full forensic analysis — identify every indicator of compromise (IoC) in this Business Email Compromise attempt. Your thoroughness protects the entire organisation.',
       template: 'email',
@@ -1079,7 +1079,7 @@ const MISSIONS = {
       title: 'The Friday Transfer',
       subtitle: 'CEO Fraud in Real Time',
       icon: '💼',
-      difficulty: 'Advanced',
+      difficulty: 'Hard',
       xp: 500,
       briefing: 'SCENARIO: It\'s 5:15 PM Friday. You are a finance executive. An urgent payment request has arrived. Your decisions in the next few minutes will determine whether your company loses $24,500. Every second counts — but so does every verification step.',
       maxScore: 300,
@@ -1312,7 +1312,7 @@ const MISSIONS = {
       title: 'Fake IT Support Email',
       subtitle: 'Spot the Internal Impersonation',
       icon: '🖥️',
-      difficulty: 'Advanced',
+      difficulty: 'Hard',
       xp: 500,
       briefing: 'A suspicious email claiming to be from your company\'s IT department has been flagged by the security team. Conduct a forensic analysis — identify every indicator of compromise. Internal impersonation attacks are among the hardest to spot. Your thoroughness matters.',
       template: 'email',
@@ -1920,7 +1920,7 @@ MISSIONS.teens.push(
     title: 'The Hacked GitHub Repo',
     subtitle: 'Your commits are not your own.',
     icon: '🔐',
-    difficulty: 'Advanced',
+    difficulty: 'Hard',
     xp: 300,
     maxScore: 300,
     briefing: "You're scrolling GitHub when you see a bizarre commit on your project: \"pwned by hax0r\". Someone has access to your account. What you do next determines if you get it back.",
@@ -2224,7 +2224,7 @@ MISSIONS.adults.push(
     title: 'The Credential Leak',
     subtitle: 'An "oops" moment on a public GitHub repo.',
     icon: '🔐',
-    difficulty: 'Advanced',
+    difficulty: 'Hard',
     xp: 300,
     maxScore: 300,
     briefing: "You've just pushed a commit when a Slack alert fires: \"AWS Access Key Detected in Public Repository\". You accidentally committed your IAM keys. This is a code red.",
@@ -2274,11 +2274,109 @@ MISSIONS.adults.push(
   }
 );
 
+// ╔══════════════════════════════════════════════════════╗
+// ║  FOUNDATIONAL COURSE — CS101 CYBERSECURITY BASICS   ║
+// ║  Mandatory intro missions — one per age group       ║
+// ╚══════════════════════════════════════════════════════╝
+const FOUNDATION_MISSIONS = {
+
+  kids: {
+    id: 'foundation_kids',
+    type: 'quiz',
+    mandatory: true,
+    module: 'foundation',
+    title: '🛡️ Cyber Basics — Kids Edition',
+    subtitle: 'Your First Cybersecurity Lesson',
+    icon: '🌟',
+    difficulty: 'Beginner',
+    xp: 300,
+    tags: ['general', 'education'],
+    briefing: 'Welcome, new CyberGuard recruit! Before you can go on real missions, you need to learn the basics. Don\'t worry — this is fun! Let\'s find out what cybersecurity means and how to stay safe online.',
+    questions: [
+      { id: 'fk_q1', story: 'A hacker is like a sneaky burglar, but instead of breaking into houses...', scenario: 'What does a hacker try to break into?', correct: 'b', feedback: { correct: 'Exactly! Hackers break into computers and phones to steal information, just like a burglar steals from houses. That\'s why we need cybersecurity — it\'s like a lock for our digital life!', wrong: 'Hackers break into computers, phones, and websites — not physical places. Cybersecurity protects our digital world.' }, options: [{ id: 'a', text: 'Houses and buildings' }, { id: 'b', text: 'Computers, phones, and websites' }, { id: 'c', text: 'Schools and libraries' }, { id: 'd', text: 'Toys and games' }], points: 100 },
+      { id: 'fk_q2', story: 'Your friend Mei uses the password "password123" for everything.', scenario: 'Why is "password123" a BAD password?', correct: 'c', feedback: { correct: 'Right! "password123" is one of the most common passwords in the world. Hackers try common passwords first. Always use a strong, unique password!', wrong: '"password123" is extremely common and easy for hackers to guess. A good password is long, unique, and uses a mix of letters, numbers, and symbols.' }, options: [{ id: 'a', text: 'It\'s too long' }, { id: 'b', text: 'It has numbers in it' }, { id: 'c', text: 'It\'s very common and easy to guess' }, { id: 'd', text: 'It starts with a lowercase letter' }], points: 100 },
+      { id: 'fk_q3', story: 'You get a message from a stranger online saying: "Hi! I\'m your age and I love the same games as you! Tell me where you live so we can be friends!"', scenario: 'What should you do?', correct: 'b', feedback: { correct: 'Smart! You should never share personal information (like your address, school, or phone number) with strangers online. Tell a trusted adult immediately.', wrong: 'Never share personal information with strangers online. People online might not be who they claim to be. Always tell a trusted adult.' }, options: [{ id: 'a', text: 'Share your address — they seem friendly' }, { id: 'b', text: 'Don\'t reply and tell a parent or teacher' }, { id: 'c', text: 'Share your school name but not your address' }, { id: 'd', text: 'Ask for their address first' }], points: 100 },
+      { id: 'fk_q4', story: 'You see a website offering FREE Roblox Robux if you click a link and enter your username and password.', scenario: 'What is this?', correct: 'a', feedback: { correct: 'Correct! This is a PHISHING scam. Real Roblox will NEVER ask for your password through unofficial websites. "Free stuff" offers that ask for your login are almost always traps!', wrong: 'This is phishing — a trick to steal your password. Roblox never gives free Robux through unofficial links. Never enter your password on suspicious websites.' }, options: [{ id: 'a', text: 'A phishing scam trying to steal my password' }, { id: 'b', text: 'A real Roblox promotion' }, { id: 'c', text: 'A safe way to get free Robux' }, { id: 'd', text: 'A test from Roblox to see if I\'m active' }], points: 100 },
+      { id: 'fk_q5', story: 'After using a school computer, you\'re done and ready to leave.', scenario: 'What should you ALWAYS do before leaving a shared computer?', correct: 'd', feedback: { correct: 'Always log out of shared computers! If you leave without logging out, the next person can see your accounts, messages, and files.', wrong: 'Always log out of shared computers! Leaving yourself logged in lets the next person access all your accounts.' }, options: [{ id: 'a', text: 'Just close the browser tabs' }, { id: 'b', text: 'Turn off the monitor' }, { id: 'c', text: 'Leave it — someone else will log out' }, { id: 'd', text: 'Log out of all accounts and lock the screen' }], points: 100 },
+    ]
+  },
+
+  teens: {
+    id: 'foundation_teens',
+    type: 'quiz',
+    mandatory: true,
+    module: 'foundation',
+    title: '⚔️ Cybersecurity Foundations',
+    subtitle: 'CS101 — What Every Teen Must Know',
+    icon: '🔐',
+    difficulty: 'Beginner',
+    xp: 350,
+    tags: ['general', 'education'],
+    briefing: 'Welcome to CyberGuard! This foundational course covers the core cybersecurity concepts you\'ll need for every mission ahead. Master these basics and you\'ll be ready to face real-world threats.',
+    questions: [
+      { id: 'ft_q1', story: null, scenario: 'What is "phishing"?', correct: 'b', feedback: { correct: 'Correct! Phishing is when attackers send fake messages (emails, DMs, texts) pretending to be a trusted source to trick you into giving up passwords or personal info.', wrong: 'Phishing is a social engineering attack using fake messages to steal credentials or personal information — not related to actual fishing!' }, options: [{ id: 'a', text: 'A type of computer virus that deletes files' }, { id: 'b', text: 'A fake message trick to steal your passwords or personal info' }, { id: 'c', text: 'A game where you hack into systems legally' }, { id: 'd', text: 'A secure way to send messages online' }], points: 100 },
+      { id: 'ft_q2', story: null, scenario: 'What is Two-Factor Authentication (2FA)?', correct: 'c', feedback: { correct: 'Right! 2FA adds a second verification step (like an SMS code or authenticator app) on top of your password. Even if someone steals your password, they still can\'t log in without the second factor.', wrong: '2FA is a security layer that requires a second proof of identity beyond just a password — making accounts much harder to hack.' }, options: [{ id: 'a', text: 'Logging in twice with the same password' }, { id: 'b', text: 'Having two different passwords for one account' }, { id: 'c', text: 'A second verification step (like an SMS code) in addition to your password' }, { id: 'd', text: 'A type of antivirus software' }], points: 100 },
+      { id: 'ft_q3', story: null, scenario: 'What does "HTTPS" in a website URL mean?', correct: 'a', feedback: { correct: 'HTTPS means the connection is encrypted — data between your browser and the website is scrambled so no one can intercept it. Always check for HTTPS before entering passwords or payment info.', wrong: 'HTTPS (HyperText Transfer Protocol Secure) means the connection is encrypted, protecting data in transit from eavesdroppers.' }, options: [{ id: 'a', text: 'The connection is encrypted and more secure' }, { id: 'b', text: 'The website is verified as safe by Google' }, { id: 'c', text: 'The website is very fast' }, { id: 'd', text: 'You need a password to access it' }], points: 100 },
+      { id: 'ft_q4', story: 'You downloaded a free game from a sketchy website. Now your computer is running slowly and showing random pop-up ads.', scenario: 'What most likely happened?', correct: 'b', feedback: { correct: 'Classic malware infection. Malware (malicious software) often hides inside free downloads from unofficial sources. Symptoms include slowness, pop-ups, and unexpected behaviour.', wrong: 'These are symptoms of malware — malicious software that infiltrated your system through the unofficial download.' }, options: [{ id: 'a', text: 'The game needs more RAM — get an upgrade' }, { id: 'b', text: 'You likely installed malware along with the game' }, { id: 'c', text: 'Your internet connection is unstable' }, { id: 'd', text: 'The game\'s graphics are too demanding' }], points: 100 },
+      { id: 'ft_q5', story: null, scenario: 'What is a "digital footprint"?', correct: 'd', feedback: { correct: 'Your digital footprint is the trail of data you leave online — posts, likes, searches, app usage, location check-ins. It can never be fully deleted and can be seen by future employers, universities, and yes, cybercriminals.', wrong: 'A digital footprint is all the data you leave behind online — it\'s permanent and more public than most people realise.' }, options: [{ id: 'a', text: 'The size of files on your hard drive' }, { id: 'b', text: 'Your login history on one website' }, { id: 'c', text: 'A virus that tracks your keyboard inputs' }, { id: 'd', text: 'The trail of data you leave across the internet through your online activity' }], points: 100 },
+      { id: 'ft_q6', story: null, scenario: 'Which of the following is the SAFEST type of password?', correct: 'c', feedback: { correct: 'A long passphrase mixing random words, numbers, and symbols is extremely strong (high entropy) and easier to remember than random characters. Length beats complexity every time.', wrong: 'Long, random passphrases with mixed characters are the strongest. Short passwords and personal information are the easiest to crack.' }, options: [{ id: 'a', text: 'Your name + birthday (e.g. sarah2006)' }, { id: 'b', text: 'A single dictionary word with a capital letter (e.g. Dragon)' }, { id: 'c', text: 'A random passphrase like "Purple$Rain!7Coffee"' }, { id: 'd', text: 'Your phone number with !!! at the end' }], points: 100 },
+      { id: 'ft_q7', story: null, scenario: 'What should you do if you suspect your account has been hacked?', correct: 'b', feedback: { correct: 'The correct sequence: change password immediately (before the attacker does), enable 2FA to lock them out, check connected apps, review account activity, and alert anyone who may have been contacted from your account.', wrong: 'Act fast: change your password, enable 2FA, and check for unauthorised activity. Speed is critical — every minute you wait gives the attacker more time.' }, options: [{ id: 'a', text: 'Wait and see if the hacker causes any damage first' }, { id: 'b', text: 'Immediately change your password, enable 2FA, and review account activity' }, { id: 'c', text: 'Delete the account and make a new one' }, { id: 'd', text: 'Log out and hope the session expires' }], points: 100 },
+    ]
+  },
+
+  adults: {
+    id: 'foundation_adults',
+    type: 'quiz',
+    mandatory: true,
+    module: 'foundation',
+    title: '🔒 Cybersecurity Fundamentals',
+    subtitle: 'CS101 — Professional Cyber Awareness',
+    icon: '🏛️',
+    difficulty: 'Beginner',
+    xp: 400,
+    tags: ['general', 'education', 'business'],
+    briefing: 'Before diving into advanced missions, complete this foundational briefing. These concepts form the backbone of modern cybersecurity — whether you\'re protecting yourself, your family, or your organisation.',
+    questions: [
+      { id: 'fa_q1', story: null, scenario: 'What is social engineering?', correct: 'c', feedback: { correct: 'Social engineering exploits human psychology rather than technical vulnerabilities. Attackers manipulate people into revealing information or taking actions that compromise security. It\'s behind 90%+ of successful breaches.', wrong: 'Social engineering is psychological manipulation — tricking people rather than hacking systems directly. It\'s the most common attack vector today.' }, options: [{ id: 'a', text: 'Building secure social media platforms' }, { id: 'b', text: 'Engineering software for social networks' }, { id: 'c', text: 'Psychologically manipulating people to reveal information or take security-compromising actions' }, { id: 'd', text: 'A type of malware spread through social media' }], points: 100 },
+      { id: 'fa_q2', story: null, scenario: 'What is ransomware?', correct: 'b', feedback: { correct: 'Ransomware encrypts your files and demands payment (usually cryptocurrency) to restore access. In 2023, ransomware caused billions in losses globally. Regular offline backups are the best defence.', wrong: 'Ransomware encrypts your data and holds it hostage until you pay. Backups and employee training are the primary defences.' }, options: [{ id: 'a', text: 'Software that slows down your computer to force an upgrade purchase' }, { id: 'b', text: 'Malware that encrypts your files and demands payment for the decryption key' }, { id: 'c', text: 'An app that monitors and charges for internet usage' }, { id: 'd', text: 'A type of phishing email about prize winnings' }], points: 100 },
+      { id: 'fa_q3', story: null, scenario: 'Your company receives an email from the CEO asking for an urgent wire transfer of $50,000 to a new vendor. What should you do first?', correct: 'd', feedback: { correct: 'This is a Business Email Compromise (BEC) pattern. Always verify financial requests out-of-band — call the CEO directly on their known number. BEC fraud cost Singaporean businesses millions in 2023.', wrong: 'BEC attacks forge executive emails. ALWAYS verify large financial requests by calling the requester directly on a known number — never reply to the email.' }, options: [{ id: 'a', text: 'Process immediately — the CEO is urgent' }, { id: 'b', text: 'Reply to the email asking for more details' }, { id: 'c', text: 'Check if the email address looks correct, then proceed' }, { id: 'd', text: 'Call the CEO directly on their known phone number to verify before any action' }], points: 100 },
+      { id: 'fa_q4', story: null, scenario: 'What is the "principle of least privilege"?', correct: 'a', feedback: { correct: 'Least privilege means giving users only the minimum access needed for their job — nothing more. This limits the damage if an account is compromised. A marketing employee doesn\'t need access to financial systems.', wrong: 'Least privilege limits access rights to only what\'s necessary — reducing the blast radius of any breach.' }, options: [{ id: 'a', text: 'Users should only have access to systems and data they need for their specific role' }, { id: 'b', text: 'Privileged users should have the least responsibilities in a company' }, { id: 'c', text: 'All employees should have equal access to all company systems' }, { id: 'd', text: 'Admin accounts should use the simplest passwords' }], points: 100 },
+      { id: 'fa_q5', story: null, scenario: 'What is a VPN primarily used for?', correct: 'b', feedback: { correct: 'A VPN (Virtual Private Network) encrypts your internet traffic and routes it through a secure server, hiding your activity from your ISP and protecting data on public WiFi. It\'s not magic security — it doesn\'t protect against phishing or malware.', wrong: 'A VPN encrypts your connection and masks your IP address. It\'s especially useful on public WiFi but doesn\'t protect against all threats.' }, options: [{ id: 'a', text: 'Making your internet faster' }, { id: 'b', text: 'Encrypting your internet traffic and protecting your connection on untrusted networks' }, { id: 'c', text: 'Protecting your computer from viruses' }, { id: 'd', text: 'Blocking ads on websites' }], points: 100 },
+      { id: 'fa_q6', story: null, scenario: 'You receive an SMS from "DBS Bank": "Suspicious activity detected. Click here to verify: dbs-secure-alert.com" — What do you do?', correct: 'c', feedback: { correct: 'Classic smishing (SMS phishing). Real DBS uses official domains (dbs.com.sg). Always call DBS directly at 1800-111-1111 or use the official app. Never click links in unexpected SMS messages.', wrong: 'This is smishing. Legitimate banks never ask you to verify via links in SMS. Always call the bank directly using the number on their official website or your card.' }, options: [{ id: 'a', text: 'Click the link to resolve the issue quickly' }, { id: 'b', text: 'Reply to the SMS asking if it\'s real' }, { id: 'c', text: 'Ignore the SMS and call DBS directly at 1800-111-1111' }, { id: 'd', text: 'Forward it to friends to warn them' }], points: 100 },
+      { id: 'fa_q7', story: null, scenario: 'What does "multi-factor authentication" (MFA) protect against, even when your password is stolen?', correct: 'a', feedback: { correct: 'MFA requires multiple verification factors. Even if an attacker has your password, they still need the second factor (your phone, fingerprint, or authenticator code). This stops 99.9% of automated attacks according to Microsoft research.', wrong: 'MFA blocks unauthorised access even when passwords are compromised — it\'s the single most effective security measure individuals can enable.' }, options: [{ id: 'a', text: 'Unauthorised account access when passwords are stolen or leaked' }, { id: 'b', text: 'Malware installed on your computer' }, { id: 'c', text: 'Slow internet connections' }, { id: 'd', text: 'Email spam and phishing detection' }], points: 100 },
+    ]
+  },
+
+  seniors: {
+    id: 'foundation_seniors',
+    type: 'quiz',
+    mandatory: true,
+    module: 'foundation',
+    title: '🤝 Staying Safe Online',
+    subtitle: 'Your Essential Guide to Digital Safety',
+    icon: '🛡️',
+    difficulty: 'Beginner',
+    xp: 300,
+    tags: ['general', 'education'],
+    briefing: 'Welcome! This short course will teach you the most important things about staying safe online. We\'ll use simple, clear examples — no technical jargon. By the end, you\'ll know how to spot scams and protect yourself with confidence.',
+    questions: [
+      { id: 'fs_q1', story: 'You receive a call from someone saying: "I\'m from the bank. Your account has been frozen. Please give me your ATM PIN number to unfreeze it."', scenario: 'What should you do?', correct: 'b', feedback: { correct: 'Absolutely right! Legitimate banks will NEVER ask for your PIN, password, or OTP over the phone. These calls are scams. Always hang up and call your bank directly using the number on the back of your card.', wrong: 'Banks will NEVER ask for your PIN over the phone. This is a scam. Hang up and call your bank\'s official number directly.' }, options: [{ id: 'a', text: 'Give them the PIN — they need it to help you' }, { id: 'b', text: 'Hang up and call the bank directly using the number on your bank card' }, { id: 'c', text: 'Give them your PIN but not your password' }, { id: 'd', text: 'Ask them to call back later' }], points: 100 },
+      { id: 'fs_q2', story: null, scenario: 'Which of these is a SAFE password?', correct: 'c', feedback: { correct: 'Using a phrase that means something to you but would be hard for others to guess — with numbers and symbols — creates a strong, memorable password. Avoid birthdays, names, and simple words.', wrong: 'Personal information like birthdays and names are easy for scammers to find on social media. Use a phrase that\'s meaningful to you but not obvious to others.' }, options: [{ id: 'a', text: 'Your date of birth (e.g., 01011950)' }, { id: 'b', text: 'Your name + "123" (e.g., Mary123)' }, { id: 'c', text: 'A phrase you\'ll remember: "MyCat$Eats@Fish2!"' }, { id: 'd', text: 'Your phone number' }], points: 100 },
+      { id: 'fs_q3', story: 'You receive a WhatsApp message: "Mum, I dropped my phone and this is my new number. I urgently need $500 for an emergency. Please PayNow me."', scenario: 'What should you do?', correct: 'a', feedback: { correct: 'This is the "I\'m your child, I have a new number" scam — one of the most common in Singapore. ALWAYS call your child on their old number or another way to verify. Never send money without verbal confirmation.', wrong: 'This is a very common WhatsApp scam in Singapore. Always verify by calling the person\'s old number or another trusted contact before sending any money.' }, options: [{ id: 'a', text: 'Call my child on their old number or another way to verify first' }, { id: 'b', text: 'Send the $500 — my child is in trouble' }, { id: 'c', text: 'Ask for a photo to verify' }, { id: 'd', text: 'Reply asking more questions before deciding' }], points: 100 },
+      { id: 'fs_q4', story: null, scenario: 'You get a popup on your computer: "YOUR COMPUTER HAS A VIRUS! Call Microsoft Support immediately: +1-800-XXX-XXXX." What is this?', correct: 'b', feedback: { correct: 'This is a fake tech support scam. Microsoft never contacts you through browser pop-ups. If you call the number, they will try to get remote access to your computer or charge you for fake "repairs". Close the browser and run a real antivirus scan.', wrong: 'Fake tech support pop-ups are a common scam. Microsoft, Apple, and Google do NOT send emergency alerts through websites. Close the browser immediately.' }, options: [{ id: 'a', text: 'A real Microsoft alert — call immediately' }, { id: 'b', text: 'A fake tech support scam — close the browser immediately' }, { id: 'c', text: 'A message from my internet provider' }, { id: 'd', text: 'A real virus alert from Windows Defender' }], points: 100 },
+      { id: 'fs_q5', story: null, scenario: 'What should you NEVER share over the phone or online, even if someone claims to be from your bank, CPF, or the government?', correct: 'd', feedback: { correct: 'All of these are sensitive. Never share your OTP (one-time password), PIN, full bank account number, or SingPass password with ANYONE — not even someone who claims to be from your bank or the government. Legitimate organisations will never ask for these.', wrong: 'NONE of these should ever be shared. Scammers specifically ask for OTPs, PINs, and passwords because these give them full access to your accounts and money.' }, options: [{ id: 'a', text: 'Your One-Time Password (OTP)' }, { id: 'b', text: 'Your ATM PIN or internet banking password' }, { id: 'c', text: 'Your SingPass password' }, { id: 'd', text: 'All of the above — never share any of these' }], points: 100 },
+    ]
+  },
+};
+
 // ─── Helper: get all missions for an age group ────────────────────────────────
 function getMissions(ageGroup) {
-  return MISSIONS[ageGroup] || [];
+  const foundation = FOUNDATION_MISSIONS[ageGroup];
+  const regular = MISSIONS[ageGroup] || [];
+  return foundation ? [foundation, ...regular] : regular;
 }
 
 function getMission(ageGroup, missionId) {
-  return getMissions(ageGroup).find(m => m.id === missionId);
+  if (FOUNDATION_MISSIONS[ageGroup]?.id === missionId) return FOUNDATION_MISSIONS[ageGroup];
+  return (MISSIONS[ageGroup] || []).find(m => m.id === missionId);
 }

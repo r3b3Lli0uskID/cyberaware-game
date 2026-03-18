@@ -21,6 +21,24 @@ const AVATARS = {
   'Cool Vibes':   ['🌟','💎','🔥','🌀','🎮','🎲','🃏','🏴‍☠️','👾','🌈'],
 };
 
+const LEVELS = {
+  beginner:     { label: 'Beginner',     emoji: '🌱', desc: 'New to cybersecurity — start here!',           xpMult: 1.0  },
+  intermediate: { label: 'Intermediate', emoji: '⚔️',  desc: 'Know the basics, ready for more',              xpMult: 1.25 },
+  hard:         { label: 'Hard',         emoji: '🔥',  desc: 'Confident — bring on the real challenges',     xpMult: 1.5  },
+  expert:       { label: 'Expert',       emoji: '💀',  desc: 'Professional mindset, maximum XP rewards',     xpMult: 2.0  },
+};
+
+const HOBBIES = [
+  { id: 'gaming',    emoji: '🎮', label: 'Gaming'              },
+  { id: 'finance',   emoji: '💰', label: 'Finance & Investing' },
+  { id: 'social',    emoji: '📱', label: 'Social Media'        },
+  { id: 'health',    emoji: '🏥', label: 'Healthcare'          },
+  { id: 'tech',      emoji: '💻', label: 'Technology'          },
+  { id: 'business',  emoji: '🏢', label: 'Business'            },
+  { id: 'education', emoji: '📚', label: 'Education'           },
+  { id: 'general',   emoji: '🌐', label: 'General'             },
+];
+
 const BADGES = {
   first_mission:    { id: 'first_mission',    emoji: '🎖️',  label: 'First Mission',     desc: 'Completed your first mission'         },
   perfect_score:    { id: 'perfect_score',    emoji: '💯',  label: 'Perfect Score',      desc: 'Scored 100% on a mission'             },

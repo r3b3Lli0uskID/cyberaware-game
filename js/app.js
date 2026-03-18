@@ -25,16 +25,79 @@ const $ = id => document.getElementById(id);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
 
 // ─── XP MULTIPLIER ───────────────────────────────────────────────────────────
-// Difficulty: kids=1, teens=2, seniors=2, adults=3
-// Attempting a harder group's missions gives bonus XP; easier gives reduced XP.
+// Age group difficulty: kids=1, teens=2, seniors=2, adults=3
+// Mission difficulty level: beginner=1, intermediate=2, hard=3, expert=4
+// Final XP = baseXP × ageGroupMult × levelMult
 const GROUP_DIFFICULTY = { kids: 1, teens: 2, seniors: 2, adults: 3 };
-function xpMultiplier(playerGroup, missionGroup) {
+const LEVEL_DIFFICULTY = { beginner: 1, intermediate: 2, hard: 3, expert: 4 };
+
+function ageGroupMult(playerGroup, missionGroup) {
   const diff = (GROUP_DIFFICULTY[missionGroup] || 1) - (GROUP_DIFFICULTY[playerGroup] || 1);
   if (diff <= -2) return 0.50;
   if (diff === -1) return 0.75;
   if (diff ===  0) return 1.00;
   if (diff ===  1) return 1.50;
-  return 2.00; // diff >= 2
+  return 2.00;
+}
+
+function levelMult(playerLevel, missionDifficulty) {
+  // missionDifficulty is the string from scenarios: 'Beginner','Intermediate','Hard','Expert'
+  const mKey = (missionDifficulty || 'Beginner').toLowerCase();
+  const diff = (LEVEL_DIFFICULTY[mKey] || 1) - (LEVEL_DIFFICULTY[playerLevel] || 1);
+  if (diff <= -2) return 0.50;
+  if (diff === -1) return 0.75;
+  if (diff ===  0) return 1.00;
+  if (diff ===  1) return 1.50;
+  return 2.00;
+}
+
+function xpMultiplier(playerGroup, missionGroup, playerLevel, missionDifficulty) {
+  return ageGroupMult(playerGroup, missionGroup) * levelMult(playerLevel, missionDifficulty);
+}
+
+// ─── INTRO STORYLINE ─────────────────────────────────────────────────────────
+let _introSlide = 0;
+const INTRO_TOTAL = 5;
+
+function showIntro() {
+  _introSlide = 0;
+  _renderIntroSlide();
+  showScreen('screen-intro');
+}
+
+function _renderIntroSlide() {
+  for (let i = 0; i < INTRO_TOTAL; i++) {
+    const s = $(`intro-slide-${i}`);
+    if (s) s.style.display = i === _introSlide ? 'block' : 'none';
+  }
+  const dots = $('intro-dots');
+  if (dots) {
+    dots.innerHTML = Array.from({ length: INTRO_TOTAL }, (_, i) =>
+      `<span class="intro-dot ${i === _introSlide ? 'active' : ''}"></span>`
+    ).join('');
+  }
+  const backBtn = $('intro-back-btn');
+  const nextBtn = $('intro-next-btn');
+  if (backBtn) backBtn.style.display = _introSlide > 0 ? 'inline-flex' : 'none';
+  if (nextBtn) nextBtn.textContent = _introSlide === INTRO_TOTAL - 1 ? "Let's Go! 🚀" : 'Next →';
+}
+
+function introNav(dir) {
+  _introSlide += dir;
+  if (_introSlide >= INTRO_TOTAL) { completeIntro(); return; }
+  if (_introSlide < 0) _introSlide = 0;
+  _renderIntroSlide();
+}
+
+function skipIntro() { completeIntro(); }
+
+async function completeIntro() {
+  if (App.user) {
+    await db.from('profiles').update({ intro_completed: true }).eq('id', App.user.id);
+    if (App.profile) App.profile.intro_completed = true;
+  }
+  renderDashboard();
+  showScreen('screen-dashboard');
 }
 
 function showScreen(id) {
@@ -111,7 +174,16 @@ async function signUp(email, password) {
   loading(false);
   if (error) { toast(error.message, 'error'); return false; }
 
-  // Store email for OTP verification
+  // If Supabase returned a session, email confirmation is disabled → skip OTP
+  if (data.session) {
+    App.user = data.user;
+    showScreen('screen-profile-setup');
+    renderProfileSetup();
+    toast('Account created! Set up your profile 🎉', 'success');
+    return true;
+  }
+
+  // Otherwise show OTP verification screen
   App.pendingEmail = email;
   $('verify-email-display').textContent = email;
   $('otp-input').value = '';
@@ -214,7 +286,7 @@ async function loadProfile() {
   showScreen('screen-dashboard');
 }
 
-async function createProfile(username, ageGroup, avatar) {
+async function createProfile(username, ageGroup, avatar, level = 'beginner', hobby = 'general') {
   loading(true);
   const { data, error } = await db.from('profiles').insert({
     id:        App.user.id,
@@ -222,6 +294,8 @@ async function createProfile(username, ageGroup, avatar) {
     username,
     age_group: ageGroup,
     avatar,
+    level,
+    hobby,
   }).select().single();
   loading(false);
 
@@ -233,8 +307,8 @@ async function createProfile(username, ageGroup, avatar) {
   App.profile = data;
   setTheme(AGE_GROUPS[ageGroup]?.theme || 'default');
   toast(`Welcome to CyberGuard, ${username}! 🎉`, 'success');
-  renderDashboard();
-  showScreen('screen-dashboard');
+  // Show intro storyline for new users
+  showIntro();
   return true;
 }
 
@@ -259,7 +333,9 @@ function renderDashboard(overrideGroup) {
   // Header
   $('dash-avatar').textContent = p.avatar;
   $('dash-username').textContent = p.username;
-  $('dash-group').textContent = `${AGE_GROUPS[p.age_group].emoji} ${AGE_GROUPS[p.age_group].label}`;
+  const lv = LEVELS[p.level || 'beginner'];
+  const hb = HOBBIES.find(h => h.id === (p.hobby || 'general'));
+  $('dash-group').textContent = `${AGE_GROUPS[p.age_group].emoji} ${AGE_GROUPS[p.age_group].label} · ${lv.emoji} ${lv.label}`;
   $('dash-score').textContent = formatScore(p.total_score);
   $('dash-missions').textContent = p.missions_completed;
   $('dash-badges').textContent = (p.badges || []).length;
@@ -273,7 +349,7 @@ function renderDashboard(overrideGroup) {
     grid.parentNode.insertBefore(groupBar, grid);
   }
   groupBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) => {
-    const mult = xpMultiplier(p.age_group, key);
+    const mult = parseFloat(ageGroupMult(p.age_group, key).toFixed(2));
     const tag = mult > 1 ? `<span class="xp-mult-tag bonus">🔥×${mult}</span>`
                : mult < 1 ? `<span class="xp-mult-tag penalty">📉×${mult}</span>`
                : '';
@@ -296,25 +372,42 @@ function buildMissionCard(mission, ageGroup) {
   const t = types[mission.type];
   const group = ageGroup || App.profile?.age_group;
   const playerGroup = App.profile?.age_group;
-  const mult = xpMultiplier(playerGroup, group);
+  const playerLevel = App.profile?.level || 'beginner';
+  const mult = parseFloat(xpMultiplier(playerGroup, group, playerLevel, mission.difficulty).toFixed(2));
   const effectiveXP = Math.round(mission.xp * mult);
+  const multDisplay = mult !== 1 ? `×${mult}` : '';
   const xpLabel = mult > 1
-    ? `<span class="mc-xp bonus">⚡ ${effectiveXP} XP <span class="xp-mult-tag bonus">🔥 ×${mult}</span></span>`
+    ? `<span class="mc-xp bonus">⚡ ${effectiveXP} XP <span class="xp-mult-tag bonus">🔥 ${multDisplay}</span></span>`
     : mult < 1
-    ? `<span class="mc-xp penalty">⚡ ${effectiveXP} XP <span class="xp-mult-tag penalty">📉 ×${mult}</span></span>`
+    ? `<span class="mc-xp penalty">⚡ ${effectiveXP} XP <span class="xp-mult-tag penalty">📉 ${multDisplay}</span></span>`
     : `<span class="mc-xp">⚡ ${effectiveXP} XP</span>`;
 
-  const card = el('div', 'mission-card');
+  // Hobby relevance tag
+  const playerHobby = App.profile?.hobby || 'general';
+  const missionTags = mission.tags || [];
+  const hobbyMatch = playerHobby !== 'general' && missionTags.includes(playerHobby);
+  const hobbyTag = hobbyMatch ? `<span class="hobby-match-tag">✨ Matches your interest</span>` : '';
+
+  const isMandatory = mission.mandatory === true;
+  const isFoundationDone = App.profile?.foundational_completed;
+  const mandatoryBanner = isMandatory && !isFoundationDone
+    ? `<div class="mandatory-banner">📋 Complete First — Foundational Course</div>`
+    : isMandatory ? `<div class="mandatory-banner done">✅ Foundation Complete</div>` : '';
+
+  const card = el('div', `mission-card${isMandatory ? ' mission-mandatory' : ''}`);
   card.innerHTML = `
+    ${mandatoryBanner}
     <div class="mc-header">
       <span class="mc-icon">${mission.icon}</span>
       <div class="mc-badges">
         <span class="badge" style="background:${t.color}20;color:${t.color};border-color:${t.color}40">${t.icon} ${t.label}</span>
         <span class="badge badge-diff badge-${mission.difficulty.toLowerCase()}">${mission.difficulty}</span>
+        ${mission.module === 'foundation' ? '<span class="badge badge-foundation">📚 CS101</span>' : ''}
       </div>
     </div>
     <h3 class="mc-title">${mission.title}</h3>
     <p class="mc-sub">${mission.subtitle}</p>
+    ${hobbyTag}
     <div class="mc-footer">
       ${xpLabel}
       <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')">▶ Start Mission</button>
@@ -752,8 +845,8 @@ async function completeMission() {
   const timeTaken = Math.round((Date.now() - startTime) / 1000);
   const pct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
 
-  // Calculate XP multiplier for cross-group play
-  const mult = xpMultiplier(App.profile?.age_group, missionGroup);
+  // Calculate XP multiplier (age group + level)
+  const mult = xpMultiplier(App.profile?.age_group, missionGroup, App.profile?.level, mission.difficulty);
   const effectiveScore = Math.round(score * mult);
   const bonus = effectiveScore - score; // positive = bonus, negative = penalty
 
@@ -772,6 +865,12 @@ async function completeMission() {
     if (fresh) {
       await db.from('profiles').update({ total_score: fresh.total_score + bonus }).eq('id', App.user.id);
     }
+  }
+
+  // Mark foundational course complete if this was the mandatory mission
+  if (mission.mandatory && App.user && !App.profile?.foundational_completed) {
+    await db.from('profiles').update({ foundational_completed: true }).eq('id', App.user.id);
+    if (App.profile) App.profile.foundational_completed = true;
   }
 
   // Check + award badges
@@ -1026,18 +1125,49 @@ function renderProfileSetup() {
     btn.onclick = () => { document.querySelectorAll('.group-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
     groupGrid.appendChild(btn);
   });
+
+  // Level picker
+  const levelGrid = $('level-picker');
+  if (levelGrid) {
+    levelGrid.innerHTML = '';
+    Object.entries(LEVELS).forEach(([key, lv]) => {
+      const btn = el('button', 'group-btn level-btn', `<span>${lv.emoji}</span><span>${lv.label}</span><small>${lv.desc}</small>`);
+      btn.dataset.level = key;
+      btn.onclick = () => { document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
+      if (key === 'beginner') btn.classList.add('selected'); // default
+      levelGrid.appendChild(btn);
+    });
+  }
+
+  // Hobby picker
+  const hobbyGrid = $('hobby-picker');
+  if (hobbyGrid) {
+    hobbyGrid.innerHTML = '';
+    HOBBIES.forEach(h => {
+      const btn = el('button', 'hobby-btn', `${h.emoji} ${h.label}`);
+      btn.dataset.hobby = h.id;
+      btn.onclick = () => { document.querySelectorAll('.hobby-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
+      if (h.id === 'general') btn.classList.add('selected'); // default
+      hobbyGrid.appendChild(btn);
+    });
+  }
 }
 
 async function submitProfileSetup() {
-  const username = $('setup-username')?.value?.trim();
+  const username  = $('setup-username')?.value?.trim();
   const avatarBtn = document.querySelector('.avatar-btn.selected');
-  const groupBtn  = document.querySelector('.group-btn.selected');
+  const groupBtn  = document.querySelector('.group-btn:not(.level-btn).selected');
+  const levelBtn  = document.querySelector('.level-btn.selected');
+  const hobbyBtn  = document.querySelector('.hobby-btn.selected');
 
   if (!username || username.length < 3) { toast('Username must be at least 3 characters', 'error'); return; }
   if (!avatarBtn) { toast('Please choose an avatar', 'error'); return; }
   if (!groupBtn)  { toast('Please choose your age group', 'error'); return; }
 
-  await createProfile(username, groupBtn.dataset.group, avatarBtn.textContent);
+  const level = levelBtn?.dataset.level || 'beginner';
+  const hobby = hobbyBtn?.dataset.hobby || 'general';
+
+  await createProfile(username, groupBtn.dataset.group, avatarBtn.textContent, level, hobby);
 }
 
 // ─── AUTH FORM HANDLERS ───────────────────────────────────────────────────────

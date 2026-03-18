@@ -217,9 +217,12 @@
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-logo">📧 Check Your Email</div>
-      <p style="text-align:center;color:var(--color-text-muted);font-size:.9rem;margin:0 0 1.5rem">
+      <p style="text-align:center;color:var(--color-text-muted);font-size:.9rem;margin:0 0 .75rem">
         We sent a <strong>6-digit code</strong> to<br>
         <strong id="verify-email-display"></strong>
+      </p>
+      <p style="text-align:center;font-size:.78rem;color:var(--color-text-muted);margin:0 0 1.25rem;padding:.5rem .75rem;background:var(--color-surface);border-radius:8px;border:1px solid var(--color-border)">
+        📬 Not in your inbox? Check your <strong>Spam / Junk</strong> folder.<br>Can take up to 2 minutes to arrive.
       </p>
       <form class="auth-form" onsubmit="handleVerifyOtp(event)">
         <div class="form-group">
@@ -264,8 +267,61 @@
         <div id="group-picker" class="group-picker"></div>
       </div>
 
+      <div class="form-group">
+        <label>Your Experience Level</label>
+        <p style="font-size:.82rem;color:var(--color-text-muted);margin:.25rem 0 .75rem">Affects XP rewards — higher level = greater challenge + more XP.</p>
+        <div id="level-picker" class="group-picker"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Your Hobby / Interest <small>(personalises your missions)</small></label>
+        <div id="hobby-picker" class="hobby-picker"></div>
+      </div>
+
       <button class="btn btn-primary btn-full" onclick="submitProfileSetup()">🚀 Start My Training</button>
       <button class="btn btn-ghost btn-sm" style="margin-top:.75rem;width:100%" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: INTRO STORYLINE
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-intro" class="screen">
+  <div class="intro-wrap">
+    <div class="intro-slide" id="intro-slide-0">
+      <div class="intro-icon">🌐</div>
+      <h2 class="intro-title">The Digital World is Under Attack</h2>
+      <p class="intro-body">Every day, thousands of people in Singapore fall victim to scams, phishing attacks, and identity theft. In 2023 alone, Singaporeans lost over <strong>$660 million</strong> to scams — and the number keeps rising.</p>
+    </div>
+    <div class="intro-slide" id="intro-slide-1" style="display:none">
+      <div class="intro-icon">🎯</div>
+      <h2 class="intro-title">You Are the Target</h2>
+      <p class="intro-body">Cybercriminals don't just target banks and corporations. They target <strong>you</strong> — through your phone, your email, your social media accounts. Anyone online is a potential victim. Knowledge is your most powerful weapon.</p>
+    </div>
+    <div class="intro-slide" id="intro-slide-2" style="display:none">
+      <div class="intro-icon">🛡️</div>
+      <h2 class="intro-title">Welcome to CyberGuard</h2>
+      <p class="intro-body">You've just joined a network of cyber defenders. Your mission: learn to recognise threats before they strike, protect yourself and your community, and earn your place as a certified <strong>CyberGuard Agent</strong>.</p>
+    </div>
+    <div class="intro-slide" id="intro-slide-3" style="display:none">
+      <div class="intro-icon">📋</div>
+      <h2 class="intro-title">How Your Training Works</h2>
+      <p class="intro-body">Face <strong>real-world scenarios</strong> based on actual attacks. Complete missions to earn XP and climb the leaderboard. Your <strong>age group</strong> and <strong>experience level</strong> determine your XP multipliers — take on harder challenges for bigger rewards.</p>
+    </div>
+    <div class="intro-slide" id="intro-slide-4" style="display:none">
+      <div class="intro-icon">🚀</div>
+      <h2 class="intro-title">Agent, Your First Assignment Awaits</h2>
+      <p class="intro-body">Start with the <strong>Foundational Course</strong> — a mandatory briefing covering cybersecurity basics. Complete it to unlock all missions. Remember: in cybersecurity, <em>knowing is half the battle</em>.</p>
+    </div>
+
+    <div class="intro-nav">
+      <div class="intro-dots" id="intro-dots"></div>
+      <div style="display:flex;gap:.75rem;justify-content:center;margin-top:1.5rem">
+        <button class="btn btn-ghost" id="intro-back-btn" onclick="introNav(-1)" style="display:none">← Back</button>
+        <button class="btn btn-primary" id="intro-next-btn" onclick="introNav(1)">Next →</button>
+        <button class="btn btn-ghost btn-sm" onclick="skipIntro()" style="font-size:.8rem;color:var(--color-text-muted)">Skip</button>
+      </div>
     </div>
   </div>
 </div>

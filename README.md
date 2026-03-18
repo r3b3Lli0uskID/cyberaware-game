@@ -63,6 +63,17 @@ MIT — Free to use, adapt, and share for education purposes.
 
 ## 🗂️ Changelog
 
+### v1.4 — 2026-03-19
+- **Account registration fix** — skips OTP screen when Supabase email confirmation is disabled; added spam folder tip
+- **Level system** — Beginner / Intermediate / Hard / Expert selected at registration, affects XP multiplier (×1.0 → ×2.0)
+- **Hobby system** — 8 hobby/interest options at registration; missions matching your hobby are highlighted with ✨
+- **XP formula** — effective XP = baseXP × age-group multiplier × level multiplier (fully combined)
+- **Intro storyline** — 5-slide mandatory narrative cutscene shown to all new users after profile setup
+- **Foundational course (CS101)** — mandatory first mission per age group covering cybersecurity basics; marked with 📋 badge
+- **28 missions** — foundational missions added (4 new, one per age group); `Advanced` renamed to `Hard`
+- **DB schema** — `profiles` table extended: `level`, `hobby`, `intro_completed`, `foundational_completed` columns
+- **Dashboard** — shows age group + level together; foundational mission pinned to top with completion status
+
 ### v1.3 — 2026-03-19
 - **Cross-group missions** — all users can browse and play missions from any age group
 - **XP multiplier system** — harder group = ×1.5 / ×2.0 bonus XP; easier group = ×0.75 / ×0.5 reduced XP
