@@ -27,7 +27,13 @@ const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls)
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const s = $(id);
-  if (s) { s.classList.add('active'); s.scrollTop = 0; }
+  if (!s) return;
+  s.classList.add('active');
+  s.scrollTop = 0;
+  // GSAP fade-in if available
+  if (window.gsap) {
+    gsap.fromTo(s, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power2.out' });
+  }
 }
 
 function setTheme(theme = 'default') {
@@ -51,16 +57,26 @@ function formatScore(n) { return n.toLocaleString(); }
 
 // ─── AUTH ────────────────────────────────────────────────────────────────────
 async function initAuth() {
-  const { data: { session } } = await db.auth.getSession();
-  if (session) {
-    App.user = session.user;
-    await loadProfile();
+  // Detect Supabase password recovery redirect (#type=recovery in hash)
+  // Must check BEFORE getSession() so the recovery session doesn't trigger loadProfile()
+  const isRecovery = window.location.hash.includes('type=recovery');
+  if (isRecovery) {
+    // Clear hash so refresh doesn't re-trigger
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    showScreen('screen-reset');
   } else {
-    showScreen('screen-landing');
+    const { data: { session } } = await db.auth.getSession();
+    if (session) {
+      App.user = session.user;
+      await loadProfile();
+    } else {
+      showScreen('screen-landing');
+    }
   }
 
   db.auth.onAuthStateChange(async (event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
+      App.user = session?.user || null;
       showScreen('screen-reset');
       return;
     }
@@ -169,6 +185,13 @@ async function loadProfile() {
 
   App.profile = data;
   setTheme(AGE_GROUPS[data.age_group]?.theme || 'default');
+  // Auto-apply matching visual theme per age group (only if user hasn't picked a custom one)
+  const savedVisual = localStorage.getItem('cg-vtheme');
+  if (!savedVisual || savedVisual === 'default') {
+    const ageVisualMap = { kids: 'kiddy', teens: 'teen', adults: 'adult', seniors: 'default' };
+    const autoTheme = ageVisualMap[data.age_group];
+    if (autoTheme) applyVisualTheme(autoTheme);
+  }
   renderDashboard();
   showScreen('screen-dashboard');
 }
@@ -198,11 +221,19 @@ async function createProfile(username, ageGroup, avatar) {
 }
 
 // ─── DASHBOARD ───────────────────────────────────────────────────────────────
-function renderDashboard() {
+// Track which group the admin is currently browsing (defaults to own group)
+App.adminBrowseGroup = null;
+
+function renderDashboard(overrideGroup) {
   const p = App.profile;
   if (!p) return;
-  const group = AGE_GROUPS[p.age_group];
-  const missions = getMissions(p.age_group);
+
+  // Admin can browse any group; regular users always see their own
+  const activeGroup = p.is_admin ? (overrideGroup || App.adminBrowseGroup || p.age_group) : p.age_group;
+  if (p.is_admin) App.adminBrowseGroup = activeGroup;
+
+  const group = AGE_GROUPS[activeGroup];
+  const missions = getMissions(activeGroup);
 
   // Show admin nav button if admin
   const adminBtn = $('nav-admin-btn');
@@ -211,23 +242,42 @@ function renderDashboard() {
   // Header
   $('dash-avatar').textContent = p.avatar;
   $('dash-username').textContent = p.username;
-  $('dash-group').textContent = `${group.emoji} ${group.label}`;
+  $('dash-group').textContent = `${AGE_GROUPS[p.age_group].emoji} ${AGE_GROUPS[p.age_group].label}`;
   $('dash-score').textContent = formatScore(p.total_score);
   $('dash-missions').textContent = p.missions_completed;
   $('dash-badges').textContent = (p.badges || []).length;
+
+  // Admin group switcher tabs
+  let adminBar = $('admin-group-bar');
+  if (p.is_admin) {
+    if (!adminBar) {
+      adminBar = el('div', 'admin-group-bar', '');
+      adminBar.id = 'admin-group-bar';
+      const grid = $('mission-grid');
+      grid.parentNode.insertBefore(adminBar, grid);
+    }
+    adminBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) =>
+      `<button class="group-tab-btn ${key === activeGroup ? 'active' : ''}" onclick="renderDashboard('${key}')">
+        ${g.emoji} ${g.label}
+      </button>`
+    ).join('');
+  } else if (adminBar) {
+    adminBar.remove();
+  }
 
   // Mission cards
   const grid = $('mission-grid');
   grid.innerHTML = '';
   missions.forEach(m => {
-    const card = buildMissionCard(m);
+    const card = buildMissionCard(m, activeGroup);
     grid.appendChild(card);
   });
 }
 
-function buildMissionCard(mission) {
+function buildMissionCard(mission, ageGroup) {
   const types = { quiz: { label: 'Quiz', icon: '❓', color: 'var(--accent)' }, 'spot-threat': { label: 'Spot the Threat', icon: '🔍', color: '#f59e0b' }, 'decision-tree': { label: 'Decision Tree', icon: '🌿', color: '#10b981' } };
   const t = types[mission.type];
+  const group = ageGroup || App.profile?.age_group;
 
   const card = el('div', 'mission-card');
   card.innerHTML = `
@@ -242,16 +292,48 @@ function buildMissionCard(mission) {
     <p class="mc-sub">${mission.subtitle}</p>
     <div class="mc-footer">
       <span class="mc-xp">⚡ ${mission.xp} XP</span>
-      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}')">▶ Start Mission</button>
+      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')">▶ Start Mission</button>
     </div>
   `;
   return card;
 }
 
 // ─── MISSION START ────────────────────────────────────────────────────────────
-async function startMission(missionId) {
-  const mission = getMission(App.profile.age_group, missionId);
-  if (!mission) return;
+/**
+ * Normalize a mission object to the engine's expected format.
+ * Handles two quiz question formats:
+ *   Format A (original): options have {correct: bool, feedback: string}
+ *   Format B (Gemini):   question has {correct: 'optId', feedback: {correct:'', wrong:''}}
+ */
+function normalizeMission(mission) {
+  if (mission.type === 'quiz' && mission.questions) {
+    mission.questions = mission.questions.map(q => {
+      // Already normalized
+      if (q.options && q.options.length && typeof q.options[0].correct === 'boolean') return q;
+      // Gemini format: correct is an option ID string, feedback is {correct, wrong} object
+      if (typeof q.correct === 'string' && q.options) {
+        const correctId = q.correct;
+        const fb = q.feedback || {};
+        q.options = q.options.map(opt => ({
+          ...opt,
+          correct:  opt.id === correctId,
+          feedback: opt.id === correctId
+            ? (fb.correct || '')
+            : (fb.wrong   || ''),
+        }));
+      }
+      return q;
+    });
+  }
+  return mission;
+}
+
+async function startMission(missionId, ageGroup) {
+  // Admin can launch missions from any group; others use their own group
+  const group = ageGroup || App.profile.age_group;
+  const raw = getMission(group, missionId);
+  if (!raw) return;
+  const mission = normalizeMission(JSON.parse(JSON.stringify(raw))); // deep-clone before normalizing
 
   App.game = {
     mission,
@@ -271,7 +353,7 @@ async function startMission(missionId) {
   // Create DB session
   const { data, error } = await db.from('game_sessions').insert({
     user_id:      App.user.id,
-    age_group:    App.profile.age_group,
+    age_group:    group,
     mission_id:   mission.id,
     mission_type: mission.type,
     score:        0,
@@ -297,6 +379,7 @@ function renderMissionBriefing(mission) {
 
 function launchMission() {
   const { mission } = App.game;
+  SFX.play('whoosh');
   if (mission.type === 'quiz')           renderQuiz();
   else if (mission.type === 'spot-threat')    renderSpotThreat();
   else if (mission.type === 'decision-tree')  renderDecisionTree();
@@ -352,6 +435,7 @@ function renderQuiz() {
   const opts = $('quiz-options');
   q.options.forEach((opt, i) => {
     const btn = el('button', 'quiz-option');
+    btn.dataset.opt = opt.id || String(i);
     btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt.text}</span>`;
     btn.onclick = () => selectQuizAnswer(btn, opt, q);
     opts.appendChild(btn);
@@ -377,7 +461,26 @@ async function selectQuizAnswer(btn, opt, q) {
   if (opt.correct) {
     App.game.score += pts;
     toast(`+${pts} pts! ✅`, 'success');
+    SFX.play('correct');
+    // XP burst from clicked button
+    const clickedBtn = document.querySelector('.quiz-option.correct');
+    if (clickedBtn) {
+      clickedBtn.classList.add('pop-correct');
+      showXpBurst(pts, clickedBtn);
+      setTimeout(() => clickedBtn.classList.remove('pop-correct'), 500);
+    }
+  } else {
+    SFX.play('wrong');
+    const clickedBtn = document.querySelector(`.quiz-option[data-opt="${opt.id}"]`);
+    if (clickedBtn) {
+      clickedBtn.classList.add('shake');
+      setTimeout(() => clickedBtn.classList.remove('shake'), 500);
+    }
   }
+
+  // Score pop on HUD
+  const scoreEl = $('game-score');
+  if (scoreEl) { scoreEl.classList.add('score-pop'); setTimeout(() => scoreEl.classList.remove('score-pop'), 600); }
 
   // DB: log attempt
   if (App.session) {
@@ -507,10 +610,14 @@ function handleThreatClick(e, element, mission) {
     const pts = mission.pointsPerThreat;
     App.game.score += pts;
     toast(`+${pts} pts — Threat found! 🔍`, 'success');
+    SFX.play('correct');
+    showXpBurst(pts, element);
 
     $('threats-found').textContent = App.game.foundThreats.length;
     $('spot-pts').textContent = `${App.game.score} / ${mission.totalPoints} pts`;
     updateGameHeader();
+  } else {
+    SFX.play('wrong');
   }
 
   // Show popover
@@ -540,16 +647,24 @@ async function submitSpotThreat() {
 // ─── DECISION TREE ENGINE ─────────────────────────────────────────────────────
 function renderDecisionTree() {
   const { mission, currentNode } = App.game;
-  const node = mission.nodes[currentNode];
+  // Support both `nodes` (original format) and `tree` (Gemini format)
+  const nodeMap = mission.nodes || mission.tree;
+  const node = nodeMap[currentNode];
   if (!node) return;
 
-  const isEnding = node.isEnding;
+  // Support both isEnding flag (original) and question:null+empty choices (Gemini format)
+  const isEnding = node.isEnding || (node.question === null && (!node.choices || node.choices.length === 0));
+  // Support both text (original) and story (Gemini format)
+  const storyText = node.text || node.story || '';
+  // If node has a question field, append it
+  const questionText = node.question ? `<p class="dt-question"><strong>${node.question}</strong></p>` : '';
 
   $('gameplay-area').innerHTML = `
     <div class="dt-container">
       <div class="dt-story-card ${isEnding ? 'dt-ending dt-ending-' + (node.endingType || 'ok') : ''}">
-        <span class="dt-emoji">${node.emoji}</span>
-        <p class="dt-text">${node.text}</p>
+        ${node.emoji ? `<span class="dt-emoji">${node.emoji}</span>` : ''}
+        <p class="dt-text">${storyText}</p>
+        ${questionText}
       </div>
       ${isEnding ? renderDtEnding(node) : renderDtChoices(node)}
     </div>
@@ -557,7 +672,8 @@ function renderDecisionTree() {
 }
 
 function renderDtChoices(node) {
-  const html = node.choices.map((c, i) =>
+  const choices = node.choices || [];
+  const html = choices.map((c, i) =>
     `<button class="dt-choice" onclick="chooseDtOption(${i})">${c.text}</button>`
   ).join('');
   return `<div class="dt-choices">${html}</div>`;
@@ -565,10 +681,13 @@ function renderDtChoices(node) {
 
 function renderDtEnding(node) {
   const endClass = { great: 'ending-great', ok: 'ending-ok', bad: 'ending-bad' }[node.endingType] || '';
+  // Support both endingText (original) and story (Gemini format for endings)
+  const endTitle = node.endingTitle || (node.story ? '' : 'Mission Complete');
+  const endText  = node.endingText  || node.story || '';
   return `
     <div class="dt-result ${endClass}">
-      <div class="dt-result-title">${node.endingTitle}</div>
-      <div class="dt-result-text">${node.endingText}</div>
+      ${endTitle ? `<div class="dt-result-title">${endTitle}</div>` : ''}
+      <div class="dt-result-text">${endText}</div>
     </div>
     <button class="btn btn-primary btn-next" onclick="completeMission()" style="margin-top:1.5rem">
       🏁 See Results
@@ -578,13 +697,21 @@ function renderDtEnding(node) {
 
 async function chooseDtOption(idx) {
   const { mission, currentNode } = App.game;
-  const node = mission.nodes[currentNode];
+  const nodeMap = mission.nodes || mission.tree;
+  const node = nodeMap[currentNode];
   const choice = node.choices[idx];
 
   App.game.score += choice.points || 0;
   App.game.currentNode = choice.next;
 
-  if (choice.points > 0) toast(`+${choice.points} pts ✅`, 'success');
+  if (choice.points > 0) {
+    toast(`+${choice.points} pts ✅`, 'success');
+    SFX.play('correct');
+    const choiceBtn = document.querySelectorAll('.dt-choice')[idx];
+    if (choiceBtn) showXpBurst(choice.points, choiceBtn);
+  } else {
+    SFX.play('wrong');
+  }
   if (choice.feedback) toast(choice.feedback, choice.points > 0 ? 'info' : 'warn');
 
   updateGameHeader();
@@ -613,6 +740,14 @@ async function completeMission() {
 
   renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges);
   showScreen('screen-mission-complete');
+
+  // Sound + confetti
+  if (newBadges.length > 0) {
+    SFX.play('badge');
+  } else {
+    SFX.play('complete');
+  }
+  if (pct >= 60) setTimeout(launchConfetti, 350);
 
   // Refresh profile
   await loadProfileData();
@@ -756,6 +891,27 @@ function renderProfilePage() {
   $('prof-score').textContent = formatScore(p.total_score);
   $('prof-missions').textContent = p.missions_completed;
 
+  // Build avatar picker
+  const apicker = $('prof-avatar-picker');
+  if (apicker) {
+    apicker.innerHTML = '';
+    Object.entries(AVATARS).forEach(([category, emojis]) => {
+      const catLabel = el('div', 'avatar-cat-label', category);
+      apicker.appendChild(catLabel);
+      const row = el('div', 'avatar-cat-row', '');
+      emojis.forEach(av => {
+        const btn = el('button', `avatar-btn${av === p.avatar ? ' selected' : ''}`, av);
+        btn.title = av;
+        btn.onclick = () => {
+          apicker.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        row.appendChild(btn);
+      });
+      apicker.appendChild(row);
+    });
+  }
+
   const grid = $('badge-grid');
   grid.innerHTML = '';
   Object.values(BADGES).forEach(b => {
@@ -770,14 +926,49 @@ function renderProfilePage() {
   });
 }
 
+async function saveAvatarChange() {
+  const selected = document.querySelector('#prof-avatar-picker .avatar-btn.selected');
+  if (!selected) { toast('Select an avatar first', 'error'); return; }
+  const newAvatar = selected.textContent;
+  loading(true);
+  const { error } = await db.from('profiles').update({ avatar: newAvatar }).eq('id', App.user.id);
+  loading(false);
+  if (error) { toast(error.message, 'error'); return; }
+  App.profile.avatar = newAvatar;
+  $('prof-avatar').textContent = newAvatar;
+  $('dash-avatar').textContent = newAvatar;
+  toast('Avatar updated! ✨', 'success');
+}
+
+async function handleChangePassword(e) {
+  e.preventDefault();
+  const newPw  = $('cp-new').value;
+  const confirm = $('cp-confirm').value;
+  if (newPw !== confirm) { toast('Passwords do not match', 'error'); return; }
+  if (newPw.length < 8)             { toast('Minimum 8 characters', 'error'); return; }
+  if (!/[A-Z]/.test(newPw))         { toast('Need at least one uppercase letter', 'error'); return; }
+  if (!/[a-z]/.test(newPw))         { toast('Need at least one lowercase letter', 'error'); return; }
+  if (!/[0-9]/.test(newPw))         { toast('Need at least one number', 'error'); return; }
+  if (!/[^A-Za-z0-9]/.test(newPw))  { toast('Need at least one symbol', 'error'); return; }
+  loading(true);
+  const { error } = await db.auth.updateUser({ password: newPw });
+  loading(false);
+  if (error) { toast(error.message, 'error'); return; }
+  $('cp-new').value = '';
+  $('cp-confirm').value = '';
+  toast('Password changed successfully! 🔒', 'success');
+}
+
 // ─── PROFILE SETUP ────────────────────────────────────────────────────────────
 function renderProfileSetup() {
   const avatarGrid = $('avatar-picker');
   if (!avatarGrid) return;
   avatarGrid.innerHTML = '';
-  AVATARS.forEach(av => {
+  // AVATARS is now { category: [emoji, ...], ... }
+  const allAvatars = Object.values(AVATARS).flat();
+  allAvatars.forEach(av => {
     const btn = el('button', 'avatar-btn', av);
-    btn.onclick = () => { document.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
+    btn.onclick = () => { document.querySelectorAll('#avatar-picker .avatar-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
     avatarGrid.appendChild(btn);
   });
 
@@ -1033,7 +1224,282 @@ async function loadAdminSessions() {
  * same data-theme attribute — the visual theme is only held in
  * localStorage and applied on non-gameplay screens.
  */
-const VISUAL_THEMES = ['default', 'synthwave', 'terminal', 'ocean', 'corporate'];
+const VISUAL_THEMES = ['default', 'synthwave', 'teen', 'kiddy', 'adult'];
+
+// ─── SOUND SYSTEM (Web Audio API) ────────────────────────────────────────────
+const SFX = (() => {
+  let ctx = null;
+  let muted = JSON.parse(localStorage.getItem('cg-muted') ?? 'false');
+
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  function play(type) {
+    if (muted) return;
+    try {
+      const ac = getCtx();
+      const gain = ac.createGain();
+      gain.connect(ac.destination);
+
+      if (type === 'click') {
+        const o = ac.createOscillator();
+        o.type = 'sine'; o.frequency.setValueAtTime(660, ac.currentTime);
+        gain.gain.setValueAtTime(0.08, ac.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.08);
+        o.connect(gain); o.start(); o.stop(ac.currentTime + 0.08);
+
+      } else if (type === 'correct') {
+        [523, 659, 784].forEach((freq, i) => {
+          const o = ac.createOscillator();
+          o.type = 'triangle'; o.frequency.value = freq;
+          const g = ac.createGain();
+          const t = ac.currentTime + i * 0.1;
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.15, t + 0.04);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+          o.connect(g); g.connect(ac.destination);
+          o.start(t); o.stop(t + 0.3);
+        });
+
+      } else if (type === 'wrong') {
+        [300, 240].forEach((freq, i) => {
+          const o = ac.createOscillator();
+          o.type = 'sawtooth'; o.frequency.value = freq;
+          const g = ac.createGain();
+          const t = ac.currentTime + i * 0.12;
+          g.gain.setValueAtTime(0.1, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          o.connect(g); g.connect(ac.destination);
+          o.start(t); o.stop(t + 0.25);
+        });
+
+      } else if (type === 'badge') {
+        [523, 659, 784, 1047].forEach((freq, i) => {
+          const o = ac.createOscillator();
+          o.type = 'sine'; o.frequency.value = freq;
+          const g = ac.createGain();
+          const t = ac.currentTime + i * 0.08;
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.18, t + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+          o.connect(g); g.connect(ac.destination);
+          o.start(t); o.stop(t + 0.4);
+        });
+
+      } else if (type === 'complete') {
+        const melody = [523, 659, 784, 1047, 784, 1047];
+        melody.forEach((freq, i) => {
+          const o = ac.createOscillator();
+          o.type = 'triangle'; o.frequency.value = freq;
+          const g = ac.createGain();
+          const t = ac.currentTime + i * 0.15;
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.14, t + 0.04);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+          o.connect(g); g.connect(ac.destination);
+          o.start(t); o.stop(t + 0.4);
+        });
+
+      } else if (type === 'whoosh') {
+        const o = ac.createOscillator();
+        const lfo = ac.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(800, ac.currentTime);
+        o.frequency.exponentialRampToValueAtTime(200, ac.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.06, ac.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.25);
+        o.connect(gain); o.start(); o.stop(ac.currentTime + 0.25);
+      }
+    } catch(e) { /* silence audio errors */ }
+  }
+
+  function toggleMute() {
+    muted = !muted;
+    localStorage.setItem('cg-muted', JSON.stringify(muted));
+    const btn = document.getElementById('sound-toggle-btn');
+    if (btn) { btn.textContent = muted ? '🔇' : '🔊'; btn.classList.toggle('muted', muted); }
+  }
+
+  function initUI() {
+    muted = JSON.parse(localStorage.getItem('cg-muted') ?? 'false');
+    const btn = document.getElementById('sound-toggle-btn');
+    if (btn) { btn.textContent = muted ? '🔇' : '🔊'; btn.classList.toggle('muted', muted); }
+  }
+
+  return { play, toggleMute, initUI };
+})();
+
+function toggleSound() { SFX.toggleMute(); }
+
+// ─── BACKGROUND MUSIC (Web Audio API ambient drone) ───────────────────────────
+const BGM = (() => {
+  let ctx = null, masterGain = null, droneNodes = [];
+  let playing = false;
+  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true'); // off by default
+
+  function getCtx() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = ctx.createGain();
+      masterGain.gain.value = 0;
+      masterGain.connect(ctx.destination);
+    }
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  function buildReverb(ac) {
+    const conv = ac.createConvolver();
+    const len = ac.sampleRate * 2.5;
+    const buf = ac.createBuffer(2, len, ac.sampleRate);
+    for (let c = 0; c < 2; c++) {
+      const d = buf.getChannelData(c);
+      for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.5);
+    }
+    conv.buffer = buf;
+    return conv;
+  }
+
+  function startDrone() {
+    if (playing) return;
+    const ac = getCtx();
+    const reverb = buildReverb(ac);
+    const rvGain = ac.createGain();
+    rvGain.gain.value = 0.35;
+    reverb.connect(rvGain);
+    rvGain.connect(masterGain);
+
+    // Ambient pad: A minor drone (A2, E3, A3, C4, E4)
+    const notes = [110, 164.81, 220, 261.63, 329.63];
+    const waveTypes = ['sine', 'sine', 'triangle', 'sine', 'triangle'];
+    notes.forEach((freq, i) => {
+      const osc = ac.createOscillator();
+      const oGain = ac.createGain();
+      osc.type = waveTypes[i];
+      osc.frequency.value = freq + (Math.random() * 0.4 - 0.2); // micro-detune
+      oGain.gain.value = 0.035 / (i + 1);
+      osc.connect(oGain);
+      oGain.connect(masterGain);
+      oGain.connect(reverb);
+      osc.start();
+      droneNodes.push(osc);
+
+      // Slow tremolo LFO
+      const lfo = ac.createOscillator();
+      const lfoGain = ac.createGain();
+      lfo.frequency.value = 0.07 + i * 0.015;
+      lfoGain.gain.value = 0.012;
+      lfo.connect(lfoGain);
+      lfoGain.connect(oGain.gain);
+      lfo.start();
+      droneNodes.push(lfo);
+    });
+
+    // Fade in
+    masterGain.gain.setTargetAtTime(0.12, ac.currentTime, 1.5);
+    playing = true;
+  }
+
+  function stopDrone() {
+    if (!playing || !ctx) return;
+    masterGain.gain.setTargetAtTime(0, ctx.currentTime, 0.8);
+    setTimeout(() => {
+      droneNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+      droneNodes = [];
+      playing = false;
+    }, 2000);
+  }
+
+  function play() {
+    if (muted) return;
+    startDrone();
+  }
+
+  function stop() { stopDrone(); }
+
+  function toggleMute() {
+    muted = !muted;
+    localStorage.setItem('cg-bgm-muted', JSON.stringify(muted));
+    const btn = document.getElementById('bgm-toggle-btn');
+    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
+    if (muted) stopDrone();
+    else startDrone();
+    return muted;
+  }
+
+  function initUI() {
+    muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true');
+    const btn = document.getElementById('bgm-toggle-btn');
+    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
+  }
+
+  return { play, stop, toggleMute, initUI, get muted() { return muted; } };
+})();
+
+function toggleBGM() { BGM.toggleMute(); }
+
+// ─── PARTICLE HERO BACKGROUND ─────────────────────────────────────────────────
+function initParticles() {
+  const container = document.getElementById('hero-particles');
+  if (!container) return;
+  const count = 28;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = [
+      `left:${Math.random() * 100}%`,
+      `top:${Math.random() * 100}%`,
+      `width:${size}px`,
+      `height:${size}px`,
+      `animation-duration:${Math.random() * 15 + 8}s`,
+      `animation-delay:${Math.random() * 8}s`,
+      `opacity:${Math.random() * 0.5 + 0.1}`
+    ].join(';');
+    container.appendChild(p);
+  }
+}
+
+// ─── XP BURST EFFECT ──────────────────────────────────────────────────────────
+function showXpBurst(pts, originEl) {
+  if (!pts || pts <= 0) return;
+  const burst = document.createElement('div');
+  burst.className = 'xp-burst';
+  burst.textContent = `+${pts} XP`;
+  if (originEl) {
+    const r = originEl.getBoundingClientRect();
+    burst.style.left = (r.left + r.width / 2 - 30) + 'px';
+    burst.style.top  = (r.top  - 10) + 'px';
+  } else {
+    burst.style.left = '50%'; burst.style.top = '50%';
+  }
+  document.body.appendChild(burst);
+  setTimeout(() => burst.remove(), 950);
+}
+
+// ─── CONFETTI (final screen) ──────────────────────────────────────────────────
+function launchConfetti() {
+  const colors = ['#4f8ef7','#00e5ff','#ff6b6b','#ffd93d','#6bcb77','#e040fb','#f59e0b'];
+  for (let i = 0; i < 50; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-particle';
+    el.style.cssText = [
+      `left:${Math.random() * 100}vw`,
+      `top:-10px`,
+      `background:${colors[Math.floor(Math.random() * colors.length)]}`,
+      `animation-duration:${Math.random() * 2 + 1.5}s`,
+      `animation-delay:${Math.random() * 0.8}s`,
+      `transform:rotate(${Math.random() * 360}deg)`,
+      `width:${Math.random() * 8 + 6}px`,
+      `height:${Math.random() * 8 + 6}px`
+    ].join(';');
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  }
+}
 
 function initThemeControls() {
   // Read saved preferences
@@ -1123,8 +1589,26 @@ function _updateThemePills(activeTheme) {
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   initThemeControls();
+  SFX.initUI();
+  BGM.initUI();
+  initParticles();
   renderProfileSetup();
   await initAuth();
+
+  // Start BGM on first user interaction (required by browser autoplay policy)
+  const startBGMOnce = () => {
+    BGM.play();
+    document.removeEventListener('click', startBGMOnce);
+    document.removeEventListener('keydown', startBGMOnce);
+  };
+  document.addEventListener('click', startBGMOnce);
+  document.addEventListener('keydown', startBGMOnce);
+
+  // Button click sound (global — attaches to all .btn, .nav-btn, .quiz-option)
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn, .nav-btn, .quiz-option, .dt-choice, .theme-pill, .auth-tab, .admin-tab');
+    if (btn && !btn.classList.contains('quiz-option')) SFX.play('click');
+  });
 
   // Close theme popup when clicking outside it
   document.addEventListener('click', e => {

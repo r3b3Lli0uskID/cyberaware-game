@@ -13,6 +13,9 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.99.2/dist/umd/supabase.js"></script>
 
+  <!-- GSAP (animation engine) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
   <!-- App CSS (loaded after fonts) -->
   <link rel="stylesheet" href="css/app.css" />
 </head>
@@ -34,8 +37,11 @@
     <button class="btn btn-primary btn-sm" onclick="showScreen('screen-auth')">Sign In / Register</button>
   </nav>
 
-  <section class="hero">
-    <div class="hero-content">
+  <section class="hero" style="position:relative;overflow:hidden">
+    <!-- Particle background (populated by JS) -->
+    <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
+
+    <div class="hero-content" style="position:relative;z-index:1">
       <div class="hero-badge">🇸🇬 Singapore-Focused Cyber Awareness</div>
       <h1 class="hero-title">Stay Safe <span>Online.</span><br>Learn. Detect. Defend.</h1>
       <p class="hero-sub">Interactive cybersecurity training for everyone — from kids aged 7 to adults 65+. Real scenarios. Real threats. Real skills.</p>
@@ -45,13 +51,13 @@
       </div>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">4</span><span class="stat-label">Age Groups</span></div>
-        <div class="stat"><span class="stat-num">12</span><span class="stat-label">Missions</span></div>
+        <div class="stat"><span class="stat-num">24</span><span class="stat-label">Missions</span></div>
         <div class="stat"><span class="stat-num">3</span><span class="stat-label">Scenario Types</span></div>
         <div class="stat"><span class="stat-num">🆓</span><span class="stat-label">Always Free</span></div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="shield-anim">🛡️</div>
+    <div class="hero-visual" style="position:relative;z-index:1">
+      <div class="logo-shield-anim" aria-hidden="true">🛡️</div>
     </div>
   </section>
 
@@ -420,7 +426,32 @@
       </div>
     </div>
 
-    <h3 class="section-heading">Badges & Achievements</h3>
+    <!-- Avatar Picker -->
+    <h3 class="section-heading">Change Avatar</h3>
+    <div class="prof-avatar-picker" id="prof-avatar-picker"></div>
+    <button class="btn btn-primary btn-sm" style="margin-top:.75rem" onclick="saveAvatarChange()">💾 Save Avatar</button>
+
+    <!-- Change Password -->
+    <h3 class="section-heading" style="margin-top:2rem">Change Password</h3>
+    <form class="change-pw-form" onsubmit="handleChangePassword(event)">
+      <div class="form-group">
+        <label>New Password <small>(min 8 · A–Z · a–z · 0–9 · symbol)</small></label>
+        <div class="pw-wrap">
+          <input id="cp-new" type="password" placeholder="New password" minlength="8" required />
+          <button type="button" class="pw-toggle" onclick="togglePw('cp-new', this)" tabindex="-1">👁</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password</label>
+        <div class="pw-wrap">
+          <input id="cp-confirm" type="password" placeholder="Repeat password" required />
+          <button type="button" class="pw-toggle" onclick="togglePw('cp-confirm', this)" tabindex="-1">👁</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">🔒 Update Password</button>
+    </form>
+
+    <h3 class="section-heading" style="margin-top:2rem">Badges & Achievements</h3>
     <div class="badge-grid" id="badge-grid"></div>
   </div>
 </div>
@@ -550,19 +581,19 @@
       <span class="theme-pill-dot"></span> Synthwave
     </button>
 
-    <button class="theme-pill" data-theme-val="terminal"
-            onclick="setVisualTheme('terminal')" role="menuitem">
-      <span class="theme-pill-dot"></span> Terminal
+    <button class="theme-pill" data-theme-val="teen"
+            onclick="setVisualTheme('teen')" role="menuitem">
+      <span class="theme-pill-dot"></span> Teen
     </button>
 
-    <button class="theme-pill" data-theme-val="ocean"
-            onclick="setVisualTheme('ocean')" role="menuitem">
-      <span class="theme-pill-dot"></span> Ocean
+    <button class="theme-pill" data-theme-val="kiddy"
+            onclick="setVisualTheme('kiddy')" role="menuitem">
+      <span class="theme-pill-dot"></span> Kiddy
     </button>
 
-    <button class="theme-pill" data-theme-val="corporate"
-            onclick="setVisualTheme('corporate')" role="menuitem">
-      <span class="theme-pill-dot"></span> Corporate
+    <button class="theme-pill" data-theme-val="adult"
+            onclick="setVisualTheme('adult')" role="menuitem">
+      <span class="theme-pill-dot"></span> Adult
     </button>
   </div>
 
@@ -579,6 +610,20 @@
           onclick="toggleMode()" title="Toggle light/dark mode"
           aria-label="Toggle colour mode">
     🌙
+  </button>
+
+  <!-- Sound toggle -->
+  <button class="sound-toggle-btn" id="sound-toggle-btn"
+          onclick="toggleSound()" title="Toggle sound effects"
+          aria-label="Toggle sound effects">
+    🔊
+  </button>
+
+  <!-- BGM toggle -->
+  <button class="sound-toggle-btn" id="bgm-toggle-btn"
+          onclick="toggleBGM()" title="Music: Off (click to enable)"
+          aria-label="Toggle background music">
+    🎵
   </button>
 
 </div>
