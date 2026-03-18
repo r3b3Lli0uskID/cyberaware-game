@@ -23,14 +23,29 @@ CEO email fraud (BEC), vishing, malware attachments, public WiFi banking, data b
 ## 👴 Seniors (46–65+)
 Grandchild scam, bank impersonation, prize scams, fake tech support, romance scams, fake invoices
 
-## 🚀 Usage
-
-Just open `index.html` in any browser — no server, no internet required.
+## 🚀 Setup
 
 ```bash
-# Or serve locally
+# 1. Clone
+git clone https://github.com/r3b3Lli0uskID/cyberaware-game.git
+cd cyberaware-game
+
+# 2. Add your Supabase credentials
+cp js/config.example.js js/config.js
+# Edit js/config.js — fill in SUPABASE_URL and SUPABASE_ANON
+
+# 3. Run the Supabase schema
+# Paste supabase/schema.sql into your Supabase SQL Editor and run it
+# Then run the GRANTs:
+#   GRANT SELECT ON public.profiles TO anon;
+#   GRANT SELECT, INSERT, UPDATE ON public.profiles TO authenticated;
+#   GRANT SELECT, INSERT, UPDATE ON public.game_sessions TO authenticated;
+#   GRANT SELECT, INSERT ON public.level_attempts TO authenticated;
+#   GRANT SELECT ON public.leaderboard TO anon, authenticated;
+
+# 4. Serve locally
 npx serve .
-python -m http.server 8080
+# → http://localhost:3000
 ```
 
 ## 🆘 Singapore Resources
@@ -43,3 +58,18 @@ python -m http.server 8080
 ## 📄 License
 
 MIT — Free to use, adapt, and share for education purposes.
+
+---
+
+## 🗂️ Changelog
+
+### v1.0 — 2026-03-19
+- 20 missions across 4 age groups (5 per group)
+- 3 mission types: Quiz, Spot the Threat, Decision Tree
+- Supabase Auth (email + OTP verification, username login)
+- Admin panel with user management and session analytics
+- 4 visual themes: Synthwave, Terminal, Ocean, Corporate
+- Light / Dark / System mode toggle
+- Mobile + tablet responsive (iOS, Android, iPad)
+- 8 badge system with group and cross-group achievements
+- Singapore-specific scenarios: PayNow, SingPass, SPF, ScamShield, DBS, NTUC
