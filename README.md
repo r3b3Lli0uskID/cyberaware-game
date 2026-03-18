@@ -63,6 +63,15 @@ MIT — Free to use, adapt, and share for education purposes.
 
 ## 🗂️ Changelog
 
+### v1.3 — 2026-03-19
+- **Cross-group missions** — all users can browse and play missions from any age group
+- **XP multiplier system** — harder group = ×1.5 / ×2.0 bonus XP; easier group = ×0.75 / ×0.5 reduced XP
+- **Difficulty order**: Kids (easiest) < Teens = Seniors < Adults (hardest)
+- **Live XP preview** — mission cards show effective XP with 🔥 bonus or 📉 penalty indicator
+- **Leaderboard impact** — cross-group scores reflected in total_score rankings
+- **Theme persistence fix** — selected visual theme now correctly restored on every login
+- **Password change fix** — loading spinner no longer gets stuck after changing password
+
 ### v1.2 — 2026-03-19
 - **Password reset fix** — email reset link now correctly goes to reset screen (not dashboard)
 - **Change Password** in Profile — synced with Supabase auth
