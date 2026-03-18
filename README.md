@@ -63,6 +63,14 @@ MIT — Free to use, adapt, and share for education purposes.
 
 ## 🗂️ Changelog
 
+### v1.2 — 2026-03-19
+- **Password reset fix** — email reset link now correctly goes to reset screen (not dashboard)
+- **Change Password** in Profile — synced with Supabase auth
+- **Expanded quiz questions** — Beginner: 5 questions, Intermediate: 7, Advanced: 10 (up from 3 each)
+- **Background music** — ambient drone with Web Audio API, togglable (default off)
+- **Admin all-group access** — admin users can browse and play missions from any age group
+- **Avatar picker in Profile** — 40+ emoji avatars in 4 categories, changeable and synced to database
+
 ### v1.1 — 2026-03-19
 - 4 new missions: Linux Terminal Survival, Hacked GitHub Repo, Secure Code Review, Credential Leak (Teens + Adults)
 - Sound effects system (Web Audio API — correct/wrong/badge/complete/click)
