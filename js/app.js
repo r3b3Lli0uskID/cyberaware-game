@@ -179,6 +179,7 @@ async function signUp(email, password) {
   // If Supabase returned a session, email confirmation is disabled → skip OTP
   if (data.session) {
     App.user = data.user;
+    App.justSignedUp = true;
     showScreen('screen-profile-setup');
     renderProfileSetup();
     toast('Account created! Set up your profile 🎉', 'success');
@@ -210,6 +211,7 @@ async function handleVerifyOtp(e) {
   if (error) { toast(error.message, 'error'); return; }
 
   App.user = data.user;
+  App.justSignedUp = true;
   toast('Email verified! Set up your profile 🎉', 'success');
   showScreen('screen-profile-setup');
   renderProfileSetup();
@@ -277,8 +279,15 @@ async function loadProfile() {
     .single();
 
   if (error || !data) {
-    showScreen('screen-profile-setup');
-    renderProfileSetup();
+    // No profile found — if it's a fresh signup the flag is set; otherwise stale session → sign out
+    if (App.justSignedUp) {
+      showScreen('screen-profile-setup');
+      renderProfileSetup();
+    } else {
+      await db.auth.signOut();
+      App.user = null;
+      showScreen('screen-landing');
+    }
     return;
   }
 
@@ -319,6 +328,7 @@ async function createProfile(username, ageGroup, avatar, level = 'beginner', hob
   await db.from('profiles').update({ level, hobby }).eq('id', App.user.id);
 
   loading(false);
+  App.justSignedUp = false;
   App.profile = { ...data, level, hobby };
   setTheme(AGE_GROUPS[ageGroup]?.theme || 'default');
   toast(`Welcome to CyberGuard, ${username}! 🎉`, 'success');
