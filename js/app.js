@@ -1509,106 +1509,63 @@ const SFX = (() => {
 
 function toggleSound() { SFX.toggleMute(); }
 
-// ─── BACKGROUND MUSIC (Web Audio API ambient drone) ───────────────────────────
+// ─── BACKGROUND MUSIC (HTML5 Audio) ───────────────────────────────────────────
 const BGM = (() => {
-  let ctx = null, masterGain = null, droneNodes = [];
-  let playing = false;
+  let audio = null;
+  let started = false;
   let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true'); // off by default
 
-  function getCtx() {
-    if (!ctx) {
-      ctx = new (window.AudioContext || window.webkitAudioContext)();
-      masterGain = ctx.createGain();
-      masterGain.gain.value = 0;
-      masterGain.connect(ctx.destination);
+  function getAudio() {
+    if (!audio) {
+      audio = document.getElementById('bgm-audio');
+      if (!audio) {
+        audio = document.createElement('audio');
+        audio.id = 'bgm-audio';
+        audio.src = 'audio/bgm.mp3';
+        audio.loop = true;
+        audio.volume = 0.4;
+        audio.preload = 'none';
+        document.body.appendChild(audio);
+      }
     }
-    if (ctx.state === 'suspended') ctx.resume();
-    return ctx;
+    return audio;
   }
 
-  function buildReverb(ac) {
-    const conv = ac.createConvolver();
-    const len = ac.sampleRate * 2.5;
-    const buf = ac.createBuffer(2, len, ac.sampleRate);
-    for (let c = 0; c < 2; c++) {
-      const d = buf.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.5);
-    }
-    conv.buffer = buf;
-    return conv;
-  }
-
-  function startDrone() {
-    if (playing) return;
-    const ac = getCtx();
-    const reverb = buildReverb(ac);
-    const rvGain = ac.createGain();
-    rvGain.gain.value = 0.35;
-    reverb.connect(rvGain);
-    rvGain.connect(masterGain);
-
-    // Ambient pad: A minor drone (A2, E3, A3, C4, E4)
-    const notes = [110, 164.81, 220, 261.63, 329.63];
-    const waveTypes = ['sine', 'sine', 'triangle', 'sine', 'triangle'];
-    notes.forEach((freq, i) => {
-      const osc = ac.createOscillator();
-      const oGain = ac.createGain();
-      osc.type = waveTypes[i];
-      osc.frequency.value = freq + (Math.random() * 0.4 - 0.2); // micro-detune
-      oGain.gain.value = 0.035 / (i + 1);
-      osc.connect(oGain);
-      oGain.connect(masterGain);
-      oGain.connect(reverb);
-      osc.start();
-      droneNodes.push(osc);
-
-      // Slow tremolo LFO
-      const lfo = ac.createOscillator();
-      const lfoGain = ac.createGain();
-      lfo.frequency.value = 0.07 + i * 0.015;
-      lfoGain.gain.value = 0.012;
-      lfo.connect(lfoGain);
-      lfoGain.connect(oGain.gain);
-      lfo.start();
-      droneNodes.push(lfo);
-    });
-
-    // Fade in
-    masterGain.gain.setTargetAtTime(0.12, ac.currentTime, 1.5);
-    playing = true;
-  }
-
-  function stopDrone() {
-    if (!playing || !ctx) return;
-    masterGain.gain.setTargetAtTime(0, ctx.currentTime, 0.8);
-    setTimeout(() => {
-      droneNodes.forEach(n => { try { n.stop(); } catch(e) {} });
-      droneNodes = [];
-      playing = false;
-    }, 2000);
+  function updateBtn() {
+    const btn = document.getElementById('bgm-toggle-btn');
+    if (!btn) return;
+    btn.textContent = muted ? '🎵' : '🎶';
+    btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On';
+    btn.classList.toggle('muted', muted);
   }
 
   function play() {
     if (muted) return;
-    startDrone();
+    const a = getAudio();
+    if (!started) { a.preload = 'auto'; started = true; }
+    a.play().catch(() => {});
   }
 
-  function stop() { stopDrone(); }
+  function stop() {
+    if (!audio) return;
+    audio.pause();
+  }
 
   function toggleMute() {
     muted = !muted;
     localStorage.setItem('cg-bgm-muted', JSON.stringify(muted));
-    const btn = document.getElementById('bgm-toggle-btn');
-    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
-    if (muted) stopDrone();
-    else startDrone();
+    updateBtn();
+    if (muted) {
+      stop();
+    } else {
+      play();
+    }
     return muted;
   }
 
   function initUI() {
     muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true');
-    const btn = document.getElementById('bgm-toggle-btn');
-    if (btn) { btn.textContent = muted ? '🎵' : '🎶'; btn.title = muted ? 'Music: Off (click to enable)' : 'Music: On'; btn.classList.toggle('muted', muted); }
+    updateBtn();
   }
 
   return { play, stop, toggleMute, initUI, get muted() { return muted; } };
@@ -1770,14 +1727,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderProfileSetup();
   await initAuth();
 
-  // Start BGM on first user interaction (required by browser autoplay policy)
-  const startBGMOnce = () => {
+  // Unlock HTML5 audio on first user interaction (browser autoplay policy)
+  const unlockBGMOnce = () => {
     BGM.play();
-    document.removeEventListener('click', startBGMOnce);
-    document.removeEventListener('keydown', startBGMOnce);
+    document.removeEventListener('click', unlockBGMOnce);
+    document.removeEventListener('keydown', unlockBGMOnce);
   };
-  document.addEventListener('click', startBGMOnce);
-  document.addEventListener('keydown', startBGMOnce);
+  document.addEventListener('click', unlockBGMOnce);
+  document.addEventListener('keydown', unlockBGMOnce);
 
   // Button click sound (global — attaches to all .btn, .nav-btn, .quiz-option)
   document.addEventListener('click', e => {
