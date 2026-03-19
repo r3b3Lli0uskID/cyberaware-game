@@ -1540,7 +1540,10 @@ const BGM = (() => {
   const audio = new Audio('audio/bgm.mp3');
   audio.loop = true;
   audio.volume = 0.4;
-  let playPromise = null;
+  let isPlaying = false;
+
+  audio.addEventListener('play',  () => { isPlaying = true;  });
+  audio.addEventListener('pause', () => { isPlaying = false; });
 
   function updateBtn() {
     const btn = document.getElementById('bgm-toggle-btn');
@@ -1552,16 +1555,16 @@ const BGM = (() => {
 
   function play() {
     if (muted) return;
-    playPromise = audio.play().catch(() => {});
+    const p = audio.play();
+    if (p) p.catch(() => {});
   }
 
   function stop() {
-    // Chain pause onto the play promise to avoid AbortError race condition
-    if (playPromise) {
-      playPromise.then(() => { audio.pause(); }).catch(() => {});
-      playPromise = null;
-    } else {
+    if (isPlaying) {
       audio.pause();
+    } else {
+      // Audio may still be loading — pause once it starts
+      audio.addEventListener('play', () => { audio.pause(); }, { once: true });
     }
   }
 
