@@ -288,26 +288,29 @@ async function loadProfile() {
 
 async function createProfile(username, ageGroup, avatar, level = 'beginner', hobby = 'general') {
   loading(true);
+
+  // Step 1: insert core fields (always present in schema)
   const { data, error } = await db.from('profiles').insert({
     id:        App.user.id,
     email:     App.user.email,
     username,
     age_group: ageGroup,
     avatar,
-    level,
-    hobby,
   }).select().single();
-  loading(false);
 
   if (error) {
+    loading(false);
     toast(error.code === '23505' ? 'Username already taken — try another' : error.message, 'error');
     return false;
   }
 
-  App.profile = data;
+  // Step 2: update extended fields (level, hobby) — added via migration
+  await db.from('profiles').update({ level, hobby }).eq('id', App.user.id);
+
+  loading(false);
+  App.profile = { ...data, level, hobby };
   setTheme(AGE_GROUPS[ageGroup]?.theme || 'default');
   toast(`Welcome to CyberGuard, ${username}! 🎉`, 'success');
-  // Show intro storyline for new users
   showIntro();
   return true;
 }
