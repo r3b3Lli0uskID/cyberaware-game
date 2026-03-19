@@ -98,7 +98,7 @@ async function completeIntro() {
       .then(() => { if (App.profile) App.profile.intro_completed = true; })
       .catch(() => {});
   }
-  renderDashboard();
+  try { renderDashboard(); } catch(e) { console.error('renderDashboard error:', e); }
   showScreen('screen-dashboard');
 }
 
