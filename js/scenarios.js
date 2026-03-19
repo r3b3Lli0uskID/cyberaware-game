@@ -415,7 +415,7 @@ const MISSIONS = {
         },
       }
     },
-  ],
+
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  TEENS  (13–17)                                      ║
@@ -942,7 +942,8 @@ const MISSIONS = {
         points: 100
       }
     ]
-  }
+  },
+  ],
 
   teens: [
     {
@@ -1401,7 +1402,7 @@ const MISSIONS = {
       threats: ['impersonation','urgency_dm','info_harvest','paynow_fee','secrecy_dm'],
       pointsPerThreat: 100,
     },
-  ],
+
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  ADULTS  (18–45)                                     ║
@@ -2122,7 +2123,9 @@ const MISSIONS = {
         points: 0
       }
     }
-  }
+  },
+
+  ],
 
   adults: [
     {
@@ -2577,7 +2580,7 @@ const MISSIONS = {
       threats: ['it_sender_domain','it_urgency','it_remote_tool','it_credential_req','it_no_signature'],
       pointsPerThreat: 100,
     },
-  ],
+
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  SENIORS  (46–65+)                                   ║
@@ -3319,9 +3322,11 @@ const MISSIONS = {
         ],
         points: 100
       }
-    ]
-  }
-]
+    ],
+  },
+
+
+  ],
 
   seniors: [
     {
@@ -3729,8 +3734,8 @@ const MISSIONS = {
         },
       }
     },
-  ],
-};
+
+
 
 // ─── V1.1: Additional Linux/Coding Scenarios for Teens & Adults ───────────────
 
@@ -4258,7 +4263,10 @@ const MISSIONS = {
         points: 100
       }
     ]
-  }
+  },
+
+  ],
+};
 
 MISSIONS.teens.push(
   {
