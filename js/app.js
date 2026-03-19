@@ -326,6 +326,19 @@ async function loadProfile() {
 async function createProfile(username, ageGroup, avatar, level = 'beginner', hobby = 'general') {
   loading(true);
 
+  // Verify session is still active before attempting INSERT
+  const { data: sessionData } = await db.auth.getSession();
+  const session = sessionData?.session;
+  console.log('createProfile: session=', session?.user?.id, 'App.user=', App.user?.id);
+  if (!session) {
+    loading(false);
+    toast('Session expired — please sign in again', 'error');
+    await db.auth.signOut();
+    App.user = null;
+    showScreen('screen-auth');
+    return false;
+  }
+
   // Step 1: insert core fields (always present in schema)
   const { data, error } = await db.from('profiles').insert({
     id:        App.user.id,
