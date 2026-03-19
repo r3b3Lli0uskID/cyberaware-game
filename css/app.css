@@ -258,8 +258,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
 }
 
 [data-theme="seniors"] html,
@@ -322,11 +320,13 @@ button, input, select, textarea {
 /* ── Scrollbar ─────────────────────────────────────────────── */
 /* Firefox */
 * { scrollbar-width: thin; scrollbar-color: var(--color-border) var(--color-bg); }
-/* Chromium */
-::-webkit-scrollbar              { width: 8px; height: 8px; }
-::-webkit-scrollbar-track        { background: var(--color-bg); }
-::-webkit-scrollbar-thumb        { background: var(--color-border); border-radius: var(--radius-full); }
-::-webkit-scrollbar-thumb:hover  { background: var(--color-text-faint); }
+/* Chromium only — wrapped so Firefox ignores without warning */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar              { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track        { background: var(--color-bg); }
+  ::-webkit-scrollbar-thumb        { background: var(--color-border); border-radius: var(--radius-full); }
+  ::-webkit-scrollbar-thumb:hover  { background: var(--color-text-faint); }
+}
 
 /* ============================================================
    4. KEYFRAME ANIMATIONS
