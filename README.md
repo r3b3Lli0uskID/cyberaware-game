@@ -70,7 +70,7 @@ MIT — Free to use, adapt, and share for education purposes.
 - **XP formula** — effective XP = baseXP × age-group multiplier × level multiplier (fully combined)
 - **Intro storyline** — 5-slide mandatory narrative cutscene shown to all new users after profile setup
 - **Foundational course (CS101)** — mandatory first mission per age group covering cybersecurity basics; marked with 📋 badge
-- **28 missions** — foundational missions added (4 new, one per age group); `Advanced` renamed to `Hard`
+- **59 missions** — 30 new missions (kids ×7, teens ×8, adults ×8, seniors ×7) + 4 CS101 foundational; `Advanced` renamed to `Hard`; Expert tier added
 - **DB schema** — `profiles` table extended: `level`, `hobby`, `intro_completed`, `foundational_completed` columns
 - **Dashboard** — shows age group + level together; foundational mission pinned to top with completion status
 
