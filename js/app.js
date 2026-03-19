@@ -93,8 +93,10 @@ function skipIntro() { completeIntro(); }
 
 async function completeIntro() {
   if (App.user) {
-    await db.from('profiles').update({ intro_completed: true }).eq('id', App.user.id);
-    if (App.profile) App.profile.intro_completed = true;
+    // fire-and-forget — don't block navigation if column missing
+    db.from('profiles').update({ intro_completed: true }).eq('id', App.user.id)
+      .then(() => { if (App.profile) App.profile.intro_completed = true; })
+      .catch(() => {});
   }
   renderDashboard();
   showScreen('screen-dashboard');
@@ -872,8 +874,9 @@ async function completeMission() {
 
   // Mark foundational course complete if this was the mandatory mission
   if (mission.mandatory && App.user && !App.profile?.foundational_completed) {
-    await db.from('profiles').update({ foundational_completed: true }).eq('id', App.user.id);
-    if (App.profile) App.profile.foundational_completed = true;
+    db.from('profiles').update({ foundational_completed: true }).eq('id', App.user.id)
+      .then(() => { if (App.profile) App.profile.foundational_completed = true; })
+      .catch(() => {});
   }
 
   // Check + award badges
