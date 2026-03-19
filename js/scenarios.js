@@ -419,7 +419,531 @@ const MISSIONS = {
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  TEENS  (13–17)                                      ║
-  // ╚══════════════════════════════════════════════════════╝
+  // ╚══════════════════════════════════════════════════════╝,
+
+  // 1 — QUIZ: Roblox Account Safety
+  {
+    id: 'kids_new_quiz_1',
+    type: 'quiz',
+    title: 'Roblox Agent',
+    subtitle: 'Keep Your Game Account Safe',
+    icon: '🎮',
+    difficulty: 'Beginner',
+    xp: 400,
+    module: 'gaming-security',
+    tags: ['gaming', 'kids'],
+    briefing: 'You love playing Roblox — but sneaky scammers love it too! They try to trick players into giving away accounts and Robux. Complete this mission to become a Roblox Safety Agent and protect yourself! 🕹️',
+    questions: [
+      {
+        id: 'knq1_q1',
+        story: 'You are playing Roblox when a player named "RobloxAdmin_Official" sends you a message: "Congrats! You have been selected to receive 10,000 FREE Robux! Send us your username AND password to claim your prize right now!"',
+        scenario: 'An in-game message is asking for your Roblox username and password to give you free Robux.',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct! Roblox will NEVER ask for your password in a message. This is a scam to steal your account. Real Robux rewards are given inside the game automatically.',
+          wrong: 'Be careful! No real prize ever needs your password. If you gave it away, a scammer could take over your whole account and delete your items!'
+        },
+        options: [
+          { id: 'a', text: 'Send your username and password quickly before the offer expires!' },
+          { id: 'b', text: 'Ignore the message and tell a parent — Roblox never asks for passwords in chat.' },
+          { id: 'c', text: 'Send only your username, not your password.' },
+          { id: 'd', text: 'Ask the player to send the Robux first, then give your password.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq1_q2',
+        story: 'Your friend tells you about a website: "www.free-robux-generator.fun". He says he typed in his Roblox username and got 5,000 free Robux! He wants you to try it too.',
+        scenario: 'A website promises to generate free Robux if you type in your username.',
+        correct: 'c',
+        feedback: {
+          correct: 'Smart! Free Robux generator websites are ALWAYS fake. They are designed to steal your account information or download bad software. The only real way to get Robux is through the official Roblox app or website.',
+          wrong: 'Free Robux generator websites do not work — they are scam traps. Even your friend\'s account might now be at risk without him knowing it!'
+        },
+        options: [
+          { id: 'a', text: 'Try it — your friend already used it and is fine!' },
+          { id: 'b', text: 'Try it but only type a fake username to be safe.' },
+          { id: 'c', text: 'Do not visit the website — tell your friend it is a scam too.' },
+          { id: 'd', text: 'Ask a different friend if they have used the same website.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq1_q3',
+        story: null,
+        scenario: 'You want to make your Roblox account harder for hackers to break into. Which of these will help the MOST?',
+        correct: 'a',
+        feedback: {
+          correct: 'Using a long, unique password with letters, numbers and symbols is the best way to protect your account. Think of a fun sentence only you would know, like "MyDog3Loves$Noodles"!',
+          wrong: 'A short or simple password is easy for hackers to guess. Using the same password on many games is also risky — if one gets hacked, they all do!'
+        },
+        options: [
+          { id: 'a', text: 'Use a long password with letters, numbers and symbols, and use it ONLY for Roblox.' },
+          { id: 'b', text: 'Use your birthday as your password — it is easy to remember.' },
+          { id: 'c', text: 'Use the same password for Roblox, Minecraft and your school email so you never forget.' },
+          { id: 'd', text: 'Use the name of your favourite game character as your password.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq1_q4',
+        story: 'While playing Roblox, a pop-up covers your screen: "Your Roblox account has a VIRUS! Call 6123-4567 NOW to fix it for free before your account is deleted!" The phone number is shown in big red letters.',
+        scenario: 'A scary pop-up says your account has a virus and tells you to call a phone number.',
+        correct: 'd',
+        feedback: {
+          correct: 'Well done! Roblox and games never show phone numbers to call. This is a fake scare message called a "scareware" pop-up. Close it and tell a parent — do not call that number!',
+          wrong: 'This is a scam! If you called that number, a stranger could ask for your personal information or even ask for money. Game companies never ask you to call them through a pop-up.'
+        },
+        options: [
+          { id: 'a', text: 'Call the number right away — your account might be deleted!' },
+          { id: 'b', text: 'Ask your friend to call the number for you.' },
+          { id: 'c', text: 'Type your Roblox password into the pop-up to "verify" your account.' },
+          { id: 'd', text: 'Close the pop-up immediately and tell a parent about it.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq1_q5',
+        story: null,
+        scenario: 'Your little sister wants to start playing Roblox. What is the MOST important safety advice you should give her first?',
+        correct: 'b',
+        feedback: {
+          correct: 'Setting the account to private and never sharing personal details are the most important first steps. This stops strangers from contacting her or finding out where she lives or goes to school.',
+          wrong: 'While fun tips are nice, safety comes first! Making the account private and knowing never to share personal information are the most important rules for staying safe online.'
+        },
+        options: [
+          { id: 'a', text: 'Show her the best games to play first.' },
+          { id: 'b', text: 'Set the account to private and remind her never to share her real name, school, or address online.' },
+          { id: 'c', text: 'Tell her to add as many friends as possible to level up faster.' },
+          { id: 'd', text: 'Show her how to get free Robux from websites online.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 2 — SPOT-THREAT: Fake Gaming Website
+  {
+    id: 'kids_new_spot_1',
+    type: 'spot-threat',
+    title: 'Trap Spotter',
+    subtitle: 'Find All the Danger Signs on This Website',
+    icon: '🔍',
+    difficulty: 'Beginner',
+    xp: 400,
+    module: 'gaming-security',
+    tags: ['gaming', 'kids'],
+    briefing: 'A fake gaming website is trying to trick kids into giving away their information! Your mission: tap on EVERYTHING that looks dangerous or suspicious. Find all the traps to earn full marks and become a Trap Spotter Champion! 🏆',
+    totalPoints: 600,
+    items: [
+      { id: 'item1', type: 'text', text: 'Website address: http://minecraft-free-diamonds.xyz (no padlock shown)', isThreat: true, threatDesc: '🔴 DANGER: No padlock and a weird address ending in ".xyz"! Real game websites use "https://" and known endings like ".com". This site is NOT safe.' },
+      { id: 'item2', type: 'text', text: '🎉 YOU ARE SELECTED! Enter your Minecraft username and password to claim 1,000 FREE diamonds RIGHT NOW!', isThreat: true, threatDesc: '🔴 SCAM ALERT! No game ever gives free items in exchange for your password. This is trying to steal your account!' },
+      { id: 'item3', type: 'text', text: 'Play our fun browser-based Minecraft mini-games here! 🎮', isThreat: false },
+      { id: 'item4', type: 'text', text: '⬇️ DOWNLOAD our free Minecraft skin changer app — click here! (Not from official app store)', isThreat: true, threatDesc: '🔴 NEVER download apps from random websites! Only download from the Google Play Store, Apple App Store or official game launchers. Unknown downloads can put viruses on your device.' },
+      { id: 'item5', type: 'text', text: 'FLASH SALE: Enter your parent\'s credit card number to upgrade to PREMIUM — only $0.99 for 1 month!', isThreat: true, threatDesc: '🔴 NEVER enter payment details without asking a parent first, and NEVER on a website you just found. Always ask a trusted adult before any online purchase.' },
+      { id: 'item6', type: 'text', text: 'Minecraft community fan art gallery 🖼️', isThreat: false },
+      { id: 'item7', type: 'text', text: 'Fill in this form: Full Name, Home Address, School Name, Age — to join our Minecraft Kids Club!', isThreat: true, threatDesc: '🔴 PERSONAL INFO TRAP! Never give your full name, home address, or school name to any website without asking a parent. This information could be used by strangers to find you.' }
+    ]
+  },
+
+  // 3 — DECISION-TREE: Someone Wants to Be Your Online Friend
+  {
+    id: 'kids_new_dt_1',
+    type: 'decision-tree',
+    title: 'New Online Friend?',
+    subtitle: 'Is This Person Really Who They Say?',
+    icon: '🤔',
+    difficulty: 'Beginner',
+    xp: 400,
+    module: 'social-engineering',
+    tags: ['social', 'kids'],
+    briefing: 'Someone you do not know in real life is trying to become your online friend. Every choice you make matters! Follow the path and make the right decisions to earn your Safety Star badge. 🌟',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'You are playing a game on your tablet when someone named "CoolKid_SG" sends a friend request and a message: "Hey! I\'m 10, I live in Singapore too! I LOVE this game! Want to be friends and play together?" 🎮',
+        choices: [
+          { text: 'Accept straight away — they seem nice and the same age!', next: 'accepted', points: 0 },
+          { text: 'Ask a parent if it is okay before accepting', next: 'asked_parent', points: 100 },
+          { text: 'Ignore the request — you do not know this person', next: 'ignored', points: 50 }
+        ]
+      },
+      accepted: {
+        type: 'choice',
+        text: 'After a week of playing together, "CoolKid_SG" says: "You\'re my best friend! Can I have your WhatsApp number? I want to message you outside the game." 📱',
+        choices: [
+          { text: 'Give my number — we\'ve been friends for a week already!', next: 'gave_number', points: 0 },
+          { text: 'Say no and tell a parent about this conversation', next: 'told_parent_late', points: 50 }
+        ]
+      },
+      asked_parent: {
+        type: 'choice',
+        text: 'Your parent looks at the messages with you. They remind you that anyone online can pretend to be any age. They suggest keeping privacy settings on so only real-life friends can message you. What do you do? 🛡️',
+        choices: [
+          { text: 'Follow my parent\'s advice and update my privacy settings', next: 'great_ending', points: 100 },
+          { text: 'Accept the request anyway — I am sure they are a real kid', next: 'accepted', points: 0 }
+        ]
+      },
+      ignored: {
+        type: 'choice',
+        text: '"CoolKid_SG" sends another message: "Why won\'t you accept my request? I just want to play together! I can give you free in-game coins if you add me 🪙" 🤨',
+        choices: [
+          { text: 'Accept now — free coins AND a new friend sounds great!', next: 'accepted', points: 0 },
+          { text: 'Block the person and tell a parent', next: 'blocked_told', points: 100 }
+        ]
+      },
+      gave_number: {
+        type: 'outcome',
+        text: '❌ "CoolKid_SG" was actually an adult who was not honest about who they were. They now have your phone number and start sending messages at all hours. Your parent has to block them and make a report. Always ask a parent before sharing ANY contact details online — even with people who seem like friends.',
+        points: 0
+      },
+      told_parent_late: {
+        type: 'outcome',
+        text: '✅ You made the right call by telling a parent! Even though you waited a week, you still protected yourself before sharing anything private. Your parent helped you review the conversation and update your privacy settings. Good job for speaking up!',
+        points: 50
+      },
+      great_ending: {
+        type: 'outcome',
+        text: '✅ Amazing! By asking your parent first AND following their advice, you stayed completely safe. You learned a really important lesson: people online are not always who they say they are. Your parent is your best safety partner online! 🏆',
+        points: 0
+      },
+      blocked_told: {
+        type: 'outcome',
+        text: '✅ Great instincts! Blocking someone who offers gifts to get your attention is exactly the right thing to do. Real friends do not need to bribe you. Telling a parent means they can help keep you safe. You earned your Safety Star! 🌟',
+        points: 0
+      }
+    }
+  },
+
+  // 4 — QUIZ: Cyberbullying & Screen Time
+  {
+    id: 'kids_new_quiz_2',
+    type: 'quiz',
+    title: 'Digital Kindness Champion',
+    subtitle: 'Cyberbullying and Being a Good Online Friend',
+    icon: '💙',
+    difficulty: 'Beginner',
+    xp: 400,
+    module: 'social-engineering',
+    tags: ['social', 'kids'],
+    briefing: 'Being kind online matters just as much as being kind in school or at home! In this mission, you will learn what cyberbullying looks like, how to help a friend who is being bullied, and how to be a Digital Kindness Champion! 💙',
+    questions: [
+      {
+        id: 'knq2_q1',
+        story: 'Your classmate Wei posted a drawing she made on her school tablet. Some kids in your class group chat are sending laughing emojis and saying "this is so bad 😂😂 who taught you to draw??" Wei has gone quiet in the chat.',
+        scenario: 'Other kids in a group chat are making fun of a classmate\'s artwork and she has gone silent.',
+        correct: 'c',
+        feedback: {
+          correct: 'Being an upstander takes courage, but it makes a real difference! Standing up for Wei in the chat — even just saying "that\'s not nice" — can help her feel less alone. Telling a trusted adult means a grown-up can also step in to stop it properly.',
+          wrong: 'Laughing along or staying quiet makes things worse for Wei. Even silence can feel like agreement to someone being bullied. Being a true friend means speaking up!'
+        },
+        options: [
+          { id: 'a', text: 'Send a laughing emoji too — everyone else is doing it.' },
+          { id: 'b', text: 'Stay quiet and watch — it is not your problem.' },
+          { id: 'c', text: 'Stand up for Wei in the chat and tell a trusted adult like a teacher.' },
+          { id: 'd', text: 'Leave the group chat without saying anything.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq2_q2',
+        story: null,
+        scenario: 'Which of these is an example of CYBERBULLYING?',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct! Sending repeated mean or threatening messages to someone online is cyberbullying. It does not matter if it happens in a game, a group chat, or social media — it is always wrong and always hurtful.',
+          wrong: 'Cyberbullying means using technology to deliberately hurt, embarrass, or threaten someone repeatedly. It is not the same as having an argument or disagreeing about something in a game.'
+        },
+        options: [
+          { id: 'a', text: 'Disagreeing with a friend about which game is better.' },
+          { id: 'b', text: 'Sending someone mean messages every day telling them they are ugly and nobody likes them.' },
+          { id: 'c', text: 'Losing a game and feeling upset about it.' },
+          { id: 'd', text: 'Not wanting to play with someone new in an online game.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq2_q3',
+        story: 'Your friend Siti tells you that someone at school made a fake Instagram account using her photo and name, and has been posting embarrassing things pretending to be her. She is really upset and does not know what to do.',
+        scenario: 'Your friend has had a fake account made in her name and is very distressed.',
+        correct: 'a',
+        feedback: {
+          correct: 'Exactly right! Creating a fake account to impersonate someone is a form of cyberbullying and is actually against the law in Singapore. The very first step is to tell a trusted adult — a parent or teacher — who can help report the account and get it removed.',
+          wrong: 'Your friend needs adult help right away. Creating fake accounts is against every platform\'s rules AND potentially against the law. A trusted adult can take the right steps to get it removed quickly.'
+        },
+        options: [
+          { id: 'a', text: 'Tell her to show a parent or teacher straight away so they can report the fake account.' },
+          { id: 'b', text: 'Tell her to create her own fake account to expose the bully.' },
+          { id: 'c', text: 'Advise her to delete her real Instagram account so people do not get confused.' },
+          { id: 'd', text: 'Tell her to ignore it and it will go away on its own.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq2_q4',
+        story: null,
+        scenario: 'You are feeling upset after a bad day at school and you want to post something angry on a class group chat. What should you do?',
+        correct: 'd',
+        feedback: {
+          correct: 'Taking a break before posting something when you are angry is one of the most important digital skills! Once something is sent or posted, you cannot fully take it back — screenshots last forever. Talking to someone you trust in person is always a better way to deal with big feelings.',
+          wrong: 'Posting when you are angry often leads to saying things you will regret. Words online can hurt people and screenshots can last forever, even if you delete the post.'
+        },
+        options: [
+          { id: 'a', text: 'Type everything you are feeling and send it immediately.' },
+          { id: 'b', text: 'Post something vague that people will not understand.' },
+          { id: 'c', text: 'Tag the person who upset you so everyone knows what they did.' },
+          { id: 'd', text: 'Step away from the screen, take some deep breaths, and talk to a trusted adult instead.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq2_q5',
+        story: 'You are playing an online game and another player keeps calling you bad names and saying you are terrible at the game. It is making you feel sad and you do not want to play anymore.',
+        scenario: 'Another player is being mean and insulting to you in an online game and it is upsetting you.',
+        correct: 'b',
+        feedback: {
+          correct: 'Using the Block and Report buttons in the game is exactly what they are there for! You do not have to put up with mean players. Blocking stops them from talking to you, and reporting tells the game team so they can take action and protect other players too.',
+          wrong: 'You do not have to accept mean behaviour in any game! The right tools are Block and Report. Never reply with more meanness — it usually makes things worse.'
+        },
+        options: [
+          { id: 'a', text: 'Call them names back — they deserve it!' },
+          { id: 'b', text: 'Use the Block and Report buttons in the game, and tell a parent.' },
+          { id: 'c', text: 'Quit the game and never play it again.' },
+          { id: 'd', text: 'Ask all your friends to gang up on the mean player.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 5 — SPOT-THREAT: Suspicious WhatsApp Message
+  {
+    id: 'kids_new_spot_2',
+    type: 'spot-threat',
+    title: 'Message Detective',
+    subtitle: 'Spot the Traps in This WhatsApp Message',
+    icon: '📩',
+    difficulty: 'Intermediate',
+    xp: 400,
+    module: 'scams',
+    tags: ['social', 'kids'],
+    briefing: 'Your mission: read this WhatsApp message carefully and tap on EVERY part that looks suspicious or dangerous. Some parts are fine — only flag the real threats! Can you spot them all? 🕵️',
+    totalPoints: 500,
+    items: [
+      { id: 'item1', type: 'text', text: 'Sender: +65 9999 8888 (Unknown number, not saved in your contacts)', isThreat: true, threatDesc: '🔴 UNKNOWN SENDER: You do not know this person. Messages from strangers should always make you careful — never reply or click links without checking with a parent first.' },
+      { id: 'item2', type: 'text', text: '"Congratulations! You have won a $500 Grab voucher in the National Day Lucky Draw!" 🎉', isThreat: true, threatDesc: '🔴 FAKE PRIZE CLAIM: You cannot win a lucky draw you never entered! "Congratulations you won" messages from strangers are almost always scams.' },
+      { id: 'item3', type: 'text', text: '"This offer expires in ONE HOUR — claim NOW or lose your prize forever!" ⏰', isThreat: true, threatDesc: '🔴 FAKE URGENCY: Creating a time limit is a trick to make you panic and act without thinking. Real prizes do not disappear in one hour.' },
+      { id: 'item4', type: 'text', text: '"Click here to claim: www.grab-lucky-draw-sg.xyz/claim"', isThreat: true, threatDesc: '🔴 FAKE LINK: The real Grab website is grab.com. ".xyz" domains are not used by real companies. This link will try to steal your personal information.' },
+      { id: 'item5', type: 'text', text: '"You can use GrabFood to order bubble tea, chicken rice and more in Singapore 🧋"', isThreat: false },
+      { id: 'item6', type: 'text', text: '"To verify your identity, reply with your full name, home address and NRIC number."', isThreat: true, threatDesc: '🔴 PERSONAL INFO HARVESTING: NEVER give your home address or any ID number in a WhatsApp message to a stranger. This is how scammers steal identities.' }
+    ]
+  },
+
+  // 6 — DECISION-TREE: School Computer Safety
+  {
+    id: 'kids_new_dt_2',
+    type: 'decision-tree',
+    title: 'School Computer Mission',
+    subtitle: 'Stay Safe on Your School Chromebook',
+    icon: '💻',
+    difficulty: 'Beginner',
+    xp: 400,
+    module: 'privacy',
+    tags: ['education', 'kids'],
+    briefing: 'You use your school Chromebook every day. But do you know how to use it safely? Follow this mission to make the right choices and protect yourself — and your classmates — on school devices! 🏫',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'Your friend Zack asks to borrow your school Chromebook to check something online during recess. He says it will only take one minute. 💻',
+        choices: [
+          { text: 'Let him use it — he is my best friend and it is only one minute!', next: 'lent_it', points: 0 },
+          { text: 'Say no politely and remind him to use his own device', next: 'said_no', points: 100 },
+          { text: 'Let him use it but watch what he does the whole time', next: 'watched', points: 50 }
+        ]
+      },
+      lent_it: {
+        type: 'choice',
+        text: 'Zack uses your Chromebook and visits a gaming website the school has blocked. The school\'s filter logs the visit under YOUR account. Your teacher sees it and calls YOU to the office. 😬',
+        choices: [
+          { text: 'Tell the truth: I lent my device and did not know what Zack was doing', next: 'told_truth', points: 50 },
+          { text: 'Say nothing and hope the teacher forgets about it', next: 'stayed_silent', points: 0 }
+        ]
+      },
+      said_no: {
+        type: 'choice',
+        text: 'Zack is a little annoyed but finds a school iPad to use instead. Later, the school discovers that iPad was used to visit a blocked site. Because you used your own device only, your record is completely clean. 🌟',
+        choices: [
+          { text: 'Feel good about my decision and remind Zack why school rules matter', next: 'great_ending', points: 100 }
+        ]
+      },
+      watched: {
+        type: 'choice',
+        text: 'Even though you watched, Zack managed to open a blocked site in a new tab when you looked away for a second. The visit is now logged under your school account. 😕',
+        choices: [
+          { text: 'Report it to the teacher and explain what happened', next: 'told_truth', points: 50 },
+          { text: 'Delete the browser history and hope nobody notices', next: 'deleted_history', points: 0 }
+        ]
+      },
+      told_truth: {
+        type: 'outcome',
+        text: '✅ Good decision to be honest! Your teacher appreciates you telling the truth. You received a small reminder about device sharing rules. Remember: your school account is YOUR responsibility — only YOU should use it.',
+        points: 0
+      },
+      stayed_silent: {
+        type: 'outcome',
+        text: '❌ Staying silent when you did nothing wrong makes things worse. The incident stays on your record. Always tell the truth to a trusted adult — honesty is always the better path.',
+        points: 0
+      },
+      great_ending: {
+        type: 'outcome',
+        text: '✅ Perfect! You protected your school record AND helped your friend understand why the rules exist. School devices are linked to your personal account — what happens on them is your responsibility. Great digital citizenship! 🏆',
+        points: 0
+      },
+      deleted_history: {
+        type: 'outcome',
+        text: '❌ Deleting browser history on a school Chromebook does not actually remove the logs from the school\'s system — it is still recorded on the school server. Now you have an additional problem. Always be honest with teachers when something goes wrong.',
+        points: 0
+      }
+    }
+  },
+
+  // 7 — QUIZ: Passwords and Privacy (Intermediate)
+  {
+    id: 'kids_new_quiz_3',
+    type: 'quiz',
+    title: 'Password Protector',
+    subtitle: 'Secrets, Passwords and Private Information',
+    icon: '🔐',
+    difficulty: 'Intermediate',
+    xp: 400,
+    module: 'identity',
+    tags: ['general', 'kids'],
+    briefing: 'Your passwords and private information are like the keys to your house — you would not give them to just anyone! In this mission you will learn how to protect your most important digital secrets. Ready, Password Protector? 🔑',
+    questions: [
+      {
+        id: 'knq3_q1',
+        story: null,
+        scenario: 'Which of these is the SAFEST password to use for your online game account?',
+        correct: 'c',
+        feedback: {
+          correct: 'A longer password with a mix of capital letters, small letters, numbers AND symbols is the strongest! Think of a silly sentence you will remember, then take the first letter of each word and add numbers and symbols.',
+          wrong: 'Short passwords and words from the dictionary are the first things hackers try to guess. A strong password is long, random and uses a mix of different types of characters.'
+        },
+        options: [
+          { id: 'a', text: 'sunshine' },
+          { id: 'b', text: 'Ivan2012' },
+          { id: 'c', text: 'T!ger$Run7Fast#Sky' },
+          { id: 'd', text: 'qwerty123' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q2',
+        story: 'Your best friend Aisha wants to know your game password so she can log in and collect your daily bonus while you are on holiday.',
+        scenario: 'Your trusted best friend is asking for your game account password.',
+        correct: 'd',
+        feedback: {
+          correct: 'Even with your best friend, you should NEVER share your password! Passwords are private even from friends. If Aisha accidentally shares it with someone else, or if someone looks over her shoulder, your account could be taken over. Ask your parents to help find another way.',
+          wrong: 'Passwords should always be kept private — even from best friends! It is not about trust; it is about keeping your account safe. There is always a safer way to handle this situation.'
+        },
+        options: [
+          { id: 'a', text: 'Tell her — she is my best friend and I trust her completely.' },
+          { id: 'b', text: 'Tell her but make her promise not to tell anyone else.' },
+          { id: 'c', text: 'Write it down on a piece of paper and give it to her at school.' },
+          { id: 'd', text: 'Say no politely and ask a parent to help find another solution.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q3',
+        story: 'You are filling in a form on a new educational game website. It asks for: your nickname (username), email address, age, full home address, and your school name.',
+        scenario: 'A new game website is asking for several pieces of personal information to sign up.',
+        correct: 'b',
+        feedback: {
+          correct: 'Exactly right! Games and educational websites typically only need a username, email and age. Your full home address and school name are private information that websites do not need — and asking for them is a red flag. Always check with a parent before giving any personal details online.',
+          wrong: 'Not all information is needed just because a form asks for it. Your home address and school name are private details that games do not need. Always ask a parent before filling in forms that request personal information.'
+        },
+        options: [
+          { id: 'a', text: 'Fill in everything — the website needs all this information to work.' },
+          { id: 'b', text: 'Stop and ask a parent before filling in anything — home address and school name are private.' },
+          { id: 'c', text: 'Fill in a made-up address so your real one is protected.' },
+          { id: 'd', text: 'Only fill in your full name and skip the rest.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q4',
+        story: null,
+        scenario: 'What does it mean to use Two-Factor Authentication (2FA) on a game account?',
+        correct: 'a',
+        feedback: {
+          correct: 'That is exactly what 2FA does! It adds a second check — like a special code sent to your parent\'s phone — so that even if someone guesses your password, they STILL cannot get into your account without that code. It is like having two locks on one door!',
+          wrong: '2FA is about adding a SECOND step to log in — usually a code sent to your phone or email. This means hackers need BOTH your password AND that code to get in, making your account much harder to break into.'
+        },
+        options: [
+          { id: 'a', text: 'When you log in, you also need a special code sent to your phone or email to prove it is really you.' },
+          { id: 'b', text: 'You use two different passwords at the same time.' },
+          { id: 'c', text: 'Your account gets deleted if someone tries to log in twice incorrectly.' },
+          { id: 'd', text: 'You need to answer two security questions every time you play.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q5',
+        story: 'You are at a shopping mall and you see a sign: "FREE WiFi — KidZone_FreeWifi — no password needed!" You want to play your mobile game while waiting for your parents.',
+        scenario: 'There is a free open WiFi network available at the mall.',
+        correct: 'c',
+        feedback: {
+          correct: 'Open WiFi networks (ones with no password) are risky because anyone can be on the same network and potentially see what you are doing. Ask your parents if it is okay and use your mobile data or the mall\'s official WiFi instead. If your parents are nearby, it is even better to just wait until you are home.',
+          wrong: 'Open WiFi networks that require no password can be set up by anyone — even a scammer. It is much safer to ask a parent first, use mobile data, or wait until you are home on your safe home WiFi.'
+        },
+        options: [
+          { id: 'a', text: 'Connect immediately — free WiFi is great and there is no password so it must be safe!' },
+          { id: 'b', text: 'Connect but only play games, not watch videos, to save data.' },
+          { id: 'c', text: 'Ask a parent first, or use your mobile data instead.' },
+          { id: 'd', text: 'Connect but do not tell your parents so they do not worry.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q6',
+        story: 'You receive an email saying your school library account will be "DELETED" unless you log in using a link in the email right now. The email address is: noreply@schoolibrary-sg.com',
+        scenario: 'An urgent email threatens to delete your school account if you do not click a link.',
+        correct: 'b',
+        feedback: {
+          correct: 'Well spotted! Real school systems never threaten to delete your account in an email, and they would use your school\'s official email address (ending in your school\'s domain, not a random .com). This is a phishing email. Always check with a parent or teacher before clicking any link in an email like this.',
+          wrong: 'This is a phishing email — a fake email designed to trick you into clicking a dangerous link. The email address is not from your real school, and real school systems do not threaten to delete your account by email. Always tell a trusted adult before clicking links in urgent emails.'
+        },
+        options: [
+          { id: 'a', text: 'Click the link quickly so your account is not deleted!' },
+          { id: 'b', text: 'Do not click the link — show it to a parent or teacher instead.' },
+          { id: 'c', text: 'Reply to the email and ask if it is real.' },
+          { id: 'd', text: 'Forward the email to all your friends to warn them.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'knq3_q7',
+        story: null,
+        scenario: 'Which of these pieces of information should you NEVER post on a public gaming profile or social media page?',
+        correct: 'd',
+        feedback: {
+          correct: 'Your home address and school name together are very dangerous to post publicly because they tell strangers exactly where you live and where you can be found every day. Always keep this information private, no matter which platform you use.',
+          wrong: 'While a username and favourite game are fine to share publicly, your home address and school name are private details that strangers could use to find you in real life. Always keep those private!'
+        },
+        options: [
+          { id: 'a', text: 'Your gaming username' },
+          { id: 'b', text: 'Your favourite game' },
+          { id: 'c', text: 'Your country (Singapore)' },
+          { id: 'd', text: 'Your home address and school name' }
+        ],
+        points: 100
+      }
+    ]
+  }
+
   teens: [
     {
       id: 'teens_quiz_1',
@@ -881,7 +1405,725 @@ const MISSIONS = {
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  ADULTS  (18–45)                                     ║
-  // ╚══════════════════════════════════════════════════════╝
+  // ╚══════════════════════════════════════════════════════╝,
+
+  // 1 — QUIZ: Instagram & TikTok Privacy
+  {
+    id: 'teens_new_quiz_1',
+    type: 'quiz',
+    title: 'Social Media Intel',
+    subtitle: 'Privacy on Instagram and TikTok',
+    icon: '📱',
+    difficulty: 'Intermediate',
+    xp: 600,
+    module: 'privacy',
+    tags: ['social', 'tech'],
+    briefing: 'MISSION BRIEFING: Social media platforms are the #1 hunting ground for scammers, predators and data harvesters targeting teens. Your mission: complete 7 questions to master social media privacy and threat recognition. 📡',
+    questions: [
+      {
+        id: 'tnq1_q1',
+        story: 'You post a TikTok showing you getting ready for school. Your uniform shows your school name. The caption says "Monday grind at Bishan 😴" and your location is tagged as "Bishan, Singapore". Your account is public with 800 followers, most of whom you do not know personally.',
+        scenario: 'Your public TikTok combines school name, location, and a real-time routine post.',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. School uniform + location + daily routine = a stranger can identify exactly where you are every Monday morning at a specific time. This combination is a physical safety risk, not just a privacy issue. Set your account to private and remove location tags from posts.',
+          wrong: 'Think beyond the algorithm. This is not about likes — it is about what a stranger with bad intentions can figure out from this post. School + location + routine gives them a map to find you in real life.'
+        },
+        options: [
+          { id: 'a', text: 'Nothing serious — location tags help get more views in Singapore.' },
+          { id: 'b', text: 'A stranger can identify your school, home area, and daily routine — a real physical safety risk.' },
+          { id: 'c', text: 'Your school might see it and give you a uniform violation notice.' },
+          { id: 'd', text: 'TikTok might restrict the video for showing your face in uniform.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q2',
+        story: 'A brand account "SG_FashionDrops" follows you on Instagram and sends a DM: "Hey! You have great style. We want to send you FREE clothes to review — just fill in this Google Form with your full name, home address, phone number and bank account details for the $50 bonus payment."',
+        scenario: 'An Instagram brand account offers you free products and payment in exchange for personal details via a Google Form.',
+        correct: 'c',
+        feedback: {
+          correct: 'Correct. Legitimate brand partnerships never happen cold via DM from a random follow. Requesting your bank account details upfront is a major red flag — brands that work with creators use proper agency contracts and platforms like PayPal. This is a data harvesting scam.',
+          wrong: 'The request for bank account details is the clearest red flag. No legitimate brand sends you a random DM asking for banking information. This is a data harvesting scam — your bank details could be used for fraud.'
+        },
+        options: [
+          { id: 'a', text: 'Fill in the form — free clothes and $50 is a great deal!' },
+          { id: 'b', text: 'Fill in the form but skip the bank account section.' },
+          { id: 'c', text: 'Ignore it — no legitimate brand asks for bank details via a DM Google Form.' },
+          { id: 'd', text: 'Ask them to send the clothes first before giving any details.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q3',
+        story: 'You are applying for a polytechnic course. An admissions blog says schools commonly Google applicants. You have old public posts including: a rant about a teacher with her name, photos from a party where others are drinking, and jokes that seemed funny at 13 but look bad now.',
+        scenario: 'Old public posts could affect your polytechnic application.',
+        correct: 'a',
+        feedback: {
+          correct: 'The most effective immediate step is to make everything private while you do a full audit. Deleting specific posts matters, but a quick privacy lock ensures nothing new surfaces while you review everything carefully. Then go through post by post and delete anything that could misrepresent you.',
+          wrong: 'While ignoring it or hoping for the best might feel easier, polytechnic admissions staff and employers do Google applicants. The safest approach is to lock your accounts immediately and audit all old content.'
+        },
+        options: [
+          { id: 'a', text: 'Set all accounts to private immediately and do a full audit, deleting problematic posts.' },
+          { id: 'b', text: 'Only delete the rant about the teacher — the rest is fine.' },
+          { id: 'c', text: 'Leave everything — admissions staff are too busy to search for you.' },
+          { id: 'd', text: 'Make a new account and abandon the old one without deleting it.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q4',
+        story: null,
+        scenario: 'What does it mean when a free app requests permission to access your Contacts, Camera, Microphone, and Location — even when the app is a simple game with no social or GPS features?',
+        correct: 'd',
+        feedback: {
+          correct: 'Exactly. An app requesting permissions it has no functional need for is a classic data harvesting technique. Free apps often monetise by selling your data — your contact list, location history and microphone recordings have commercial value. Always review permissions before granting them and deny anything unnecessary.',
+          wrong: 'Apps do not need permissions beyond their core function. A simple game does not need your microphone or contacts. These excess permissions are designed to harvest data for advertising or to be sold to third parties.'
+        },
+        options: [
+          { id: 'a', text: 'The developers are just being thorough in case they add features later.' },
+          { id: 'b', text: 'All apps need these permissions to work properly on Android and iOS.' },
+          { id: 'c', text: 'Granting permissions helps the app run faster.' },
+          { id: 'd', text: 'The app is likely collecting and selling your data — deny unnecessary permissions.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q5',
+        story: 'You are on Discord and a server admin you have never met says: "Hey, we need to verify all members are 18+ to stay in this server. Send me a photo of your school ID or NRIC to verify — it will be deleted after."',
+        scenario: 'A Discord server admin is requesting a photo of your government ID for "verification".',
+        correct: 'b',
+        feedback: {
+          correct: 'No Discord server has a legitimate reason to request a photo of your NRIC or school ID. This is either identity theft, grooming, or blackmail setup. Discord\'s own age verification, if required, is handled through their platform — never via DM photo requests. Leave the server and report it.',
+          wrong: 'Discord does not authorise server admins to collect government IDs. Sending a photo of your NRIC gives a stranger your full name, date of birth, and ID number — enough to commit identity fraud or to blackmail you. Never do this.'
+        },
+        options: [
+          { id: 'a', text: 'Send the photo — you want to stay in the server and it will be deleted after.' },
+          { id: 'b', text: 'Refuse, leave the server, and report the admin to Discord.' },
+          { id: 'c', text: 'Send a blurred version of your ID so they cannot read the numbers.' },
+          { id: 'd', text: 'Ask other server members if they have also been asked for ID.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q6',
+        story: 'Your Instagram story shows you at the airport with your boarding pass visible in the background. The barcode and your full name are clearly readable.',
+        scenario: 'Your Instagram story has your boarding pass with full name and barcode visible.',
+        correct: 'c',
+        feedback: {
+          correct: 'Boarding pass barcodes contain your full name, frequent flyer number, flight details, and booking reference. With a barcode scanner app (free, widely available), someone can extract all of this and potentially access your booking, change your seat, or use your frequent flyer points. Delete the story immediately.',
+          wrong: 'Boarding pass barcodes contain much more than just your name. A free barcode scanner app can extract your full booking reference, allowing someone to access and modify your flight reservation or claim your frequent flyer miles.'
+        },
+        options: [
+          { id: 'a', text: 'It is fine — everyone posts travel photos and your face is not in it.' },
+          { id: 'b', text: 'The risk is low — nobody would bother scanning a barcode on Instagram.' },
+          { id: 'c', text: 'Delete the story immediately — the barcode contains your booking data and frequent flyer details.' },
+          { id: 'd', text: 'Blur just your name and repost the story.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq1_q7',
+        story: null,
+        scenario: 'You use the same email address and password for Instagram, Shopee, and your school email. Your Shopee account gets hacked. What is the MOST immediate additional risk?',
+        correct: 'a',
+        feedback: {
+          correct: 'This is called a credential stuffing attack. Hackers who compromise one account automatically try the same username and password combination on hundreds of other services. Because you reused credentials, your Instagram and school email are now at high risk too. Change ALL of them immediately and use a unique password for each account.',
+          wrong: 'Password reuse is one of the most dangerous habits online. When one account is breached, attackers immediately try the same credentials on other platforms. Your Instagram and school email could be compromised within minutes.'
+        },
+        options: [
+          { id: 'a', text: 'Hackers will try the same password on your Instagram and school email immediately — change all of them now.' },
+          { id: 'b', text: 'Only your Shopee account is at risk since that is what was hacked.' },
+          { id: 'c', text: 'The risk is only financial — hackers only want to use your Shopee store credit.' },
+          { id: 'd', text: 'Report it to Shopee and wait — they will handle everything.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 2 — SPOT-THREAT: Fake Carousell Listing
+  {
+    id: 'teens_new_spot_1',
+    type: 'spot-threat',
+    title: 'Carousell Threat Scan',
+    subtitle: 'Spot Every Red Flag in This Listing',
+    icon: '🛍️',
+    difficulty: 'Intermediate',
+    xp: 600,
+    module: 'scams',
+    tags: ['finance', 'social'],
+    briefing: 'MISSION: A suspicious Carousell listing has been flagged by the SPF Anti-Scam Centre. Identify EVERY threat indicator in this listing and seller profile. Your score depends on finding all of them. 🔍',
+    totalPoints: 700,
+    items: [
+      { id: 'item1', type: 'text', text: 'Seller account created 2 days ago. 0 reviews. 0 transactions.', isThreat: true, threatDesc: '🔴 BRAND NEW ACCOUNT: Scammers create fresh accounts for each campaign to avoid a negative review history. Always prefer sellers with verified reviews and transaction history.' },
+      { id: 'item2', type: 'text', text: 'PlayStation 5 Console (Brand New Sealed) — $250 (original price $899)', isThreat: true, threatDesc: '🔴 TOO GOOD TO BE TRUE: A sealed PS5 at $250 vs the $899 retail price is a major red flag. If a deal seems impossibly good, it almost always is. Scammers use extreme discounts to attract victims.' },
+      { id: 'item3', type: 'text', text: '"I am selling because I received it as a duplicate gift from two relatives. Urgent sale, migrating next week."', isThreat: true, threatDesc: '🔴 EMOTIONAL BACKSTORY + URGENCY: Elaborate personal stories ("migrating", "duplicate gift") are classic manipulation tactics to make the listing seem legitimate and pressure you to act fast.' },
+      { id: 'item4', type: 'text', text: '"Meet-up available at Jurong East MRT" 📍', isThreat: false },
+      { id: 'item5', type: 'text', text: '"Please pay via PayNow to 8XXXX123 FIRST before meet-up to confirm reservation. Non-refundable."', isThreat: true, threatDesc: '🔴 ADVANCE PAYMENT SCAM: Requesting PayNow payment before any meetup or inspection is the core of this scam. Once you send the money, the seller disappears. NEVER pay before inspecting goods in person.' },
+      { id: 'item6', type: 'text', text: '"If you want to check authenticity, I can send you a video of the sealed box first."', isThreat: true, threatDesc: '🔴 VIDEO "PROOF" TRICK: Videos can be downloaded from the internet or staged. A video of a sealed box proves nothing about what you will actually receive. Always inspect in person before paying.' },
+      { id: 'item7', type: 'text', text: 'Listing photos appear to be stock images taken from a Sony product page.', isThreat: true, threatDesc: '🔴 STOCK PHOTO LISTING: Using official product stock photos instead of real photos of the actual item is a classic scam signal. A genuine seller will have their own photos of the specific item they own.' }
+    ]
+  },
+
+  // 3 — DECISION-TREE: Romance Scam on Instagram
+  {
+    id: 'teens_new_dt_1',
+    type: 'decision-tree',
+    title: 'The Charming Stranger',
+    subtitle: 'Recognise a Romance Scam Before It Is Too Late',
+    icon: '💔',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'scams',
+    tags: ['social', 'finance'],
+    briefing: 'INTEL: Romance scams are the fastest-growing scam category in Singapore targeting teens and young adults. A stranger has appeared in your DMs. Every decision you make determines whether you protect yourself or fall victim. Stay sharp. 🎯',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'A new follower "Marcus_Official" with 1,200 followers and a profile of a very attractive 17-year-old sends you a DM: "Hey! I saw your profile and think you\'re really cool. I just moved to Singapore from Melbourne. Want to be friends? 😊" He seems friendly and his photos look genuine. 📱',
+        choices: [
+          { text: 'Reply and start chatting — he seems genuine and good-looking!', next: 'chatting', points: 0 },
+          { text: 'Check his profile carefully before responding', next: 'profile_check', points: 100 },
+          { text: 'Ignore the DM — you do not accept messages from strangers', next: 'ignored', points: 50 }
+        ]
+      },
+      chatting: {
+        type: 'choice',
+        text: 'After two weeks of daily conversations, Marcus tells you he is actually an investment trader who made $50,000 last month from crypto. He says: "I really like you and I want to teach you how to make money too. I can start you with just $200 on my platform. Trust me 😍"',
+        choices: [
+          { text: 'Send the $200 via PayNow — Marcus likes me and wants to help me!', next: 'sent_money', points: 0 },
+          { text: 'Refuse any money request and tell a parent about this person', next: 'told_parent', points: 100 },
+          { text: 'Ask Marcus to prove his earnings with a bank statement first', next: 'asked_proof', points: 50 }
+        ]
+      },
+      profile_check: {
+        type: 'choice',
+        text: 'You reverse image search his profile photo on Google. The same photo appears on multiple fake social media profiles with different names: "Jake from Perth", "Liam from London", "Chris from Canada". The account was created 3 weeks ago. 🔍',
+        choices: [
+          { text: 'Confront Marcus with your findings and see what he says', next: 'confronted', points: 50 },
+          { text: 'Block the account, report it to Instagram, and tell a parent', next: 'reported_early', points: 100 }
+        ]
+      },
+      ignored: {
+        type: 'choice',
+        text: 'Marcus sends a follow-up: "Hey, did you see my message? I am new in Singapore and do not know many people. I promise I am genuine! Here is my school ID photo as proof 📷" He sends a photo of what looks like an ID card.',
+        choices: [
+          { text: 'Reply now — he sent his ID so he must be real', next: 'chatting', points: 0 },
+          { text: 'Block and report the account — real people do not send ID photos to strangers', next: 'reported_early', points: 100 }
+        ]
+      },
+      sent_money: {
+        type: 'choice',
+        text: 'You sent $200. Marcus shows you a screenshot of your investment "growing to $800" in just two days. He says: "To withdraw your profits you need to pay a $150 verification fee first. It will come back to you with your winnings!" 💸',
+        choices: [
+          { text: 'Pay the $150 fee — $800 profit sounds worth it!', next: 'lost_more', points: 0 },
+          { text: 'Refuse to pay more and tell a parent everything right now', next: 'damage_report', points: 50 }
+        ]
+      },
+      told_parent: {
+        type: 'outcome',
+        text: '✅ Smart move. Your parent recognised the classic "pig butchering" crypto romance scam pattern immediately. You never lost any money. You reported the account to Instagram and the SPF Anti-Scam helpline (1800-722-6688). Marcus disappeared as soon as you stopped engaging.',
+        points: 0
+      },
+      asked_proof: {
+        type: 'outcome',
+        text: '⚠️ Marcus sent a convincing-looking screenshot of a trading dashboard. But screenshots can be faked in minutes. You are still talking to a scammer. The safest move is to tell a parent about this person — any online contact asking for money, no matter how charming, is a massive red flag.',
+        points: 0
+      },
+      confronted: {
+        type: 'outcome',
+        text: '⚠️ Marcus has a believable explanation for everything. He is a professional scammer — they are trained to handle confrontation. You are now more convinced he is real than before. Do not engage further. Block, report and tell a parent. The reverse image search result was the only truth you needed.',
+        points: 0
+      },
+      reported_early: {
+        type: 'outcome',
+        text: '✅ Perfect execution. You used a reverse image search, identified the stolen photos, and reported the fake account before any conversation or money transfer. This is exactly how to handle suspicious follower requests. You protected yourself and helped remove a scammer targeting other teens. 🏆',
+        points: 0
+      },
+      lost_more: {
+        type: 'outcome',
+        text: '❌ The "verification fee" was taken and Marcus immediately blocked you. Total loss: $350. This scam is called "pig butchering" — they fatten you up with small gains before taking everything. Report to SPF Anti-Scam Command (1800-722-6688) and file an e-report at police.gov.sg. Time is critical for fund recovery.',
+        points: 0
+      },
+      damage_report: {
+        type: 'outcome',
+        text: '⚠️ You stopped before losing more, but the $200 is likely gone. Tell your parents immediately and file a report with the SPF Anti-Scam hotline (1800-722-6688). Losing $200 is painful but the lesson is priceless: online relationships that quickly lead to investment opportunities are ALWAYS scams.',
+        points: 0
+      }
+    }
+  },
+
+  // 4 — QUIZ: Discord & Gaming Security
+  {
+    id: 'teens_new_quiz_2',
+    type: 'quiz',
+    title: 'Discord Defender',
+    subtitle: 'Threats in Gaming Platforms and Discord Servers',
+    icon: '🎧',
+    difficulty: 'Intermediate',
+    xp: 600,
+    module: 'gaming-security',
+    tags: ['gaming', 'social'],
+    briefing: 'MISSION BRIEFING: Discord and gaming platforms are prime targets for account takeovers, phishing bots, and grooming. Your job is to identify every threat type and know exactly how to respond. 7 questions. No lifelines. Go. 🎮',
+    questions: [
+      {
+        id: 'tnq2_q1',
+        story: 'You receive a Discord DM from a bot: "⚠️ DISCORD SECURITY ALERT: Suspicious login detected. Verify your account within 24 hours or it will be SUSPENDED. Click: discord-security-verify.net"',
+        scenario: 'A bot DMs you with an account suspension threat and a verification link.',
+        correct: 'c',
+        feedback: {
+          correct: 'Correct. Official Discord communications come only from email (not DMs) and the URL would be discord.com — not any variation. This is a phishing attempt. Report the bot using Discord\'s built-in report function and do not click anything.',
+          wrong: 'Discord never suspends accounts via DM links from bots. The URL "discord-security-verify.net" is not Discord\'s official domain. This is a credential phishing bot — ignore it and report it.'
+        },
+        options: [
+          { id: 'a', text: 'Click the link — the 24-hour deadline sounds serious.' },
+          { id: 'b', text: 'Reply to the bot asking for more information.' },
+          { id: 'c', text: 'Ignore the DM, report the bot, and check your account status directly at discord.com.' },
+          { id: 'd', text: 'Change your password just in case, then click the link.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q2',
+        story: 'You are in a Valorant Discord server. An admin posts: "We are doing a FREE Valorant Points giveaway! React with 🎁 and then DM me your Riot account email and password to enter. Winners announced tomorrow!"',
+        scenario: 'A server admin is running a giveaway that requires sending your Riot account password via DM.',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. No legitimate giveaway ever requires your account password. Even if the "admin" account appears trusted within the server, it may have been hacked. Riot Games never asks for passwords through Discord. Report the message — the admin account has likely been compromised.',
+          wrong: 'Legitimate giveaways NEVER require your account password. This is account theft. The admin account has likely been hacked and is being used to harvest credentials from the entire server.'
+        },
+        options: [
+          { id: 'a', text: 'Enter the giveaway — the admin has been in the server for months and seems trustworthy.' },
+          { id: 'b', text: 'Do not send your password to anyone — report the message to the server owner and Riot Support.' },
+          { id: 'c', text: 'Send a throwaway email and password combination to test if it is real.' },
+          { id: 'd', text: 'React with the emoji but skip the DM part.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q3',
+        story: 'An older player in your Valorant squad has been friendly for two months. He is 22 and starts asking increasingly personal questions — about your school, your parents\' work schedules, and whether you ever hang out alone after school. He suggests meeting up to "play at a gaming cafe".',
+        scenario: 'An older online gaming contact is asking personal questions about your schedule and suggesting meetups.',
+        correct: 'a',
+        feedback: {
+          correct: 'This pattern — prolonged friendly contact, personal information gathering, and an offline meetup suggestion — matches grooming behaviour. Two months of online friendship does not make someone safe to meet alone. Tell a parent or trusted adult immediately. You do not need to accuse him of anything — just share the conversations and let an adult decide.',
+          wrong: 'The combination of asking about your parents\' schedule, your alone time, and suggesting meetups after extended online contact is a textbook grooming pattern. Age gap + personal questions + offline meetup = tell a trusted adult immediately, no exceptions.'
+        },
+        options: [
+          { id: 'a', text: 'Stop sharing personal information and tell a trusted adult about these conversations immediately.' },
+          { id: 'b', text: 'Agree to the gaming cafe meetup — you have known each other for two months.' },
+          { id: 'c', text: 'Tell him your parents do not allow meetups but keep chatting online.' },
+          { id: 'd', text: 'Ask another squad member to come along to the meetup so you are not alone.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q4',
+        story: null,
+        scenario: 'Your Valorant account with a rare skin collection (estimated value $600) gets hacked. The attacker changed the email and password. What is your FIRST action?',
+        correct: 'd',
+        feedback: {
+          correct: 'Contacting Riot Support immediately is the critical first step. The faster you report it, the higher the chance of recovery. They have tools to verify original ownership and can lock the account. While waiting, check if the same password was used on other services and change those too.',
+          wrong: 'Speed is critical in account recovery. Riot Support can lock the account and investigate immediately. Waiting or posting on Reddit first costs you precious recovery time.'
+        },
+        options: [
+          { id: 'a', text: 'Post in the Valorant subreddit asking for advice.' },
+          { id: 'b', text: 'Try to log in repeatedly to regain access.' },
+          { id: 'c', text: 'Wait 24 hours to see if the attacker logs out.' },
+          { id: 'd', text: 'Contact Riot Support immediately with your original registration details and billing history.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q5',
+        story: 'A Discord bot joins your server and posts: "🎮 CLAIM YOUR FREE NITRO! Discord is giving 3 months free Nitro to active users — click here: discord-nitro-free.gift"',
+        scenario: 'A bot posts a free Discord Nitro claim link in your server.',
+        correct: 'b',
+        feedback: {
+          correct: 'Any link offering free Nitro that is not from discord.com is a phishing link designed to steal your Discord credentials. Discord never distributes free Nitro through bots posting links in servers. Delete the message, kick the bot, and warn server members.',
+          wrong: 'Free Nitro is one of the most used phishing lures on Discord. If it is not from discord.com directly, it is a scam. These links harvest your login credentials.'
+        },
+        options: [
+          { id: 'a', text: 'Click the link — free Nitro is worth checking out.' },
+          { id: 'b', text: 'Delete the message, kick the bot, and warn server members it is a phishing link.' },
+          { id: 'c', text: 'Click the link but log in with a throwaway account.' },
+          { id: 'd', text: 'React to the message positively and share it with friends.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q6',
+        story: null,
+        scenario: 'Which combination of account security measures gives you the STRONGEST protection for your Steam account?',
+        correct: 'c',
+        feedback: {
+          correct: 'A unique strong password plus Steam Guard Mobile Authenticator (their 2FA system) is the gold standard for Steam account security. The mobile authenticator means that even if your password is stolen, the attacker cannot log in or accept trades without physically having your phone.',
+          wrong: 'Using a long password alone is good, but adding Steam Guard Mobile Authenticator (2FA) is the critical second layer. This protects your account AND your item inventory from unauthorized trades.'
+        },
+        options: [
+          { id: 'a', text: 'A long password and a private profile.' },
+          { id: 'b', text: 'Logging out after every session and using incognito mode.' },
+          { id: 'c', text: 'A unique strong password AND Steam Guard Mobile Authenticator (2FA) enabled.' },
+          { id: 'd', text: 'Using only trusted family computers to log in.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq2_q7',
+        story: 'Someone in your Discord DMs claims to be a Riot Games developer: "We are testing a new cheat detection system. We need your IP address and Valorant account token to whitelist you. Just type /whoami in CMD and send a screenshot."',
+        scenario: 'Someone claiming to be a game developer asks you to run a command and send a screenshot.',
+        correct: 'd',
+        feedback: {
+          correct: 'Game developers never contact players through Discord DMs asking them to run system commands. The /whoami command reveals your Windows username and can confirm account details useful to an attacker. "Account token" extraction is a direct account takeover method. Block, report and never run commands for strangers.',
+          wrong: 'No game developer contacts players via Discord DM asking them to run CMD commands. This is a social engineering attack — running commands and sending screenshots could expose sensitive system information or be the first step in a malware installation attempt.'
+        },
+        options: [
+          { id: 'a', text: 'Run the command — official Riot developers need this for testing.' },
+          { id: 'b', text: 'Ask them to verify their identity with a Riot email address first.' },
+          { id: 'c', text: 'Run the command but blur the screenshot before sending.' },
+          { id: 'd', text: 'Block and report — game developers never contact players via Discord DM to run system commands.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 5 — SPOT-THREAT: Phishing Email (Teens)
+  {
+    id: 'teens_new_spot_2',
+    type: 'spot-threat',
+    title: 'Email Threat Analysis',
+    subtitle: 'Pick Apart This Phishing Email Line by Line',
+    icon: '📧',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'social-engineering',
+    tags: ['tech', 'education'],
+    briefing: 'MISSION: A suspicious email has been flagged in your school inbox. Perform a full threat analysis — identify EVERY indicator of compromise in this email. Your accuracy determines your threat analyst rating. 🔬',
+    totalPoints: 800,
+    items: [
+      { id: 'item1', type: 'text', text: 'From: support@singpass-account-verify.com', isThreat: true, threatDesc: '🔴 SPOOFED SENDER: Official SingPass emails only come from @singpass.gov.sg. The domain "singpass-account-verify.com" is a fake registered by scammers to look legitimate at a glance.' },
+      { id: 'item2', type: 'text', text: 'Subject: URGENT: Your SingPass Account Will Be Suspended in 24 Hours', isThreat: true, threatDesc: '🔴 URGENCY + THREAT: Creating panic with a 24-hour deadline is a core phishing tactic. It prevents you from thinking critically or verifying the claim through official channels.' },
+      { id: 'item3', type: 'text', text: '"Dear Valued SingPass User," (no name used)', isThreat: true, threatDesc: '🔴 GENERIC GREETING: Legitimate government correspondence uses your registered full name. A generic greeting like "Valued User" means this is a mass phishing email sent to thousands of addresses.' },
+      { id: 'item4', type: 'text', text: '"We have detected suspicious activity on your account from an overseas IP address in Vietnam."', isThreat: false },
+      { id: 'item5', type: 'text', text: '"To secure your account, click here to verify your identity: http://singpass-secure-verify.xyz/login"', isThreat: true, threatDesc: '🔴 MALICIOUS LINK: The real SingPass is at singpass.gov.sg. The ".xyz" domain and "singpass-secure-verify" subdomain are classic phishing lookalike patterns. Never click login links in emails — always navigate directly.' },
+      { id: 'item6', type: 'text', text: '"You will need to provide your SingPass ID, password, and the 6-digit OTP sent to your phone."', isThreat: true, threatDesc: '🔴 OTP HARVESTING: Requesting your OTP (one-time password) in addition to credentials is designed to bypass 2FA. Once a scammer has your password AND your OTP, they can access your account in real time.' },
+      { id: 'item7', type: 'text', text: 'Email contains the official SingPass logo and Singapore Government crest.', isThreat: true, threatDesc: '🔴 LOGO SPOOFING: Government logos and crests can be copied from official websites in seconds. The presence of an official logo does NOT verify the email is legitimate. Always check the sender domain.' },
+      { id: 'item8', type: 'text', text: '"Failure to verify within 24 hours will result in permanent account suspension and a possible $500 fine."', isThreat: true, threatDesc: '🔴 FAKE PENALTY THREAT: Threatening a financial fine creates additional fear and pressure. Singapore government agencies do not fine citizens via email for failing to click a verification link.' }
+    ]
+  },
+
+  // 6 — DECISION-TREE: Shopee Scam
+  {
+    id: 'teens_new_dt_2',
+    type: 'decision-tree',
+    title: 'Shopee Trap',
+    subtitle: 'Navigate a Fake Seller and Payment Scam',
+    icon: '🛒',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'scams',
+    tags: ['finance', 'social'],
+    briefing: 'MISSION: You are buying a limited-edition item on Shopee. A threat actor is operating as a fake seller and will try every tactic to get you to pay outside the platform. Your ability to recognise and resist these tactics determines the outcome. 🛒',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'You find a listing for Air Jordan 1 "Bred Toe" (your size, $180, below market value) on Shopee. The seller has 4.8 stars with 200+ reviews. He sends a chat: "Hey! Before you order, can you WhatsApp me at 9123-4567? Got something special to offer you 😉" 👟',
+        choices: [
+          { text: 'WhatsApp him — 4.8 stars and 200 reviews, he must be legit!', next: 'went_offplatform', points: 0 },
+          { text: 'Stay on Shopee chat only and ask what the special offer is', next: 'stayed_on_shopee', points: 100 },
+          { text: 'Check the seller\'s review timestamps before doing anything', next: 'checked_reviews', points: 100 }
+        ]
+      },
+      went_offplatform: {
+        type: 'choice',
+        text: 'On WhatsApp, the seller says: "I have 2 pairs. If you PayNow me directly at 9123-4567 I\'ll give you $20 off — $160 instead of $180. Shopee takes commission so I prefer direct payment. Deal?" 💸',
+        choices: [
+          { text: 'PayNow him $160 directly — saves $20 and he seems trustworthy', next: 'paid_direct', points: 0 },
+          { text: 'Refuse and say I will only pay through Shopee\'s official checkout', next: 'refused_direct', points: 100 },
+          { text: 'Ask him to send the shoes first before payment', next: 'asked_first', points: 50 }
+        ]
+      },
+      stayed_on_shopee: {
+        type: 'choice',
+        text: 'The seller replies in Shopee chat: "The special offer is $20 off if you pay outside Shopee. Just PayNow me directly." You notice that Shopee has a banner warning: "⚠️ Transactions made outside Shopee are NOT protected by Shopee Guarantee." 🚨',
+        choices: [
+          { text: 'Take the $20 off — Shopee Guarantee probably does not matter much anyway', next: 'paid_direct', points: 0 },
+          { text: 'Decline the off-platform offer and proceed with the normal Shopee checkout', next: 'safe_purchase', points: 100 }
+        ]
+      },
+      checked_reviews: {
+        type: 'choice',
+        text: 'You look at the review dates: 195 of the 200 reviews were posted in the same 3-day period last month. The review text is generic: "Good seller", "Fast delivery", "Nice product". This pattern suggests purchased or farmed fake reviews. 🔍',
+        choices: [
+          { text: 'The listing still has 4.8 stars — proceed with the purchase', next: 'went_offplatform', points: 0 },
+          { text: 'Report the suspicious review pattern to Shopee and avoid this seller', next: 'reported_seller', points: 100 }
+        ]
+      },
+      paid_direct: {
+        type: 'outcome',
+        text: '❌ You sent $160 via PayNow. The seller\'s WhatsApp number has now been blocked. The Shopee account disappears within hours. Because you paid outside Shopee, you have ZERO buyer protection. You can report to the SPF Anti-Scam hotline (1800-722-6688) and file a police report, but recovery of funds is not guaranteed. Never pay outside official platforms.',
+        points: 0
+      },
+      refused_direct: {
+        type: 'outcome',
+        text: '✅ Smart. The seller stops responding when you insist on paying through Shopee checkout — confirming he was a scammer. You reported the listing to Shopee. Shopee Guarantee only protects you when you pay through their official checkout. The $20 "discount" was the bait. Well dodged. 🏆',
+        points: 0
+      },
+      asked_first: {
+        type: 'outcome',
+        text: '⚠️ The seller agrees to send first but then claims "the courier needs payment before pickup". This is another layer of the scam. Any request to pay outside the official platform, for ANY reason, is a scam. Cut contact and report the listing to Shopee immediately.',
+        points: 0
+      },
+      safe_purchase: {
+        type: 'outcome',
+        text: '✅ Excellent discipline. You ignored the off-platform bait, used Shopee\'s official checkout, and your order is protected by Shopee Guarantee. The shoes arrive as described. Shopee Guarantee exists specifically to protect you from situations like this — always use it. 🏆',
+        points: 0
+      },
+      reported_seller: {
+        type: 'outcome',
+        text: '✅ Outstanding investigative work. You identified the fake review cluster, avoided the listing entirely, and reported it to Shopee. Shopee removed the listing within 24 hours, protecting dozens of other buyers. You did not just protect yourself — you protected the community. 🏆',
+        points: 0
+      }
+    }
+  },
+
+  // 7 — QUIZ: Malware and Downloads
+  {
+    id: 'teens_new_quiz_3',
+    type: 'quiz',
+    title: 'Malware Analyst',
+    subtitle: 'Understand Malware, RATs, and Unsafe Downloads',
+    icon: '🦠',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'malware',
+    tags: ['tech', 'gaming'],
+    briefing: 'MISSION BRIEFING: Malware targeting teens is primarily distributed through game cracks, free software, and Discord file links. Understand the threat landscape and learn to protect your device and data. 8 questions. 🔬',
+    questions: [
+      {
+        id: 'tnq3_q1',
+        story: null,
+        scenario: 'You download a "cracked" version of a paid game from a forum. Your antivirus flags the installer as containing a "Remote Access Trojan (RAT)". What can a RAT do once installed?',
+        correct: 'c',
+        feedback: {
+          correct: 'A RAT (Remote Access Trojan) gives an attacker complete control of your device — they can see your screen, activate your webcam and microphone, access all files, steal passwords from your browser, and use your computer as part of a botnet. Game cracks are the single most common RAT distribution method targeting teens.',
+          wrong: 'RATs are far more dangerous than just showing ads. They give full remote control of your device to an attacker — including access to your webcam, microphone, files, saved passwords, and banking details saved in your browser.'
+        },
+        options: [
+          { id: 'a', text: 'Show you advertisements in the game.' },
+          { id: 'b', text: 'Slow down your computer slightly.' },
+          { id: 'c', text: 'Give an attacker complete remote control of your device, including webcam, microphone, and all files.' },
+          { id: 'd', text: 'Prevent the cracked game from working correctly.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q2',
+        story: 'Your friend sends you a file in Discord: "bro install this mod for the game it\'s sick.exe" The file is 3.2MB. Your friend seems excited about it.',
+        scenario: 'A friend sends you an .exe file via Discord for a game mod.',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. .exe files received via Discord are one of the most common malware distribution vectors, even from friends whose accounts may have been compromised. Scan the file with VirusTotal.com (free, no installation needed) before opening ANYTHING. Your friend\'s account may itself be infected and spreading malware automatically.',
+          wrong: 'Never run .exe files received via Discord without first scanning them, even from friends. Discord accounts get hacked and automatically spread malware to contacts. Scanning with VirusTotal takes 30 seconds and could save your device.'
+        },
+        options: [
+          { id: 'a', text: 'Run it — your friend sent it so it must be safe.' },
+          { id: 'b', text: 'Upload it to VirusTotal.com to scan it before opening, or ask your friend where they got it from.' },
+          { id: 'c', text: 'Run it in a new folder so the virus stays contained if there is one.' },
+          { id: 'd', text: 'Change the file extension from .exe to .txt to make it safer.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q3',
+        story: null,
+        scenario: 'What is the difference between a virus and ransomware?',
+        correct: 'a',
+        feedback: {
+          correct: 'A virus spreads and damages files or system functions. Ransomware is a specific category that encrypts all your files and demands payment (usually in cryptocurrency) to restore access. Singapore has seen ransomware attacks on businesses and individuals. Regular offline backups are the only reliable defence.',
+          wrong: 'Ransomware is a specific and highly destructive malware type that encrypts your files and demands payment. It does not just slow your computer — it makes all your documents, photos, and data inaccessible until you pay or restore from backup.'
+        },
+        options: [
+          { id: 'a', text: 'A virus spreads and corrupts files; ransomware encrypts all your files and demands payment to restore them.' },
+          { id: 'b', text: 'A virus is more dangerous than ransomware because it is harder to remove.' },
+          { id: 'c', text: 'Ransomware only affects business computers, not personal devices.' },
+          { id: 'd', text: 'They are the same thing — both corrupt your files.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q4',
+        story: 'You visit a website to watch a free movie. A pop-up appears: "Your device has 3 CRITICAL VIRUSES! Download our security scanner NOW to remove them — it\'s FREE!" There is a big red download button.',
+        scenario: 'A website pop-up warns of viruses and offers a free scanner download.',
+        correct: 'd',
+        feedback: {
+          correct: 'This is called "scareware" — fake virus warnings designed to trick you into downloading actual malware disguised as a security tool. Websites cannot scan your device for viruses. The "free scanner" IS the malware. Close the tab and run your actual antivirus.',
+          wrong: 'Websites cannot actually detect viruses on your device. This is scareware — the "scanner" you download IS the malware. Real antivirus software is installed on your device, not downloaded from pop-ups on movie streaming sites.'
+        },
+        options: [
+          { id: 'a', text: 'Download the scanner immediately — 3 viruses sounds serious.' },
+          { id: 'b', text: 'Click "Scan Now" to see the results first before downloading.' },
+          { id: 'c', text: 'Pay for the premium version of the scanner to get faster removal.' },
+          { id: 'd', text: 'Close the tab — websites cannot scan your device. This pop-up IS the threat.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q5',
+        story: null,
+        scenario: 'Which of these practices best protects you from malware when gaming online?',
+        correct: 'b',
+        feedback: {
+          correct: 'Buying games from official platforms (Steam, Epic, PlayStation Store), keeping your OS updated, and running reputable antivirus software are the three core defences. Game cracks, third-party launchers, and unverified mods are the primary malware vectors targeting gamers.',
+          wrong: 'Using incognito mode does not protect against malware at all. The most effective protection combines official purchase channels, system updates (which patch security vulnerabilities), and active antivirus.'
+        },
+        options: [
+          { id: 'a', text: 'Only playing in incognito mode to hide your gaming activity.' },
+          { id: 'b', text: 'Only downloading games from official stores, keeping your OS updated, and running antivirus software.' },
+          { id: 'c', text: 'Creating a separate gaming account so malware cannot find your real details.' },
+          { id: 'd', text: 'Turning off your antivirus when gaming so it does not slow down your frame rate.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q6',
+        story: 'Your computer starts behaving strangely: it is very slow, your antivirus was disabled without your action, and you notice unfamiliar processes running in Task Manager.',
+        scenario: 'Your computer shows multiple signs of possible compromise.',
+        correct: 'c',
+        feedback: {
+          correct: 'These symptoms (slowness + disabled antivirus + unknown processes) strongly suggest active malware. Disconnecting from the network immediately prevents the malware from sending your data out or downloading additional payloads. Then run a full scan and tell a parent or trusted adult so you can assess what was potentially exposed.',
+          wrong: 'Restarting alone will not remove persistent malware. The critical first step is disconnecting from the internet to stop any ongoing data exfiltration, then performing a full antivirus scan, and getting adult help to assess the situation.'
+        },
+        options: [
+          { id: 'a', text: 'Restart the computer and hope it fixes itself.' },
+          { id: 'b', text: 'Delete your browser history to remove the malware.' },
+          { id: 'c', text: 'Disconnect from the internet immediately, run a full antivirus scan, and tell a trusted adult.' },
+          { id: 'd', text: 'Continue using the computer but avoid online banking until it feels normal again.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q7',
+        story: null,
+        scenario: 'What is a "keylogger" and why is it particularly dangerous for gamers?',
+        correct: 'a',
+        feedback: {
+          correct: 'A keylogger records every keystroke you type — including game account passwords, credit card numbers used for in-game purchases, and any personal information. For gamers, this means your entire account library and any payment methods saved can be stolen silently without any visible symptoms.',
+          wrong: 'A keylogger records every key you press on your keyboard. This is particularly dangerous because it captures passwords, credit card numbers, and personal information as you type them — silently, with no visible symptoms.'
+        },
+        options: [
+          { id: 'a', text: 'Software that records every keystroke you type, silently stealing passwords and payment details as you enter them.' },
+          { id: 'b', text: 'A program that monitors how many hours you spend gaming and sends reports to parents.' },
+          { id: 'c', text: 'A tool used by game companies to detect cheaters.' },
+          { id: 'd', text: 'Malware that only targets keyboard hardware, not software.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'tnq3_q8',
+        story: null,
+        scenario: 'You find a website offering a free "aim trainer" for Valorant that requires you to disable Windows Defender before installing. Why is this a major red flag?',
+        correct: 'd',
+        feedback: {
+          correct: 'Legitimate software never requires you to disable your antivirus to install. The only reason an installer would ask you to turn off Windows Defender is because it would be detected and blocked as malware. This is a classic malware distribution technique — the "aim trainer" is a trojan.',
+          wrong: 'No legitimate software requires you to disable antivirus protection to install. Any application that makes this request is doing so because it would be detected as malware. This is a trojan disguised as a gaming utility.'
+        },
+        options: [
+          { id: 'a', text: 'Windows Defender sometimes causes compatibility issues with aim trainers.' },
+          { id: 'b', text: 'The software needs administrator access that Defender blocks by default.' },
+          { id: 'c', text: 'Legitimate aim trainers often need Defender disabled to hook into game memory.' },
+          { id: 'd', text: 'Legitimate software never requires disabling antivirus — this is a trojan that would be detected and blocked if Defender stayed on.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 8 — DECISION-TREE: Job Scam (Part-Time)
+  {
+    id: 'teens_new_dt_3',
+    type: 'decision-tree',
+    title: 'Too Good to Be True Job',
+    subtitle: 'Spot and Escape a Part-Time Job Scam',
+    icon: '💼',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'scams',
+    tags: ['finance', 'general'],
+    briefing: 'MISSION: Part-time job scams targeting teens and young adults are among the most reported scam types in Singapore. A job offer has appeared. Your decisions determine whether you collect a paycheck or lose money. Stay alert. 💰',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'You see an Instagram ad: "Earn $800–$1,500/week working from home! Just complete simple online tasks — like, share, and rate products. No experience needed! WhatsApp us at 9XXX-XXXX to start immediately 💰" You need money for upcoming concert tickets.',
+        choices: [
+          { text: 'WhatsApp the number immediately — $800/week sounds amazing!', next: 'contacted', points: 0 },
+          { text: 'Research this type of job offer online first before responding', next: 'researched', points: 100 },
+          { text: 'Ignore it — jobs paying $800/week for liking posts are not real', next: 'skeptical', points: 50 }
+        ]
+      },
+      contacted: {
+        type: 'choice',
+        text: 'They reply on WhatsApp and add you to a Telegram group with 200 others. A "manager" explains: "First task is to boost a Shopee product. Buy it ($150), screenshot the 5-star review you leave, send to us, and we refund $150 + $30 commission!" Several people in the group post screenshots of their "earnings". 📲',
+        choices: [
+          { text: 'Do the first task — $30 for one review sounds easy and the group looks active!', next: 'paid_first', points: 0 },
+          { text: 'Refuse and leave the group — legitimate jobs never require upfront purchases', next: 'left_group', points: 100 },
+          { text: 'Ask someone from the group in private if they actually got paid', next: 'asked_group', points: 50 }
+        ]
+      },
+      researched: {
+        type: 'choice',
+        text: 'A quick search for "earn money liking posts Singapore" returns multiple ScamAlert.sg and SPF reports labelling this as a "task-based scam". The MOM (Ministry of Manpower) website also has a specific warning about this exact format. 🔍',
+        choices: [
+          { text: 'The search results warned me clearly — I will not contact them and will report the ad to Instagram', next: 'reported_ad', points: 100 },
+          { text: 'Maybe mine is different — WhatsApp them anyway just to check', next: 'contacted', points: 0 }
+        ]
+      },
+      skeptical: {
+        type: 'outcome',
+        text: '✅ Good instinct! When an income claim seems impossibly high for minimal work, it almost always is. You saved yourself from a time-wasting scam at minimum, and potentially a financial loss. Trust your gut on these.',
+        points: 0
+      },
+      paid_first: {
+        type: 'choice',
+        text: 'You did the first task and got the $30 commission back plus the $150 refund. Feeling confident, the "manager" assigns a bigger task: "This time buy a $500 product for $50 commission. We need to hit our monthly quota!" Several group members say they did this and earned well. 💸',
+        choices: [
+          { text: 'Do the $500 task — the first one worked perfectly!', next: 'paid_big', points: 0 },
+          { text: 'Stop now — escalating payment amounts is a classic scam escalation pattern', next: 'stopped_early', points: 100 }
+        ]
+      },
+      left_group: {
+        type: 'outcome',
+        text: '✅ Perfect call. This is called a "task scam" or "money mule scam". The first small refund is designed to build your confidence before they escalate to tasks you pay for but never get refunded. Legitimate employers pay YOU — they never ask workers to spend money first. You dodged it completely. 🏆',
+        points: 0
+      },
+      asked_group: {
+        type: 'outcome',
+        text: '⚠️ The people who respond positively in the group are either paid shills or also victims who have not been scammed yet (the scam builds trust first). The positive responses cannot be trusted. The safest move is to leave the group and report it. Never use scammer-controlled group members as a verification source.',
+        points: 0
+      },
+      reported_ad: {
+        type: 'outcome',
+        text: '✅ Excellent. You researched, found official warnings on ScamAlert.sg, and reported the ad. Instagram acted on your report and removed it within 48 hours. You protected yourself AND potentially dozens of other teens who might have seen that ad. 🏆',
+        points: 0
+      },
+      paid_big: {
+        type: 'outcome',
+        text: '❌ You paid $500. The "manager" then says: "Your account is flagged, you need to pay a $200 reactivation fee to withdraw all your earnings." Then they disappear. Total loss: $500+. Report to SPF Anti-Scam Command (1800-722-6688) immediately. The initial $30 commission was bait to build your trust.',
+        points: 0
+      },
+      stopped_early: {
+        type: 'outcome',
+        text: '✅ You recognised the escalation pattern in time. The initial small payout was designed to build trust and get you to risk larger amounts. You stopped, left the group, and reported it to ScamAlert.sg. The first task working was the trap. Well done for seeing through it. 🏆',
+        points: 0
+      }
+    }
+  }
+
   adults: [
     {
       id: 'adults_quiz_1',
@@ -1339,7 +2581,748 @@ const MISSIONS = {
 
   // ╔══════════════════════════════════════════════════════╗
   // ║  SENIORS  (46–65+)                                   ║
-  // ╚══════════════════════════════════════════════════════╝
+  // ╚══════════════════════════════════════════════════════╝,
+
+  // 1 — QUIZ: CPF and SingPass Phishing (Hard)
+  {
+    id: 'adults_new_quiz_1',
+    type: 'quiz',
+    title: 'SingPass Fortress',
+    subtitle: 'Defend Your CPF and Government Credentials',
+    icon: '🏛️',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'identity',
+    tags: ['finance', 'general'],
+    briefing: 'MISSION BRIEFING: SingPass credentials are the master key to your digital government identity — CPF, tax records, housing grants, medical records. Threat actors invest heavily in stealing them. Your ability to identify and resist these attacks protects your life savings and legal identity. 8 questions. 🔐',
+    questions: [
+      {
+        id: 'anq1_q1',
+        story: 'You receive an SMS from "SingPass": "Your SingPass Face Verification has expired. Update it within 48 hours to avoid service disruption. Tap: https://singpass-faceverify-update.com/renew"',
+        scenario: 'An SMS from "SingPass" warns about an expired Face Verification and provides a renewal link.',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. SingPass communications always direct users to the official singpass.gov.sg domain or the SingPass app — never to third-party domains like "singpass-faceverify-update.com". SMS sender names can be spoofed. Always navigate to singpass.gov.sg directly or open the app to check account status.',
+          wrong: 'The domain "singpass-faceverify-update.com" is not a government domain (gov.sg). SMS sender names can be spoofed by anyone. All legitimate SingPass updates are done through the official app or singpass.gov.sg — never through SMS links.'
+        },
+        options: [
+          { id: 'a', text: 'Tap the link and complete the verification — 48 hours is not long.' },
+          { id: 'b', text: 'Ignore the SMS link and check your SingPass app or singpass.gov.sg directly.' },
+          { id: 'c', text: 'Reply to the SMS asking for more information to verify it is genuine.' },
+          { id: 'd', text: 'Forward the SMS to a family member to check on your behalf.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q2',
+        story: 'You receive a call from "CPF Board". The caller ID shows +65 1800-227-1188 (the real CPF helpline number). The caller says your CPF account has been flagged for suspicious transactions and you must immediately verify by providing your SingPass credentials over the phone.',
+        scenario: 'A caller with a spoofed CPF helpline number demands your SingPass credentials to "verify" your account.',
+        correct: 'c',
+        feedback: {
+          correct: 'Caller IDs can be spoofed to display any number, including real government helpline numbers. CPF Board, MAS, SPF and all Singapore government agencies have a strict policy: they will NEVER ask for your SingPass password or OTP over the phone. Hang up and call CPF directly at 1800-227-1188 from your own search to verify.',
+          wrong: 'Caller ID spoofing is trivially easy and widely used by scammers. The real CPF Board will never ask for your SingPass password or OTP in a phone call. This is an impersonation scam — hang up and call CPF directly using the number from their official website.'
+        },
+        options: [
+          { id: 'a', text: 'Provide the details — the caller ID shows the real CPF number so it must be genuine.' },
+          { id: 'b', text: 'Ask the caller to send an email confirmation before you provide anything.' },
+          { id: 'c', text: 'Hang up immediately — CPF never asks for SingPass credentials over the phone. Call CPF back using their published number.' },
+          { id: 'd', text: 'Provide your SingPass ID only, not your password.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q3',
+        story: null,
+        scenario: 'What is the safest way to log into SingPass on a shared or public computer (e.g., at a library or hotel business centre)?',
+        correct: 'd',
+        feedback: {
+          correct: 'Shared computers may have keyloggers installed, cached credentials, or be compromised. The safest approach is to avoid logging into SingPass on shared devices entirely. If absolutely necessary, use your SingPass app on your personal phone with a QR code scan — this means your password is never typed on the shared device.',
+          wrong: 'Clearing browser history after use does not protect against keyloggers installed on shared computers. Private browsing prevents local history storage but does not protect against hardware or software keyloggers. The safest option is to only use SingPass on your personal device.'
+        },
+        options: [
+          { id: 'a', text: 'Use private/incognito mode and clear history after.' },
+          { id: 'b', text: 'Log in normally but change your password when you get home.' },
+          { id: 'c', text: 'Use the shared computer only if it is a government building or library.' },
+          { id: 'd', text: 'Avoid it entirely; if essential, use QR code login from your personal phone so no password is typed on the shared device.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q4',
+        story: 'Your SingPass app shows an unexpected login notification from an unfamiliar device at 2 AM. You did not make this login.',
+        scenario: 'Your SingPass account shows an unauthorised login from an unknown device.',
+        correct: 'a',
+        feedback: {
+          correct: 'An unauthorised SingPass login is a critical security incident. The immediate priorities are: (1) Change your SingPass password NOW. (2) Revoke all active sessions via the SingPass security settings. (3) Contact SingPass helpdesk to report the breach. (4) Check your CPF and tax accounts for any unauthorised changes. Act within minutes — not hours.',
+          wrong: 'An unauthorised SingPass login is a major security breach affecting your CPF, tax, medical, and housing records. Waiting until morning could allow an attacker to make changes to your government records. Immediate action is required.'
+        },
+        options: [
+          { id: 'a', text: 'Change your SingPass password immediately, revoke all sessions, and contact the SingPass helpdesk.' },
+          { id: 'b', text: 'Wait until morning to call the helpdesk during office hours.' },
+          { id: 'c', text: 'Log in from your phone to check if the notification was a glitch.' },
+          { id: 'd', text: 'Change only your SingPass password and monitor for further activity.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q5',
+        story: null,
+        scenario: 'A scammer has obtained your SingPass credentials and is trying to use them right now. Which security feature would STOP the attacker even though they have your correct username and password?',
+        correct: 'b',
+        feedback: {
+          correct: 'SingPass 2FA (either SMS OTP or the SingPass app notification) is the critical second layer. Even with your full credentials, an attacker cannot complete login without the OTP sent to your registered phone number. This is why keeping your registered mobile number updated on SingPass is critical.',
+          wrong: 'A strong password is important, but if an attacker already has your credentials, the password strength is irrelevant. SingPass 2FA (SMS OTP or app notification) is what stops them — the code goes only to your registered phone.'
+        },
+        options: [
+          { id: 'a', text: 'Having a strong password with symbols and numbers.' },
+          { id: 'b', text: 'SingPass 2FA (SMS OTP to your registered phone or SingPass app approval).' },
+          { id: 'c', text: 'Logging into SingPass regularly so they cannot get a session window.' },
+          { id: 'd', text: 'Having a complex security question set up on the account.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q6',
+        story: 'You receive an email: "Your CPF Special Account (SA) balance is eligible for a one-time investment return boost of 6% additional interest if you authorise the transfer to an approved CPF Investment Scheme partner. Click here to authorise."',
+        scenario: 'An email offers a 6% CPF interest boost requiring you to authorise a fund transfer.',
+        correct: 'c',
+        feedback: {
+          correct: 'CPF does not contact members via email with unsolicited investment opportunities. CPF SA already earns 4% p.a. guaranteed — any offer of "additional" returns through an email link is either a scam or an unauthorised scheme. All legitimate CPF investment options are managed through the CPF website after secure SingPass login, not via email links.',
+          wrong: 'CPF does not send unsolicited investment opportunity emails. Any offer requiring you to authorise fund movement via an email link is fraudulent — regardless of how official it looks. Check CPF.gov.sg directly for any investment scheme information.'
+        },
+        options: [
+          { id: 'a', text: 'Authorise it — 6% additional interest on top of the existing 4% is an excellent return.' },
+          { id: 'b', text: 'Reply to ask for the name of the "approved CPF Investment Scheme partner" first.' },
+          { id: 'c', text: 'Delete the email and check CPF.gov.sg directly — CPF does not send unsolicited investment offers by email.' },
+          { id: 'd', text: 'Forward the email to your financial advisor to verify.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q7',
+        story: null,
+        scenario: 'Which of these actions represents the MOST significant risk to your SingPass account security?',
+        correct: 'd',
+        feedback: {
+          correct: 'Using the same password for SingPass as for less secure platforms (email, shopping, social media) is the highest-risk behaviour. When any of those other platforms is breached — a common occurrence — attackers immediately try those credentials on SingPass and other high-value targets. SingPass must have a completely unique password used nowhere else.',
+          wrong: 'While all risky behaviours matter, reusing your SingPass password on other platforms is the most dangerous because data breaches on those other platforms automatically compromise your SingPass credentials. SingPass should always have a unique password used exclusively for that service.'
+        },
+        options: [
+          { id: 'a', text: 'Using SingPass on a trusted family member\'s phone.' },
+          { id: 'b', text: 'Not logging out after each SingPass session on your personal phone.' },
+          { id: 'c', text: 'Using SingPass on your work laptop during lunch.' },
+          { id: 'd', text: 'Using the same password for SingPass as for your Gmail or Shopee account.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq1_q8',
+        story: 'You discover your SingPass was used to submit a tax return with false income deductions and to apply for a $10,000 government grant — neither of which you did.',
+        scenario: 'Your SingPass credentials were used to commit tax fraud and apply for government grants fraudulently.',
+        correct: 'b',
+        feedback: {
+          correct: 'SingPass identity fraud affecting IRAS and government grants requires immediate multi-agency reporting: IRAS must be notified to flag the false return, CPFB/relevant grant agency must be informed of the fraudulent application, and a police report is legally required for identity theft investigations. The SingPass helpdesk will assist with account recovery. Act the same day — not the next business day.',
+          wrong: 'Tax fraud and fraudulent grant applications involving your identity require immediate reporting to multiple agencies: IRAS, the grant-issuing agency, SPF (police report), and the SingPass helpdesk. This is a criminal matter requiring a formal police report.'
+        },
+        options: [
+          { id: 'a', text: 'Report only to SingPass helpdesk and wait for their investigation.' },
+          { id: 'b', text: 'Report to IRAS, the grant agency, file a police report, and contact the SingPass helpdesk the same day.' },
+          { id: 'c', text: 'Engage a lawyer before reporting anything to avoid self-incrimination.' },
+          { id: 'd', text: 'Report to IRAS only — they will coordinate with the other agencies.' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  // 2 — SPOT-THREAT: Business Email Compromise (BEC)
+  {
+    id: 'adults_new_spot_1',
+    type: 'spot-threat',
+    title: 'BEC Intercept',
+    subtitle: 'Identify Every Red Flag in This Work Email Chain',
+    icon: '📨',
+    difficulty: 'Expert',
+    xp: 1200,
+    module: 'business-security',
+    tags: ['business', 'finance'],
+    briefing: 'MISSION: An email chain has been flagged by your company\'s security team as a potential Business Email Compromise (BEC) attack. BEC costs Singapore businesses tens of millions annually. Identify EVERY indicator of compromise in this thread. Your analysis could save the company. 💼',
+    totalPoints: 800,
+    items: [
+      { id: 'item1', type: 'text', text: 'From: ceo.tan@acmecorp-sg.net (Your CEO\'s real email is ceo.tan@acmecorp.com.sg)', isThreat: true, threatDesc: '🔴 DOMAIN SPOOFING: The attacker registered "acmecorp-sg.net" to impersonate the company domain "acmecorp.com.sg". The difference is subtle at a glance. Always verify sender domains letter by letter on financial requests.' },
+      { id: 'item2', type: 'text', text: '"Hi [Your Name], I am currently in an urgent board meeting in KL and cannot take calls. I need you to process a confidential wire transfer immediately — $47,000 SGD to a new vendor."', isThreat: true, threatDesc: '🔴 AUTHORITY + URGENCY + UNAVAILABILITY: This combination — a senior executive who "cannot be reached" making an urgent financial request — is the hallmark BEC pattern. The unavailability is designed to prevent you from verifying through normal channels.' },
+      { id: 'item3', type: 'text', text: '"This is time-sensitive and confidential. Do NOT discuss this with colleagues or the finance team until it is complete."', isThreat: true, threatDesc: '🔴 SECRECY REQUEST: Instructing you not to discuss with colleagues or finance directly disables your internal verification controls. Legitimate executive instructions never prohibit cross-checking with your own finance team.' },
+      { id: 'item4', type: 'text', text: 'Recipient bank: Bank of China account ending 4821, beneficiary: Apex Solutions Pte Ltd', isThreat: false },
+      { id: 'item5', type: 'text', text: '"The vendor has requested payment today for a time-sensitive contract. Our legal team has approved this. Please proceed without the usual approval workflow as an exception."', isThreat: true, threatDesc: '🔴 BYPASSING APPROVAL CONTROLS: Any request that explicitly asks you to skip your company\'s payment approval workflow is a critical red flag. These controls exist precisely to prevent unauthorised transfers. No legitimate executive will ask you to bypass them.' },
+      { id: 'item6', type: 'text', text: '"I will call you as soon as the meeting is over to confirm. Just process it first."', isThreat: true, threatDesc: '🔴 DEFERRED VERIFICATION: Promising to "call to confirm later" is designed to get the transfer done before you can verify. Legitimate transfers are verified BEFORE processing, not after. The attacker knows a callback will reveal the fraud.' },
+      { id: 'item7', type: 'text', text: 'The email contains the company logo, standard email footer, and the CEO\'s title and phone number.', isThreat: true, threatDesc: '🔴 COSMETIC LEGITIMACY: Logos, footers, and contact details can be copy-pasted from any legitimate email. These cosmetic elements cannot verify the sender\'s identity. Domain verification and out-of-band confirmation (calling the CEO\'s actual number directly) are the only reliable checks.' },
+      { id: 'item8', type: 'text', text: '"Reply only to this email — do not use any other contact method for this transaction."', isThreat: true, threatDesc: '🔴 CHANNEL ISOLATION: Restricting communication to only the attacker-controlled email address prevents you from discovering the impersonation through any other channel. Legitimate executives never restrict you from calling them directly to verify a $47,000 transfer.' }
+    ]
+  },
+
+  // 3 — DECISION-TREE: PayNow Bank Scam (Hard)
+  {
+    id: 'adults_new_dt_1',
+    type: 'decision-tree',
+    title: 'PayNow Intercept',
+    subtitle: 'Identify and Stop a Banking Impersonation Scam',
+    icon: '🏦',
+    difficulty: 'Hard',
+    xp: 800,
+    module: 'finance-security',
+    tags: ['finance', 'general'],
+    briefing: 'MISSION: Banking impersonation scams cost Singaporeans hundreds of millions annually. A scenario is unfolding in real time. Your decisions in the next few steps determine whether you protect your savings or hand them to a scammer. Think carefully. 💰',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'You receive an SMS from "DBS Bank": "ALERT: Unusual transaction of $3,847 detected on your account. If not authorised, call our fraud line immediately: 6399-1111" The message appears in the same SMS thread as previous genuine DBS messages. 📱',
+        choices: [
+          { text: 'Call 6399-1111 immediately — the message is in my real DBS thread!', next: 'called_scammer', points: 0 },
+          { text: 'Open the DBS digibank app to check if there is actually a transaction', next: 'checked_app', points: 100 },
+          { text: 'Google "DBS fraud hotline" to verify the correct number first', next: 'googled_number', points: 100 }
+        ]
+      },
+      called_scammer: {
+        type: 'choice',
+        text: '"DBS Fraud Team" answers. They confirm "suspicious activity" and say: "To secure your account, we need to verify your identity. Please provide your full name, NRIC, card number, and the OTP we are about to send to your phone." An OTP arrives from "DBS". 📞',
+        choices: [
+          { text: 'Provide all details — the OTP came from DBS so they must be genuine!', next: 'gave_otp', points: 0 },
+          { text: 'Hang up immediately — banks NEVER ask for OTPs over the phone', next: 'hung_up', points: 100 },
+          { text: 'Provide your name and NRIC but not the OTP', next: 'partial_info', points: 0 }
+        ]
+      },
+      checked_app: {
+        type: 'choice',
+        text: 'You open DBS digibank. Your account shows no unusual transactions. Your balance is completely normal. The $3,847 transaction does not exist in your history. 📊',
+        choices: [
+          { text: 'Call the number in the SMS anyway to be extra safe', next: 'called_scammer', points: 0 },
+          { text: 'Report the fake SMS to the DBS anti-scam team at 1800-339-6963 and block the number', next: 'reported_properly', points: 100 }
+        ]
+      },
+      googled_number: {
+        type: 'choice',
+        text: 'Google shows DBS\'s official fraud hotline is 1800-339-6963 — not 6399-1111. The number in the SMS is a scammer\'s number. Your search also returns an SPF advisory warning about this exact SMS pattern.',
+        choices: [
+          { text: 'Call DBS at 1800-339-6963 to report the scam SMS', next: 'reported_properly', points: 100 },
+          { text: 'Call 6399-1111 anyway to tell them off for scamming', next: 'called_scammer', points: 0 }
+        ]
+      },
+      gave_otp: {
+        type: 'outcome',
+        text: '❌ The OTP you provided was used to authorise a PayNow transfer of $15,000 from your account. The "DBS OTP" was actually a real DBS transaction OTP — you authorised the transfer yourself by reading it to the scammer. Call DBS immediately at 1800-339-6963 to attempt a recall. File a police report. Recovery is not guaranteed.',
+        points: 0
+      },
+      hung_up: {
+        type: 'outcome',
+        text: '✅ Critical save. Banks never ask for OTPs over the phone — the OTP is the key to your account. By hanging up before providing it, you stopped the attack cold. Report the number to SPF Anti-Scam Command at 1800-722-6688 and inform DBS through their official channels. The SMS thread spoofing technique is well-documented — share a warning with family members. 🏆',
+        points: 0
+      },
+      partial_info: {
+        type: 'outcome',
+        text: '❌ Your name and NRIC combined with your card number (if you provided it) is enough for a scammer to attempt account changes. Even without the OTP, you have partially compromised your identity. Contact DBS immediately at 1800-339-6963 and monitor your account for unauthorised changes. Never provide ANY personal details to an incoming call you did not initiate.',
+        points: 0
+      },
+      reported_properly: {
+        type: 'outcome',
+        text: '✅ Excellent. You verified through official channels, confirmed no actual transaction occurred, and reported the scam through proper channels. Your vigilance may prevent the same SMS from victimising someone else in your contact list. This is exactly the response the SPF Anti-Scam Centre trains people for. 🏆',
+        points: 0
+      }
+    }
+  },
+
+  // 4 — QUIZ: Data Breach Response and Work Cybersecurity (Expert)
+  {
+    id: 'adults_new_quiz_2',
+    type: 'quiz',
+    title: 'Breach Response Officer',
+    subtitle: 'Data Breaches, PDPA, and Workplace Cyber Hygiene',
+    icon: '🔒',
+    difficulty: 'Expert',
+    xp: 1200,
+    module: 'business-security',
+    tags: ['business', 'tech'],
+    briefing: 'MISSION BRIEFING: Singapore\'s PDPA mandates specific breach notification obligations. As a working professional, you are the frontline defence — and the frontline liability. Master both personal and organisational cyber hygiene. 8 questions. 🏢',
+    questions: [
+      {
+        id: 'anq2_q1',
+        story: null,
+        scenario: 'Under Singapore\'s Personal Data Protection Act (PDPA), when is an organisation legally required to notify the PDPC of a data breach?',
+        correct: 'b',
+        feedback: {
+          correct: 'Under the PDPA 2021 amendments, organisations must notify the PDPC within 3 calendar days of assessing that a breach is notifiable. A breach is notifiable when it involves 500 or more individuals OR is likely to result in significant harm. Affected individuals must also be notified. Non-compliance penalties can reach $1 million.',
+          wrong: 'The PDPA mandates notification within 3 calendar days of the organisation assessing the breach as notifiable. Waiting until an internal investigation is complete or only notifying when asked is non-compliant with Singapore law.'
+        },
+        options: [
+          { id: 'a', text: 'Within 72 hours — the same as GDPR requirements in Europe.' },
+          { id: 'b', text: 'Within 3 calendar days of assessing the breach is notifiable (500+ individuals or likely significant harm).' },
+          { id: 'c', text: 'Only when the PDPC specifically requests notification after becoming aware of the breach.' },
+          { id: 'd', text: 'Within 30 days, after completing a full internal forensic investigation.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q2',
+        story: 'You receive an email to your work account: "Hi, I am from IT Support. We are upgrading our email servers and need your work email password to migrate your mailbox. Please reply with your current password."',
+        scenario: 'IT Support emails requesting your work email password for a server migration.',
+        correct: 'c',
+        feedback: {
+          correct: 'Legitimate IT departments never need your password — they have administrative access to email servers directly. Password requests via email are a social engineering attack regardless of who claims to be asking. Report this to your actual IT security team immediately as a phishing attempt targeting your company.',
+          wrong: 'No legitimate IT department needs to ask you for your password. They have admin-level access to email infrastructure. This is a spear-phishing attack targeting your organisation — report it to your real IT security team immediately.'
+        },
+        options: [
+          { id: 'a', text: 'Reply with your password — IT initiated the request so it must be legitimate.' },
+          { id: 'b', text: 'Reply asking them to verify their employee ID first.' },
+          { id: 'c', text: 'Do not reply and report the email to your actual IT security team as a phishing attempt.' },
+          { id: 'd', text: 'Change your password and then reply with the new one so the old one is already invalid.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q3',
+        story: null,
+        scenario: 'You find a USB drive in your company car park with a label reading "Salary Review Q4 2025 — Confidential". What is the appropriate action?',
+        correct: 'd',
+        feedback: {
+          correct: 'Plugging in unknown USB drives is one of the most well-documented physical social engineering attacks ("USB drop attack"). Attackers intentionally plant labelled drives to trigger curiosity. The drive likely contains malware that activates on insertion. Hand it directly to your IT security team without plugging it into any device.',
+          wrong: 'Never plug in an unidentified USB drive into any company device. This is a classic USB drop attack — the enticing label is intentional social engineering. The drive could contain malware that activates on insertion with no visible signs. Give it to IT security without connecting it.'
+        },
+        options: [
+          { id: 'a', text: 'Plug it into your work computer to check if it belongs to a colleague.' },
+          { id: 'b', text: 'Plug it into your personal laptop at home so company systems are not at risk.' },
+          { id: 'c', text: 'Leave it on your manager\'s desk.' },
+          { id: 'd', text: 'Hand it directly to your IT security team without inserting it into any device.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q4',
+        story: 'You accidentally sent an email containing a customer\'s full name, NRIC, and home address to the wrong recipient — a vendor who should not have this information.',
+        scenario: 'You accidentally disclosed a customer\'s personal data to an unauthorised third party.',
+        correct: 'a',
+        feedback: {
+          correct: 'Under PDPA, an accidental data disclosure to an unauthorised party is a potential notifiable breach. You must immediately notify your Data Protection Officer (DPO) and follow your organisation\'s data breach response procedures. Attempting to recall the email while simultaneously notifying your DPO is the correct immediate response — do not attempt to handle this alone.',
+          wrong: 'Sending an NRIC and home address to an unauthorised party is a PDPA data breach. It must be reported internally to your DPO immediately — attempting to handle it quietly puts both you and your company at legal risk. The recipient should also be contacted to request deletion.'
+        },
+        options: [
+          { id: 'a', text: 'Immediately notify your Data Protection Officer and follow breach response procedures, including attempting to recall the email.' },
+          { id: 'b', text: 'Send a follow-up email to the vendor asking them to delete the email without telling anyone internally.' },
+          { id: 'c', text: 'Wait to see if the vendor notices — they may not have read it.' },
+          { id: 'd', text: 'Report it to IT to recall the email, then monitor the situation yourself.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q5',
+        story: null,
+        scenario: 'Your company\'s IT policy prohibits using personal cloud storage (Google Drive, Dropbox) for work files. A large urgent project means you need to work from home tonight and the company VPN is slow. What is the correct approach?',
+        correct: 'c',
+        feedback: {
+          correct: 'Shadow IT (using unsanctioned personal services for company data) violates most organisations\' data policies and potentially PDPA if customer data is involved. Company data on personal cloud services is outside IT\'s control and backup coverage. Contact IT for an approved remote access solution — even if it takes time, compliance protects both you and your customers.',
+          wrong: 'Using personal cloud storage for company files — even temporarily — is shadow IT. If that data includes customer personal data, it is a potential PDPA violation. It also puts company IP outside IT\'s security and backup perimeter. The right answer is to use only approved tools, even if it is less convenient.'
+        },
+        options: [
+          { id: 'a', text: 'Upload the files to your personal Google Drive tonight and delete them after the project.' },
+          { id: 'b', text: 'Email the files to your personal email as a temporary workaround.' },
+          { id: 'c', text: 'Contact IT to request an approved remote access solution or exception before uploading anything.' },
+          { id: 'd', text: 'Use Dropbox since it is more secure than Google Drive for sensitive work files.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q6',
+        story: 'You notice a colleague has been printing large volumes of customer records to take home. When asked, they say: "I am working on a quarterly analysis and need the data." Your company normally handles all analysis on internal systems.',
+        scenario: 'A colleague is printing and removing large volumes of customer records from the office.',
+        correct: 'b',
+        feedback: {
+          correct: 'Bulk removal of customer records — regardless of the stated reason — is a data security incident that your security or compliance team needs to assess. This could be an insider threat, a policy violation, or an employee being socially engineered to remove data. Reporting to your security team is the appropriate escalation, not confronting the colleague directly.',
+          wrong: 'Bulk printing and removal of customer records is a potential data security incident regardless of the stated justification. Proper quarterly analyses are done on internal systems with appropriate access controls. Report it to your security or compliance team — do not attempt to investigate or resolve this yourself.'
+        },
+        options: [
+          { id: 'a', text: 'Ignore it — the colleague explained the reason and seems trustworthy.' },
+          { id: 'b', text: 'Report the behaviour to your security or compliance team for assessment.' },
+          { id: 'c', text: 'Ask the colleague to show you the specific records they are taking.' },
+          { id: 'd', text: 'Send an anonymous email to the colleague warning them about data policies.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q7',
+        story: null,
+        scenario: 'What is "spear phishing" and why is it more dangerous than standard phishing?',
+        correct: 'a',
+        feedback: {
+          correct: 'Spear phishing uses publicly available information — LinkedIn profiles, company websites, recent news — to craft a highly personalised attack that references your real name, colleagues, projects, or recent events. This personalisation dramatically increases click and credential submission rates because the email feels genuine. Standard phishing uses generic templates sent in bulk.',
+          wrong: 'Spear phishing is specifically targeted at an individual or organisation using researched personal details. Because the email references real names, companies, and recent events, recipients are far more likely to trust it than a generic phishing email.'
+        },
+        options: [
+          { id: 'a', text: 'Spear phishing targets a specific individual using researched personal details, making it far more convincing than generic bulk phishing emails.' },
+          { id: 'b', text: 'Spear phishing uses more sophisticated malware attachments than standard phishing.' },
+          { id: 'c', text: 'Spear phishing only targets senior executives — standard phishing targets everyone.' },
+          { id: 'd', text: 'Spear phishing bypasses email filters while standard phishing is caught by spam detection.' }
+        ],
+        points: 150
+      },
+      {
+        id: 'anq2_q8',
+        story: null,
+        scenario: 'Your organisation is implementing a "Security Awareness Training" programme. Which metric BEST indicates the programme is actually reducing risk?',
+        correct: 'c',
+        feedback: {
+          correct: 'The most meaningful metric is the measured reduction in phishing simulation click rates over time — this directly measures whether employees are applying what they learned in real-decision scenarios. Training completion rates and quiz scores measure knowledge acquisition, not behavioural change. Reduced simulated click rates show the training is translating into safer behaviour.',
+          wrong: 'Training completion rates and quiz scores measure whether people attended and can recall content. The behavioural metric that matters — and the one that directly correlates with reduced breach risk — is whether employees are clicking fewer simulated phishing emails in controlled tests over time.'
+        },
+        options: [
+          { id: 'a', text: '100% training completion rate across all staff.' },
+          { id: 'b', text: 'High quiz scores on the post-training assessment.' },
+          { id: 'c', text: 'Measurable reduction in phishing simulation click rates over successive test campaigns.' },
+          { id: 'd', text: 'Zero IT support tickets related to suspicious emails.' }
+        ],
+        points: 150
+      }
+    ]
+  },
+
+  // 5 — DECISION-TREE: Investment Scam (Expert)
+  {
+    id: 'adults_new_dt_2',
+    type: 'decision-tree',
+    title: 'Investment Trap',
+    subtitle: 'Crypto Investment and Pig Butchering Scam',
+    icon: '📈',
+    difficulty: 'Expert',
+    xp: 1200,
+    module: 'finance-security',
+    tags: ['finance', 'general'],
+    briefing: 'MISSION: "Pig butchering" investment scams have cost Singaporeans over $660 million in a single year. The attacker has invested months building trust before making their move. Your decisions determine whether your savings survive. This is the hardest mission in the programme. 🐷',
+    maxScore: 300,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'Three months ago you connected with "Sarah Lim" on LinkedIn — a well-presented financial professional profile. Over three months she has been a thoughtful, non-pushy contact. Today she mentions: "I have been using a regulated crypto trading platform my uncle manages. My $10k became $38k in 6 weeks. I am happy to show you the platform if you are curious — no pressure at all 😊" 💼',
+        choices: [
+          { text: 'Ask to see the platform — 3 months of contact and she is not pushy, this seems genuine', next: 'saw_platform', points: 0 },
+          { text: 'Research "Sarah Lim" on LinkedIn and do a reverse image search of her profile photo first', next: 'researched_sarah', points: 100 },
+          { text: 'Politely decline any investment discussion — unsolicited investment tips from online contacts are always risky', next: 'declined', points: 50 }
+        ]
+      },
+      saw_platform: {
+        type: 'choice',
+        text: 'Sarah shares a professional-looking trading platform with real-time charts. She walks you through her account showing a $38,000 balance. She says: "Start small — $2,000. I will guide your trades personally. My uncle monitors all accounts." The platform even has an MAS logo and registration number. 📊',
+        choices: [
+          { text: 'Invest $2,000 — Sarah has proved her results and the MAS logo is there', next: 'initial_investment', points: 0 },
+          { text: 'Verify the platform\'s MAS registration on the actual MAS website before investing anything', next: 'verified_mas', points: 100 },
+          { text: 'Invest $500 instead of $2,000 to reduce risk', next: 'invested_small', points: 0 }
+        ]
+      },
+      researched_sarah: {
+        type: 'choice',
+        text: 'Reverse image search reveals Sarah\'s profile photo belongs to a real Singapore finance professional — whose actual LinkedIn shows she has no connection to crypto trading. The LinkedIn account "Sarah Lim" was created 4 months ago. You find a ScamAlert.sg forum post describing an identical 3-month LinkedIn contact pattern. 🔍',
+        choices: [
+          { text: 'Block the account, report it to LinkedIn, and submit a report to ScamAlert.sg', next: 'reported_sarah', points: 100 },
+          { text: 'Confront Sarah with your findings and see if she can explain', next: 'confronted_sarah', points: 0 }
+        ]
+      },
+      declined: {
+        type: 'choice',
+        text: 'Sarah says: "That is totally fine! No pressure. I will share my trading screenshots occasionally — maybe you will change your mind when you see the returns 😊" Over the next two weeks she sends screenshots showing her portfolio growing from $38k to $62k.',
+        choices: [
+          { text: 'The returns are too convincing to ignore — ask to see the platform now', next: 'saw_platform', points: 0 },
+          { text: 'Screenshots can be fabricated — maintain the decline and consider reporting the account', next: 'reported_sarah', points: 100 }
+        ]
+      },
+      initial_investment: {
+        type: 'choice',
+        text: 'You deposited $2,000. Within a week the platform shows your portfolio at $5,800. Sarah says: "You have the talent! To maximise this momentum, the platform recommends adding $10,000. This window closes in 48 hours." She sounds genuinely excited for you. 💹',
+        choices: [
+          { text: 'Add $10,000 — the $2,000 doubled in a week, momentum is real', next: 'added_more', points: 0 },
+          { text: 'Attempt to WITHDRAW the $5,800 first before adding anything more', next: 'tried_withdraw', points: 100 }
+        ]
+      },
+      verified_mas: {
+        type: 'choice',
+        text: 'You check mas.gov.sg\'s Financial Institutions Directory. The company name on the platform does not appear. The MAS registration number shown on the platform belongs to a different, unrelated company. The platform is fraudulent. 🔎',
+        choices: [
+          { text: 'Block Sarah, report the fraudulent platform to MAS at 1800-NOR-MONE (1800-626-6336), and submit to ScamAlert.sg', next: 'reported_platform', points: 100 },
+          { text: 'Tell Sarah you found the discrepancy and give her a chance to explain', next: 'confronted_sarah', points: 0 }
+        ]
+      },
+      invested_small: {
+        type: 'outcome',
+        text: '⚠️ Even $500 is now at risk. The platform will show it "growing" to build your confidence before asking for larger amounts. The withdrawal will be blocked when you try to take profits. The amount is small but the trap is set. Try to withdraw immediately and stop all contact with Sarah. Report to ScamAlert.sg.',
+        points: 0
+      },
+      reported_sarah: {
+        type: 'outcome',
+        text: '✅ Excellent investigative instincts. You identified the stolen photo, the new account, and cross-referenced with ScamAlert.sg before any money changed hands. The LinkedIn report flagged the account for review. Your ScamAlert.sg submission contributed to a wider SPF investigation. No financial loss. 🏆',
+        points: 0
+      },
+      confronted_sarah: {
+        type: 'outcome',
+        text: '⚠️ Sophisticated scammers have prepared answers for every confrontation. Sarah responds with a compelling explanation and you are less certain than before. Do not engage further — the evidence from your research is conclusive regardless of her response. Block, report, and move on. Engaging only gives them more opportunities to manipulate.',
+        points: 0
+      },
+      reported_platform: {
+        type: 'outcome',
+        text: '✅ Outstanding due diligence. MAS verification is the single most important check for any investment platform. You found the fraudulent MAS number, reported it to the real MAS, and submitted to ScamAlert.sg. MAS logged the report for their enforcement database. You protected yourself and contributed to stopping others from being victimised. 🏆',
+        points: 0
+      },
+      added_more: {
+        type: 'outcome',
+        text: '❌ You added $10,000. The platform then shows your total at $47,000. When you attempt to withdraw, a "tax clearance fee" of $4,700 (10%) is demanded. After paying, a "compliance hold" requires another fee. The withdrawal never happens. Total loss: $12,000+. Report to SPF at police.gov.sg and call the Anti-Scam Helpline at 1800-722-6688. The initial $2,000 "profit" was entirely fabricated to build your confidence.',
+        points: 0
+      },
+      tried_withdraw: {
+        type: 'outcome',
+        text: '✅ Critical test. The withdrawal request is "pending processing" for days, then blocked with a requirement for a "withdrawal tax" of $580. This is the moment the mask slips. Stop all transfers immediately. Report to SPF and the Anti-Scam Helpline (1800-722-6688). The $2,000 is likely lost, but you identified the scam before losing significantly more. The withdrawal test is the most important move you can make on any unverified platform. 🏆',
+        points: 0
+      }
+    }
+  },
+
+  {
+    id: 'adults_new_spot_1',
+    type: 'spot-threat',
+    title: 'Fake MOH Health Advisory',
+    subtitle: 'Government Impersonation in Healthcare',
+    icon: '🏥',
+    difficulty: 'Hard',
+    xp: 800,
+    tags: ['health', 'general'],
+    module: 'health-security',
+    briefing: 'A phishing email impersonating the Ministry of Health has been intercepted. Healthcare-themed attacks surged 300% post-pandemic as Singaporeans grew accustomed to receiving real MOH communications. Identify every threat indicator.',
+    totalPoints: 600,
+    items: [
+      { id: 'moh_domain', type: 'text', text: 'From: health-advisory@moh-singapore.org', isThreat: true, threatDesc: '🔴 FAKE MOH DOMAIN. All official MOH Singapore email communications come from @moh.gov.sg — this is a fixed Singapore government requirement. "moh-singapore.org" is an attacker-registered lookalike domain. Official Singapore government sites and emails always use the .gov.sg domain.' },
+      { id: 'moh_urgency', type: 'text', text: 'URGENT HEALTH ADVISORY: A new respiratory pathogen cluster has been detected in your residential area (postal code area). All residents must complete mandatory health screening registration within 48 hours to avoid quarantine order.', isThreat: true, threatDesc: '🔴 FEAR TACTIC + FALSE URGENCY. Legitimate MOH health advisories are published on moh.gov.sg and communicated through official channels — not targeted emails claiming your specific postal code is affected with 48-hour threats of quarantine orders.' },
+      { id: 'moh_nric_req', type: 'text', text: 'To complete mandatory registration, please provide: Full Name, NRIC/FIN Number, Date of Birth, Home Address, SingPass credentials to verify identity.', isThreat: true, threatDesc: '🔴 SINGPASS CREDENTIAL HARVESTING. MOH never requests SingPass credentials via email. If legitimate SingPass verification is needed, the official SingPass app and singpass.gov.sg are the only authorised channels — never email-embedded forms.' },
+      { id: 'moh_payment', type: 'text', text: 'Screening fee: S$28 (subsidised from S$150). Pay via PayNow UEN: 202XXXXXX5H to complete your registration.', isThreat: true, threatDesc: '🔴 FAKE GOVERNMENT FEE. Government-mandated health screening does not require upfront payment via PayNow to an unknown UEN. Any government payment goes through official government e-payment portals — verify the UEN via ACRA before any government-related payment.' },
+      { id: 'moh_safe_logo', type: 'text', text: '[MOH Singapore Logo | Ministry of Health | 16 College Road, College of Medicine Building]', isThreat: false, threatDesc: '⚠️ Anyone can copy the MOH logo and real address. These elements add false legitimacy but do not authenticate the email. Always verify via the official domain @moh.gov.sg.' },
+      { id: 'moh_threat', type: 'text', text: 'Failure to complete registration within 48 hours may result in a Quarantine Order under the Infectious Diseases Act. Non-compliance carries a fine of up to S$10,000.', isThreat: true, threatDesc: '🔴 LEGAL THREAT TACTIC. Invoking the Infectious Diseases Act with specific fine amounts creates fear and urgency. Real legal enforcement under this Act involves official letters from MOH — not emails demanding PayNow payments.' }
+    ],
+    threats: ['moh_domain', 'moh_urgency', 'moh_nric_req', 'moh_payment', 'moh_threat']
+  },
+
+  {
+    id: 'adults_new_dt_2',
+    type: 'decision-tree',
+    title: 'The Ransomware Hit',
+    subtitle: 'Incident Response Under Pressure',
+    icon: '☠️',
+    difficulty: 'Expert',
+    xp: 1200,
+    tags: ['business', 'tech'],
+    module: 'malware',
+    briefing: 'CRITICAL INCIDENT: It is 8:47 AM Monday. You are the IT manager. Twelve staff report they cannot access their files — all show a ransom note. A ransomware attack is in progress. Your decisions in the next 10 minutes determine whether your company recovers or pays.',
+    maxScore: 500,
+    nodes: {
+      start: {
+        text: 'Staff report encrypted files across the office. All Windows machines show: "Your files have been encrypted. Pay 2 BTC within 72 hours to recover them." Your file server is also affected. What is your immediate first action? ☠️',
+        emoji: '☠️',
+        choices: [
+          { text: 'Call the MSP (IT provider) and wait for instructions', points: 0, next: 'waited_msp', feedback: '⚠️ Waiting wastes critical containment time. The ransomware is still spreading.' },
+          { text: 'Isolate all infected machines immediately — disconnect from network', points: 100, next: 'isolated', feedback: '✅ Containment first. Every second of network connectivity = more lateral spread.' },
+          { text: 'Pay the ransom quickly to restore operations before the working day is lost', points: 0, next: 'paid_ransom', feedback: '⚠️ Payment does not guarantee decryption and signals you will pay — inviting repeat attacks.' }
+        ]
+      },
+      waited_msp: {
+        text: 'Twenty minutes pass waiting for the MSP. In that time, ransomware spreads to the accounting server and three additional machines. The blast radius doubled. 😔',
+        emoji: '😔',
+        choices: [
+          { text: 'Now isolate all infected machines from the network', points: 50, next: 'isolated_late', feedback: '✅ Better late than never — isolation stops further spread.' }
+        ]
+      },
+      paid_ransom: {
+        text: 'You pay 2 BTC (approximately S$130,000). The attacker provides a partial decryption key that recovers 60% of files. The remaining 40% — including payroll data — remain encrypted. The attacker demands more. 😔',
+        emoji: '😔',
+        isEnding: true,
+        endingType: 'bad',
+        endingTitle: 'Ransom Paid — Partial Recovery 💸',
+        endingText: 'Singapore\'s CSA advises against ransom payment — it does not guarantee full recovery and funds further attacks. Prevention: (1) Immutable offsite backups (2) Endpoint detection and response (3) Network segmentation (4) Regular patch management. Report all ransomware incidents to CSA at go.gov.sg/csa.',
+        points: 0
+      },
+      isolated: {
+        text: 'Machines are isolated. The spread is contained. Now you need to assess the extent. Your last backup was taken yesterday evening. What is your recovery approach? 🔍',
+        emoji: '🔍',
+        choices: [
+          { text: 'Wipe and restore from yesterday\'s backup', points: 100, next: 'restore_backup', feedback: '✅ Clean restore from verified backup is the gold standard ransomware recovery.' },
+          { text: 'Try to decrypt the files using online decryption tools', points: 50, next: 'decrypt_attempt', feedback: '⚠️ Decryption tools only exist for specific known ransomware strains — success is not guaranteed.' }
+        ]
+      },
+      isolated_late: {
+        text: 'With the expanded blast radius, you isolate all infected machines. The accounting server is also encrypted. Last backup was yesterday evening. What is your recovery plan? 🔍',
+        emoji: '🔍',
+        choices: [
+          { text: 'Wipe all infected machines and restore from yesterday\'s backup', points: 100, next: 'restore_backup', feedback: '✅ Backup restoration is the correct recovery path regardless of how long containment took.' },
+          { text: 'Pay the ransom to restore the accounting server urgently', points: 0, next: 'paid_ransom', feedback: '⚠️ Payment remains inadvisable — the accounting data is also in your backup.' }
+        ]
+      },
+      restore_backup: {
+        text: 'You begin restore. The process will take 4 hours. While recovering, what is your mandatory post-incident obligation? 📋',
+        emoji: '📋',
+        choices: [
+          { text: 'Report to CSA and assess PDPA notification obligations, then conduct root cause analysis', points: 100, next: 'hero_ending', feedback: '✅ Regulatory reporting, PDPA assessment, and root cause analysis are all mandatory post-incident steps.' },
+          { text: 'Keep the incident internal — reporting creates reputational damage', points: 0, next: 'no_report', feedback: '⚠️ PDPA requires notification to PDPC if personal data is affected. Concealing incidents creates additional regulatory liability.' }
+        ]
+      },
+      decrypt_attempt: {
+        text: 'No free decryption tool matches this ransomware variant. The files remain encrypted. Your best remaining option is the backup. 🤔',
+        emoji: '🤔',
+        isEnding: true,
+        endingType: 'ok',
+        endingTitle: 'Recovered via Backup After Delay 🛡️',
+        endingText: 'Decryption tools only exist for known variants. Backup restoration was always the right path. Time lost on decryption attempts meant a longer disruption window. Document: always attempt backup restoration before any other recovery method.',
+        points: 50
+      },
+      no_report: {
+        text: 'Three months later, an affected customer discovers their personal data was leaked by the attacker. They file a PDPC complaint. Your company faces a S$1M fine for failure to report under PDPA. 😔',
+        emoji: '😔',
+        isEnding: true,
+        endingType: 'bad',
+        endingTitle: 'Regulatory Penalty 💸',
+        endingText: 'Singapore\'s PDPA requires organisations to notify PDPC within 3 business days of discovering a breach involving 500+ individuals or significant harm. Concealment creates compounded liability. Report all incidents to CSA and assess PDPA obligations immediately.',
+        points: 0
+      },
+      hero_ending: {
+        text: '🏆 Systems restored from backup in 4 hours. PDPC notified within the 3-day window. Root cause analysis revealed an unpatched VPN vulnerability as the entry point — patched immediately. CSA assisted with forensics. Full operations resumed by end of day.',
+        emoji: '🏆',
+        isEnding: true,
+        endingType: 'great',
+        endingTitle: 'Incident Handled: Textbook Response 🛡️',
+        endingText: 'Model ransomware response: isolate → contain → restore from backup → report to CSA and PDPC → root cause analysis → patch. The investment in daily backups saved approximately S$130,000 in ransom. Implement: immutable backups, EDR, network segmentation, and a tested incident response plan.',
+        points: 100
+      }
+    }
+  },
+
+  {
+    id: 'adults_new_quiz_3',
+    type: 'quiz',
+    title: 'Healthcare Data & Privacy',
+    subtitle: 'MOH, Medical Records & Scams',
+    icon: '🏥',
+    difficulty: 'Intermediate',
+    xp: 600,
+    tags: ['health', 'privacy'],
+    module: 'health-security',
+    briefing: 'Singapore\'s healthcare data is high-value — SingHealth\'s 2018 breach exposed 1.5 million patient records. Healthcare scams and data privacy issues affect every working adult. Seven scenarios test your healthcare security awareness.',
+    questions: [
+      {
+        id: 'anq3_q1',
+        story: 'You receive a call: "I am Dr Tan from Raffles Hospital. We need to confirm your medical history before your appointment next week. Can you verify your NRIC and last three medications over the phone?"',
+        scenario: 'An unsolicited call from "hospital staff" asks for your NRIC and medication history.',
+        correct: 'b',
+        feedback: {
+          correct: 'Hospitals do not call patients proactively to collect medical history over unverified phone lines. Call the hospital\'s official number directly to verify whether any call was legitimate before sharing any medical information.',
+          wrong: 'Medical identity fraud uses real medical details to claim insurance or obtain prescriptions. Hospitals verify patients through appointment systems — they do not cold-call for medical history. Call the hospital directly on their official number.'
+        },
+        options: [
+          { id: 'a', text: 'Provide the information — hospitals need this before appointments' },
+          { id: 'b', text: 'Hang up and call Raffles Hospital\'s official number to verify the call' },
+          { id: 'c', text: 'Provide NRIC only, not medications' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q2',
+        story: 'A health supplement advertisement says: "Our product cured 47 Singapore patients of Type 2 Diabetes! Endorsed by MOH Singapore. Buy now before MOH restricts it — limited stock!" The ad appears on Facebook with many shares.',
+        scenario: 'A Facebook ad claims a supplement has MOH endorsement and medical cure claims.',
+        correct: 'c',
+        feedback: {
+          correct: 'MOH does not endorse commercial products. Any product claiming MOH endorsement is likely fraudulent. Report to HSA at hsa.gov.sg/medicinalerts. Medical cure claims for supplements are illegal in Singapore under the Medicines Act.',
+          wrong: 'MOH does not endorse commercial health products. "MOH-endorsed" supplement claims are illegal under Singapore\'s Medicines Act. Report such products to HSA at hsa.gov.sg/medicinalerts.'
+        },
+        options: [
+          { id: 'a', text: 'Buy it — MOH endorsement makes it legitimate' },
+          { id: 'b', text: 'Share the ad with family members who have diabetes' },
+          { id: 'c', text: 'Report to HSA — MOH does not endorse commercial products and medical cure claims are illegal' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q3',
+        story: 'Your employer\'s health insurance portal asks you to upload a photo of your medical certificate and complete a health questionnaire that includes questions about mental health history, genetic conditions, and family medical history.',
+        scenario: 'A corporate health portal requests sensitive medical and family health history.',
+        correct: 'b',
+        feedback: {
+          correct: 'Employers are permitted to collect health data necessary for insurance claims. However, genetic and family medical history data collection requires explicit consent and has strict PDPA protections. Review the data privacy policy and consent terms before submitting sensitive genetic/family data.',
+          wrong: 'PDPA protects sensitive personal data including medical records. Review what specific health data is required for insurance purposes versus optional. Genetic and mental health data have heightened protections — check what consent you are giving before submitting.'
+        },
+        options: [
+          { id: 'a', text: 'Fill in everything — it is company HR and required for insurance' },
+          { id: 'b', text: 'Submit only data required for the insurance claim; review consent terms before submitting genetic and family history data' },
+          { id: 'c', text: 'Refuse entirely — employers should not have any health data' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q4',
+        story: 'You used a third-party health app that syncs with your Apple Health data. The app\'s privacy policy says it may share "anonymised health data with research partners and affiliated companies".',
+        scenario: 'A health app requests to share your anonymised health data with third parties.',
+        correct: 'b',
+        feedback: {
+          correct: '"Anonymised" health data can often be re-identified when combined with other data sources. Research into data brokers shows health data is frequently sold commercially. Review what data is shared and opt out of data sharing if you are uncomfortable.',
+          wrong: '"Anonymised" health data is not fully anonymous — step count, sleep patterns, and heart rate combined with other data points can re-identify individuals. Review and restrict data sharing permissions in health app settings.'
+        },
+        options: [
+          { id: 'a', text: 'Accept — if it is anonymised there is no privacy risk' },
+          { id: 'b', text: 'Review the specific data shared and opt out of third-party sharing if possible' },
+          { id: 'c', text: 'Delete the app entirely — any data sharing is unacceptable' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q5',
+        story: 'Your doctor\'s clinic uses WhatsApp to send appointment reminders and to receive photos of rashes for teleconsult. You share a photo of a skin condition via WhatsApp.',
+        scenario: 'Using WhatsApp to share medical condition photos for teleconsultation.',
+        correct: 'b',
+        feedback: {
+          correct: 'WhatsApp messages and media are backed up to iCloud/Google Drive by default. Photos shared via personal messaging apps are not PDPA-compliant for medical data. Clinics should use encrypted healthcare platforms for medical image sharing.',
+          wrong: 'WhatsApp media is stored on both parties\' phones, backed up to cloud services, and is not HIPAA or PDPA-compliant for sensitive medical data. Request the clinic use a secure teleconsult platform like HealthHub, or email directly without cloud backup.'
+        },
+        options: [
+          { id: 'a', text: 'It is fine — WhatsApp is end-to-end encrypted so it is secure' },
+          { id: 'b', text: 'Be aware that WhatsApp photos are backed up to cloud — disable backups or use a secure healthcare platform' },
+          { id: 'c', text: 'Refuse and insist on an in-person appointment only' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q6',
+        story: 'You receive a call from someone claiming to be from your health insurance company, saying you have an unclaimed medical reimbursement of S$1,200 from last year. They need your bank account number to process it.',
+        scenario: 'An insurance company calls about an unclaimed reimbursement requiring your bank account number.',
+        correct: 'c',
+        feedback: {
+          correct: 'Insurance companies process reimbursements through their official online portals or via cheque — not by calling to collect bank details over the phone. Hang up and log into your insurer\'s official portal to check for any outstanding reimbursements.',
+          wrong: 'Legitimate insurance reimbursements are processed through your existing account details on file or via official portal submission — insurers do not call to collect bank account numbers. Verify through the insurer\'s official portal.'
+        },
+        options: [
+          { id: 'a', text: 'Provide the bank account number — S$1,200 is worth it' },
+          { id: 'b', text: 'Ask the caller for their employee ID to verify' },
+          { id: 'c', text: 'Hang up and log into the insurer\'s official portal to check for any outstanding reimbursements' }
+        ],
+        points: 100
+      },
+      {
+        id: 'anq3_q7',
+        story: 'The SingHealth data breach in 2018 exposed 1.5 million patients\' NRIC numbers, names, addresses, and dates of birth. You were affected. Five years later, you receive a letter offering a "legal compensation claim" for S$3,000 with an upfront processing fee of S$150.',
+        scenario: 'Five years after a data breach, a letter offers compensation with an upfront processing fee.',
+        correct: 'b',
+        feedback: {
+          correct: 'Post-breach compensation scams target known breach victims — who are identifiable from the same leaked data. Legitimate class action compensation never requires upfront fees. This is a secondary scam exploiting breach victims.',
+          wrong: 'Compensation claim letters requiring upfront fees are a secondary scam targeting breach victims using their own leaked data. Legitimate compensation claims (if any) would be announced through official channels, not letters requiring payment.'
+        },
+        options: [
+          { id: 'a', text: 'Pay the S$150 — I was affected and deserve compensation' },
+          { id: 'b', text: 'Discard the letter — legitimate compensation claims never require upfront fees from victims' },
+          { id: 'c', text: 'Pay the fee but only via PayNow to control the transaction' }
+        ],
+        points: 100
+      }
+    ]
+  }
+]
+
   seniors: [
     {
       id: 'seniors_quiz_1',
@@ -1751,7 +3734,532 @@ const MISSIONS = {
 
 // ─── V1.1: Additional Linux/Coding Scenarios for Teens & Adults ───────────────
 
-// Add to teens array
+// Add to teens array,
+
+  {
+    id: 'seniors_new_quiz_1',
+    type: 'quiz',
+    title: 'CPF & Retirement Scam Shield',
+    subtitle: 'Protect Your Life Savings',
+    icon: '🏦',
+    difficulty: 'Beginner',
+    xp: 400,
+    tags: ['finance', 'general'],
+    module: 'finance-security',
+    briefing: 'Your CPF savings are your retirement security — and scammers know it. These 5 scenarios are based on REAL scams targeting Singapore seniors\' CPF savings. Take your time, read carefully, and trust your instincts. 💪',
+    questions: [
+      {
+        id: 'snq1_q1',
+        story: 'You receive a phone call from a man who says he is from the CPF Board. He says: "We detected unusual activity in your CPF account. To protect your balance, you must immediately transfer your CPF savings to a temporary \'government protection account\'. Do not tell anyone — this is a classified security matter."',
+        scenario: 'A caller claiming to be from CPF asks you to transfer your savings to a protection account and keep it secret.',
+        correct: 'b',
+        feedback: {
+          correct: 'The CPF Board will NEVER call you to transfer CPF funds to any account. CPF money stays in CPF — it cannot be moved to a "protection account" by phone instruction. This is a government impersonation scam.',
+          wrong: 'The CPF Board never calls asking you to transfer funds. "Protect your money by moving it" is the most common government impersonation scam line in Singapore. Hang up and call CPF at 1800-227-1188 to verify.'
+        },
+        options: [
+          { id: 'a', text: 'Transfer the CPF funds immediately to protect them' },
+          { id: 'b', text: 'Hang up and call CPF Board directly at 1800-227-1188 to verify' },
+          { id: 'c', text: 'Ask the caller for their employee number before deciding' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq1_q2',
+        story: 'A financial advisor you met at a community centre seminar offers to help you invest your CPF savings in a "special high-yield bond" that earns 15% annually — much better than the CPF interest rate. He is well-dressed, polite, and shows you printed testimonials.',
+        scenario: 'A person at a seminar offers to invest your CPF savings in a high-yield product.',
+        correct: 'c',
+        feedback: {
+          correct: 'CPF savings can only be invested through approved CPF Investment Scheme (CPFIS) providers — not random individuals at seminars. 15% guaranteed annual returns is not realistic. Always verify investment professionals at MAS Financial Advisers Register.',
+          wrong: 'CPF savings can only be invested through official CPFIS-approved channels. Check if a financial advisor is licensed at MAS\'s Financial Advisers Register. 15% annual guaranteed returns do not exist in legitimate markets.'
+        },
+        options: [
+          { id: 'a', text: 'Invest — he seems trustworthy and 15% is much better than CPF rates' },
+          { id: 'b', text: 'Invest a small amount first to test' },
+          { id: 'c', text: 'Verify his MAS licence at mas.gov.sg/financial-advisers before considering anything' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq1_q3',
+        story: 'You receive an SMS: "Your CPF Annual Statement is ready. View it now: cpf-board-sg-statement.com/login — Log in with your SingPass to access." You are expecting your annual statement.',
+        scenario: 'An SMS links to an external site for your CPF annual statement.',
+        correct: 'b',
+        feedback: {
+          correct: 'CPF annual statements are accessible only through the official CPF website (cpf.gov.sg) or the CPF mobile app. Any SMS link directing you elsewhere for CPF access is phishing.',
+          wrong: 'The real CPF website is cpf.gov.sg. Any SMS linking to any other website for CPF access is a phishing site. Always access your CPF statement directly via cpf.gov.sg or the official CPF app.'
+        },
+        options: [
+          { id: 'a', text: 'Click the link — I am expecting the statement' },
+          { id: 'b', text: 'Access the CPF website directly at cpf.gov.sg or use the official CPF app instead' },
+          { id: 'c', text: 'Click the link but do not enter SingPass details' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq1_q4',
+        story: 'Your neighbour tells you about an investment club he joined. Members pool CPF money together for "guaranteed returns". He has received two monthly payouts already and wants you to join.',
+        scenario: 'A neighbour invites you to join a CPF investment club with guaranteed returns.',
+        correct: 'c',
+        feedback: {
+          correct: 'Pooling CPF funds with private groups is illegal. Early investors receiving payouts is the Ponzi structure — they are paid from newer investors\' money until the scheme collapses. Report to SPF or MAS if you suspect this.',
+          wrong: 'Unauthorised collective investment schemes using CPF funds are illegal Ponzi schemes. Early payout recipients are being paid with newer investors\' money. The scheme will collapse. Report to MAS at 1800-110-0969.'
+        },
+        options: [
+          { id: 'a', text: 'Join — if my neighbour got payouts it must be working' },
+          { id: 'b', text: 'Join with a small amount first to test' },
+          { id: 'c', text: 'Decline — CPF pooling with private groups is illegal and follows a Ponzi structure' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq1_q5',
+        story: 'You receive an email saying you can now withdraw all your CPF savings early by paying a S$500 "administrative fee" to unlock the early withdrawal option. The email has the CPF Board logo.',
+        scenario: 'An email claims you can withdraw CPF early by paying an upfront fee.',
+        correct: 'b',
+        feedback: {
+          correct: 'There is no "fee to unlock" CPF early withdrawal. CPF withdrawal eligibility is governed by law and does not require any fee payment. This advance fee fraud uses the CPF logo to appear legitimate.',
+          wrong: 'CPF withdrawal eligibility is determined by age and scheme rules — no fee unlocks early withdrawal. Any "administrative fee" to access your own CPF is fraud. Report to CPF Board at 1800-227-1188.'
+        },
+        options: [
+          { id: 'a', text: 'Pay the S$500 fee — getting CPF early is worth it' },
+          { id: 'b', text: 'Ignore the email — CPF withdrawal requires no upfront fees' },
+          { id: 'c', text: 'Pay and then request a refund if it does not work' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  {
+    id: 'seniors_new_spot_1',
+    type: 'spot-threat',
+    title: 'Scam WhatsApp Message',
+    subtitle: 'Find Every Danger in This Message',
+    icon: '📱',
+    difficulty: 'Beginner',
+    xp: 400,
+    tags: ['social', 'finance'],
+    module: 'scams',
+    briefing: 'A suspicious WhatsApp message has been shared with your community centre for analysis. Your task: tap on EVERY part of the message that is dangerous or suspicious. There is no rush — read every sentence carefully. 🔍',
+    totalPoints: 500,
+    items: [
+      { id: 'whatsapp_impersonation', type: 'text', text: 'From: "OCBC Bank Singapore" (WhatsApp, profile shows OCBC logo)', isThreat: true, threatDesc: '🔴 BANK IMPERSONATION. OCBC Bank does not contact customers via WhatsApp with account alerts. Real OCBC alerts come via the official OCBC OneToken app, registered SMS sender ID "OCBC", or email to your registered address. Anyone can set a WhatsApp name and photo to look like OCBC.' },
+      { id: 'whatsapp_alarm', type: 'text', text: 'IMPORTANT NOTICE: Your OCBC account has been compromised. Unauthorised transactions of SGD 4,200 have been detected. Your account is at risk of being frozen within the next 3 hours.', isThreat: true, threatDesc: '🔴 FEAR AND URGENCY TACTIC. Creating panic about your money being taken away is the most effective way to make you act without thinking. Real bank fraud alerts are processed automatically — your bank does not give you a 3-hour window via WhatsApp.' },
+      { id: 'whatsapp_link', type: 'text', text: 'Please verify your account immediately at: www.ocbc-secure-login-sg.com', isThreat: true, threatDesc: '🔴 FAKE WEBSITE. The real OCBC online banking website is internet.ocbc.com or the OCBC Digital app. "ocbc-secure-login-sg.com" is a fake website designed to steal your username, password, and OTP. The real OCBC domain is always ocbc.com.' },
+      { id: 'whatsapp_otp', type: 'text', text: 'You will receive an OTP code via SMS. Please enter it on the verification page when prompted.', isThreat: true, threatDesc: '🔴 OTP PHISHING. Your OTP code is what protects your account from unauthorised access. Entering it on any website other than the real OCBC portal gives the attacker your OTP, which they use immediately to log into your real account and take your money.' },
+      { id: 'whatsapp_safe', type: 'text', text: 'Thank you for banking with OCBC. We appreciate your trust.', isThreat: false, threatDesc: '⚠️ A friendly sign-off is used to make the message feel official. This does not change the fact that everything above is a scam.' }
+    ],
+    threats: ['whatsapp_impersonation', 'whatsapp_alarm', 'whatsapp_link', 'whatsapp_otp']
+  },
+
+  {
+    id: 'seniors_new_dt_1',
+    type: 'decision-tree',
+    title: 'The Investment Opportunity',
+    subtitle: 'Protecting Your Retirement Savings',
+    icon: '📊',
+    difficulty: 'Intermediate',
+    xp: 600,
+    tags: ['finance', 'general'],
+    module: 'finance-security',
+    briefing: 'IMPORTANT: Take your time with each step. A scammer is about to contact you with what sounds like a great investment opportunity. Many Singapore seniors have lost their life savings this way. Your decisions here could save your retirement. Remember: If it sounds too good to be true, it usually is.',
+    maxScore: 400,
+    nodes: {
+      start: {
+        text: 'A well-spoken man named "Richard Lim" calls you. He says he is a private wealth manager and your name was referred by a mutual contact. He mentions a "low-risk, government-linked bond" offering 12% annual returns — far above bank interest rates. He asks if you are interested in hearing more. 📊',
+        emoji: '📊',
+        choices: [
+          { text: 'Yes, I am interested — please tell me more', points: 0, next: 'engaged_scammer', feedback: '⚠️ Engaging gives the scammer time to build trust and pressure you. Let\'s see what happens...' },
+          { text: 'Ask for his MAS licence number and company registered name before discussing anything', points: 100, next: 'asked_credentials', feedback: '✅ Excellent first step! All licensed financial advisors must provide their MAS credentials.' },
+          { text: 'Tell him you are not interested and hang up', points: 50, next: 'hung_up', feedback: '✅ Safe choice! Unsolicited investment calls should be treated with caution.' }
+        ]
+      },
+      engaged_scammer: {
+        text: '"Richard" is charming and very knowledgeable. Over three calls in a week, he shares printed materials by post, invites you to an "exclusive investor briefing" at Raffles Place, and mentions several other investors your age who are very happy. He now asks for an initial investment of S$20,000.',
+        emoji: '🤝',
+        choices: [
+          { text: 'Invest S$20,000 — I have met him in person and it seems credible', points: 0, next: 'invested', feedback: '⚠️ In-person meetings and professional materials do not guarantee legitimacy. Scammers invest in elaborate setups.' },
+          { text: 'Ask for his MAS licence number and check it independently before investing anything', points: 100, next: 'asked_credentials', feedback: '✅ Even at this stage, checking the MAS register is the right move before any investment.' },
+          { text: 'Invest a smaller amount of S$2,000 to test first', points: 0, next: 'small_invested', feedback: '⚠️ Even a small amount is gone. Testing with real money is not a safe strategy.' }
+        ]
+      },
+      asked_credentials: {
+        text: '"Richard" gives you a licence number: FA100XXXXX. You check the MAS Financial Advisers Register at mas.gov.sg. The number does not exist. The company name he gave — "SG Wealth Private Limited" — is not registered either. 🔍',
+        emoji: '🔍',
+        choices: [
+          { text: 'Confront "Richard" directly and demand an explanation', points: 50, next: 'confronted', feedback: '⚠️ Confronting may give him time to create a cover story. Reporting is more effective.' },
+          { text: 'End all contact, report to SPF and MAS immediately', points: 100, next: 'hero_ending', feedback: '✅ Perfect. Confirmed fraud should be reported to both SPF and MAS without further engagement.' }
+        ]
+      },
+      hung_up: {
+        text: '"Richard" calls back three more times with increasingly attractive offers. On the fourth call, he says a friend of yours specifically vouched for you. You are curious now. 🤔',
+        emoji: '🤔',
+        choices: [
+          { text: 'Listen to the offer — if my friend trusts him it might be real', points: 0, next: 'engaged_scammer', feedback: '⚠️ Scammers research their targets. They may have found a mutual connection name through social media.' },
+          { text: 'Ask for his MAS licence number before any further conversation', points: 100, next: 'asked_credentials', feedback: '✅ Persistent callers offering investment opportunities should always be verified with MAS credentials.' }
+        ]
+      },
+      invested: {
+        text: 'You invested S$20,000. For two months, you receive monthly "statement" emails showing 12% growth. Then "Richard" calls: there is a special opportunity to double returns — invest S$50,000 more before the window closes. 😨',
+        emoji: '😨',
+        isEnding: true,
+        endingType: 'bad',
+        endingTitle: 'Investment Scam in Progress 💸',
+        endingText: 'The monthly statements are fake. The initial "returns" are paid from your own money to build confidence. This is a Ponzi scheme. Stop all investment immediately and report to SPF at 999 and MAS at 1800-110-0969. If you have invested, contact your bank to document all transactions. Act quickly — time matters.',
+        points: 0
+      },
+      small_invested: {
+        text: 'You received a "return" of S$240 after one month (confirming your confidence). Now "Richard" suggests a much larger investment for much higher returns. The small return was funded by your own S$2,000. 😔',
+        emoji: '😔',
+        isEnding: true,
+        endingType: 'bad',
+        endingTitle: 'Ponzi Bait Taken 💸',
+        endingText: 'Initial small returns are the Ponzi scheme\'s most effective tool — they are funded by your own investment to build confidence. Stop immediately, report to SPF and MAS at 1800-110-0969. Do not invest more regardless of promised returns.',
+        points: 0
+      },
+      confronted: {
+        text: '"Richard" becomes aggressive: "You are going to miss the best opportunity of your life. All the other investors are doing great." He pressures you to invest before the opportunity expires. 🚨',
+        emoji: '🚨',
+        choices: [
+          { text: 'End contact permanently and report to SPF and MAS', points: 100, next: 'hero_ending', feedback: '✅ Aggressive pressure when questioned is the final red flag. Report and end all contact.' },
+          { text: 'Give him one more chance to provide real credentials', points: 0, next: 'invested', feedback: '⚠️ He cannot provide real credentials because they do not exist. Further engagement leads to financial loss.' }
+        ]
+      },
+      hero_ending: {
+        text: '🏆 You checked MAS credentials, confirmed the fraud, and reported to both SPF and MAS. SPF identified "Richard" as part of an investment scam ring that had defrauded 14 Singapore seniors of S$2.3 million combined. Your report helped stop them.',
+        emoji: '🏆',
+        isEnding: true,
+        endingType: 'great',
+        endingTitle: 'Scam Busted! 🇸🇬',
+        endingText: 'Perfect response: verify MAS licence → confirmed not registered → reported to SPF and MAS. Always check investment credentials at mas.gov.sg before investing. No legitimate licensed advisor will ever pressure you or be unable to provide a verifiable MAS licence number.',
+        points: 100
+      }
+    }
+  },
+
+  {
+    id: 'seniors_new_quiz_2',
+    type: 'quiz',
+    title: 'SingPass & Digital Safety',
+    subtitle: 'Protecting Your Government Account',
+    icon: '🇸🇬',
+    difficulty: 'Intermediate',
+    xp: 600,
+    tags: ['general', 'tech'],
+    module: 'identity',
+    briefing: 'SingPass is the key to all your Singapore government services — CPF, income tax, healthcare, and more. Keeping it safe is one of the most important things you can do. Seven questions to sharpen your SingPass and digital safety skills. 💪',
+    questions: [
+      {
+        id: 'snq2_q1',
+        story: 'Your SingPass password is "NationalDay1965!" — easy to remember because it refers to Singapore\'s independence year. You have used this password for 8 years.',
+        scenario: 'A SingPass password based on Singapore\'s independence year used for 8 years.',
+        correct: 'b',
+        feedback: {
+          correct: 'Predictable patterns (national dates, years) are tested early in any password attack. 8 years without changing also means it may have been exposed in old data breaches. Change to something random and enable 2FA on SingPass.',
+          wrong: 'Historically significant dates are tested in password attacks. Change to something random and enable SingPass Face Verification and 2FA for an additional security layer.'
+        },
+        options: [
+          { id: 'a', text: 'Keep it — it is strong because it has a capital letter and a number' },
+          { id: 'b', text: 'Change it to something random and enable SingPass 2FA immediately' },
+          { id: 'c', text: 'Add more symbols: "NationalDay1965!@#"' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q2',
+        story: 'Your adult son asks to borrow your SingPass login to complete some government forms on your behalf because he says it will save you the trouble.',
+        scenario: 'Your son asks to use your SingPass credentials to complete government forms for you.',
+        correct: 'b',
+        feedback: {
+          correct: 'SingPass is an individual account — sharing credentials is prohibited and you remain legally responsible for all actions taken with it. Use Myinfo\'s delegated access or have your son guide you through it yourself.',
+          wrong: 'SingPass credentials are non-transferable. All actions taken with your SingPass are legally attributed to you. SingPass has a Myinfo family delegation feature for authorised access — use that instead.'
+        },
+        options: [
+          { id: 'a', text: 'Share the credentials — my son is trustworthy and it saves me the trouble' },
+          { id: 'b', text: 'Do not share — SingPass is individual and legally your responsibility; use Myinfo delegation instead' },
+          { id: 'c', text: 'Share just the password, not the 2FA code' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q3',
+        story: 'You receive a SingPass login verification notification on your phone — but you are NOT trying to log in. The notification says a login was attempted from an unfamiliar device.',
+        scenario: 'You receive an unexpected SingPass login verification notification.',
+        correct: 'c',
+        feedback: {
+          correct: 'An unexpected login notification means someone is attempting to access your SingPass with your credentials. Deny immediately and change your password at singpass.gov.sg — someone has your SingPass password.',
+          wrong: 'An unexpected SingPass verification request means someone is attempting to log in with your password. Deny immediately, change your password, and call SingPass helpline at 6335-3533.'
+        },
+        options: [
+          { id: 'a', text: 'Approve the notification — it must be a system glitch' },
+          { id: 'b', text: 'Ignore it and do nothing' },
+          { id: 'c', text: 'Deny it, immediately change your SingPass password, and call 6335-3533' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q4',
+        story: 'A "government staff member" visits your home saying they need to help you update your SingPass account. They have a lanyard with what looks like a government ID and ask to use your phone.',
+        scenario: 'Someone at your door claims to be from the government and wants to use your phone to update SingPass.',
+        correct: 'b',
+        feedback: {
+          correct: 'Government agencies do not send staff door-to-door to update SingPass on your devices. Any such visit is social engineering. Call SPF at 999 if you feel unsafe. No government agency will ever ask to handle your phone or device.',
+          wrong: 'The Singapore government does not send staff to homes to update SingPass accounts. This is a social engineering attack. Never hand your phone to a stranger. Call SPF if you feel threatened.'
+        },
+        options: [
+          { id: 'a', text: 'Let them help — they have a government ID so it must be official' },
+          { id: 'b', text: 'Do not let them in or handle your phone. Call SPF at 999 if concerned.' },
+          { id: 'c', text: 'Let them in but stand next to them while they use the phone' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q5',
+        story: 'You want to do your income tax submission on your computer at a Starbucks using their free WiFi. Your SingPass has Face Verification enabled.',
+        scenario: 'Accessing SingPass for income tax filing on public WiFi with Face Verification enabled.',
+        correct: 'b',
+        feedback: {
+          correct: 'Tax submissions contain sensitive financial data. Public WiFi is not a safe environment for SingPass activities. Use your mobile data or wait until you have a private WiFi connection at home.',
+          wrong: 'Public WiFi is not safe for SingPass or any government services access. Your tax data and government account details should only be accessed on trusted private networks. Use mobile data instead.'
+        },
+        options: [
+          { id: 'a', text: 'Proceed — Face Verification makes it secure even on public WiFi' },
+          { id: 'b', text: 'Wait until home — SingPass should not be used on public WiFi' },
+          { id: 'c', text: 'Use a VPN first then proceed on public WiFi' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q6',
+        story: 'You receive a message saying your SingPass account will be deactivated unless you log in to verify it. The link provided takes you to "singpass-gov-sg.net".',
+        scenario: 'A link claims SingPass deactivation and points to "singpass-gov-sg.net".',
+        correct: 'c',
+        feedback: {
+          correct: 'The official SingPass website is singpass.gov.sg — a .gov.sg domain. "singpass-gov-sg.net" is a fake domain. SingPass accounts are not deactivated via messages with links. Access SingPass only at singpass.gov.sg.',
+          wrong: 'Only singpass.gov.sg is the real SingPass website. Anything else ending in .net, .com, .org is fake. Access SingPass only by typing singpass.gov.sg directly in your browser.'
+        },
+        options: [
+          { id: 'a', text: 'Click the link — I do not want my SingPass deactivated' },
+          { id: 'b', text: 'Reply asking for more information' },
+          { id: 'c', text: 'Ignore the link. The real SingPass is only at singpass.gov.sg — type it directly.' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq2_q7',
+        story: 'Your friend tells you she uses the same PIN for her SingPass, ATM card, phone unlock, and phone banking — "1234" — because it is easier to remember.',
+        scenario: 'A friend uses the same simple PIN "1234" for all her accounts.',
+        correct: 'b',
+        feedback: {
+          correct: 'Using "1234" as a PIN is extremely dangerous — it is the first PIN tried in any attack. Using the same PIN across all accounts means one compromise exposes everything. Help your friend set up strong, different PINs for each account.',
+          wrong: '"1234" is the most commonly used PIN globally and the first one attackers try. One stolen PIN compromises everything. Help your friend use a different strong PIN for each account — or a password manager to remember them.'
+        },
+        options: [
+          { id: 'a', text: 'It is understandable — remembering many PINs is difficult' },
+          { id: 'b', text: 'Help her understand why this is dangerous and set up different strong PINs for each account' },
+          { id: 'c', text: 'Suggest she changes it to "9999" which is stronger' }
+        ],
+        points: 100
+      }
+    ]
+  },
+
+  {
+    id: 'seniors_new_spot_1',
+    type: 'spot-threat',
+    title: 'Fake Job SMS for Your Child',
+    subtitle: 'Part-Time Job Scam Alert',
+    icon: '💼',
+    difficulty: 'Intermediate',
+    xp: 600,
+    tags: ['scams', 'finance'],
+    module: 'scams',
+    briefing: 'You received a suspicious SMS promising a well-paying part-time job for your adult child. Many seniors receive these on behalf of family members. Tap every part of the message that looks suspicious or wrong. Take your time. 🔍',
+    totalPoints: 600,
+    items: [
+      { id: 'job_unsolicited', type: 'text', text: 'Hi! We found your contact via an online job platform. We are hiring for work-from-home part-time staff in Singapore.', isThreat: true, threatDesc: '🔴 UNSOLICITED JOB OFFER. Legitimate companies do not randomly text mobile numbers with job offers. This number was likely harvested from a data breach or bought from a data broker. Real job opportunities come through applications on legitimate platforms like MyCareersFuture.sg.' },
+      { id: 'job_pay', type: 'text', text: 'Work 2-3 hours a day from home. Earn S$150-S$500 per day! No experience needed. Immediate start available.', isThreat: true, threatDesc: '🔴 UNREALISTIC PAY CLAIMS. S$500 per day for 2-3 hours of work from home with no experience = S$100-S$250 per hour. This far exceeds Singapore\'s market rates for entry-level work. Unrealistically high pay is a defining scam indicator.' },
+      { id: 'job_task', type: 'text', text: 'Task: Help process online transactions and orders. Receive money transfers into your bank account and forward to our business account. Keep 10% commission per transaction.', isThreat: true, threatDesc: '🔴 MONEY MULE RECRUITMENT. Receiving money and forwarding it to others is money laundering — regardless of whether you know it. This is exactly how money mule operations work. Participants face criminal prosecution under Singapore\'s Corruption, Drug Trafficking and Other Serious Crimes Act.' },
+      { id: 'job_urgency', type: 'text', text: 'Limited positions available! Reply "YES" within 24 hours to reserve your slot. Training starts immediately upon confirmation.', isThreat: true, threatDesc: '🔴 FALSE URGENCY. The artificial 24-hour deadline prevents you from researching the "company" or consulting with family. Legitimate employers allow time for background checking. Pressure to respond quickly = scam tactic.' },
+      { id: 'job_whatsapp', type: 'text', text: 'For more information, add us on WhatsApp: +60-XXXXXXXXX (Note: Malaysian number)', isThreat: true, threatDesc: '🔴 OVERSEAS CONTACT NUMBER. A "Singapore job" recruiter using a Malaysian (+60) number is a major red flag. Legitimate Singapore employers use Singapore (+65) numbers. Overseas numbers make tracing and legal action much harder.' },
+      { id: 'job_safe', type: 'text', text: 'Join our growing team of flexible workers across Singapore!', isThreat: false, threatDesc: '⚠️ Friendly language about a team creates false belonging and credibility. This does not change the multiple red flags above.' }
+    ],
+    threats: ['job_unsolicited', 'job_pay', 'job_task', 'job_urgency', 'job_whatsapp']
+  },
+
+  {
+    id: 'seniors_new_dt_2',
+    type: 'decision-tree',
+    title: 'Helping Your Grandchild Online',
+    subtitle: 'Safe Digital Skills for the Whole Family',
+    icon: '👴',
+    difficulty: 'Beginner',
+    xp: 400,
+    tags: ['general', 'education'],
+    module: 'foundation',
+    briefing: 'You want to help your grandchild use the internet safely. Your grandchild asks you questions about technology. Make the right choices to protect your whole family. There is no rush — take your time. 👴',
+    maxScore: 300,
+    nodes: {
+      start: {
+        text: 'Your 10-year-old grandchild shows you a pop-up on their tablet: "YOU ARE THE 1,000,000th VISITOR! You have WON an iPad! Click NOW to claim your prize!" The grandchild is excited and wants to click it. 👴',
+        emoji: '👴',
+        choices: [
+          { text: 'Let the grandchild click — winning an iPad would be wonderful', points: 0, next: 'clicked_popuo', feedback: '⚠️ This type of pop-up has been a common trick for 20 years. Let\'s see what happens...' },
+          { text: 'Explain to the grandchild that this is a common trick and show them how to close it safely', points: 100, next: 'explained_trick', feedback: '🌟 Teaching moment! You are protecting your grandchild and helping them learn.' },
+          { text: 'Tell the grandchild to ignore it and not mention it to anyone', points: 50, next: 'ignored_it', feedback: '✅ Safe choice, but you missed a teaching opportunity.' }
+        ]
+      },
+      clicked_popuo: {
+        text: 'Clicking opens a website asking for your grandchild\'s full name, home address, and your credit card number to "pay S$5 shipping" for the iPad. 😨',
+        emoji: '😨',
+        choices: [
+          { text: 'Close the website immediately and explain why it is a scam', points: 100, next: 'explained_trick', feedback: '✅ Closing immediately and explaining is the right recovery!' },
+          { text: 'Fill in the details — S$5 for an iPad is a great deal', points: 0, next: 'scammed', feedback: '⚠️ No free prize ever requires your credit card or home address.' }
+        ]
+      },
+      explained_trick: {
+        text: 'You explained how these pop-ups are tricks. Your grandchild asks: "How do I know which websites are safe, Grandpa/Grandma?" This is a great teaching moment! What is the most helpful thing you can tell them? 📚',
+        emoji: '📚',
+        choices: [
+          { text: 'Always ask a trusted adult (parent, grandparent) before clicking anything you are not sure about', points: 100, next: 'hero_ending', feedback: '🌟 Perfect! Asking a trusted adult is the best safety rule for children online.' },
+          { text: 'Never use the internet alone — it is too dangerous', points: 0, next: 'overly_restricted', feedback: '⚠️ Being too restrictive may prevent them from learning to navigate safely. The goal is supervised freedom.' }
+        ]
+      },
+      ignored_it: {
+        text: 'Your grandchild goes back to their game. Later that week, they encounter a similar pop-up and click it without asking because no one explained why it was dangerous. 🤔',
+        emoji: '🤔',
+        isEnding: true,
+        endingType: 'ok',
+        endingTitle: 'Safe This Time — Teach Next Time 🛡️',
+        endingText: 'You protected them from this one pop-up — well done! Next time, use moments like this to teach them: "These prize pop-ups are tricks. Always close them without clicking and tell me." Children who understand WHY something is dangerous are much safer online.',
+        points: 50
+      },
+      scammed: {
+        text: 'The website took your credit card details and charged S$49.99, not S$5. The "iPad" never arrived. Contact your bank immediately to dispute the charge. 😔',
+        emoji: '😔',
+        isEnding: true,
+        endingType: 'bad',
+        endingTitle: 'Prize Pop-Up Scam 💸',
+        endingText: 'Prize pop-ups that ask for credit cards are always scams. No legitimate prize requires upfront payment. Call your bank immediately to dispute and cancel the charge. Teach your grandchild: if a website asks for credit card details for a "free" prize, it is a trick — close the browser.',
+        points: 0
+      },
+      hero_ending: {
+        text: '🏆 Your grandchild now knows to always ask a trusted adult when they see anything online that seems exciting or scary. You have given them a safety skill that will protect them for life.',
+        emoji: '🏆',
+        isEnding: true,
+        endingType: 'great',
+        endingTitle: 'Digital Safety Grandparent! 🌟',
+        endingText: 'The best cybersecurity habit for children is simple: "When in doubt, ask a trusted adult." By teaching this calmly and clearly, you have given your grandchild the most important online safety tool they will ever have. You are a family cybersecurity hero!',
+        points: 100
+      },
+      overly_restricted: {
+        text: 'Your grandchild feels frustrated and starts using the internet secretly without telling you. Children who feel over-restricted tend to hide their online activity from adults. 😔',
+        emoji: '😔',
+        isEnding: true,
+        endingType: 'ok',
+        endingTitle: 'Try a Balanced Approach 🤝',
+        endingText: 'Being too restrictive can backfire — children hide internet use from adults, which is less safe. The goal is to build trust so they feel comfortable asking you when something feels wrong online. "Ask me first" is more effective than "never go online alone."',
+        points: 50
+      }
+    }
+  },
+
+  {
+    id: 'seniors_new_quiz_3',
+    type: 'quiz',
+    title: 'ScamShield & Reporting Tools',
+    subtitle: 'Your Anti-Scam Toolkit',
+    icon: '🛡️',
+    difficulty: 'Beginner',
+    xp: 400,
+    tags: ['general', 'tech'],
+    module: 'foundation',
+    briefing: 'Singapore has excellent free tools to protect you from scams. Knowing how to use them — and who to call — can save your savings and your peace of mind. Five questions to master your anti-scam toolkit! 💪',
+    questions: [
+      {
+        id: 'snq3_q1',
+        story: null,
+        scenario: 'You received a suspicious phone call from someone claiming to be from the government asking for your bank details. What is the correct phone number to call SPF to report this scam call?',
+        correct: 'b',
+        feedback: {
+          correct: '1800-255-0000 is the official Singapore Police Force non-emergency hotline. For emergencies, always call 999. For scam advice, you can also call ScamShield at 1800-722-6688.',
+          wrong: 'The SPF non-emergency hotline is 1800-255-0000. Save it in your phone today! For ScamShield advice and reporting, call 1800-722-6688.'
+        },
+        options: [
+          { id: 'a', text: '1900-255-0000' },
+          { id: 'b', text: '1800-255-0000' },
+          { id: 'c', text: '6255-0000' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq3_q2',
+        story: null,
+        scenario: 'What does the free ScamShield app do that helps protect you from scam calls and messages?',
+        correct: 'b',
+        feedback: {
+          correct: 'ScamShield automatically identifies and blocks known scam calls and SMS messages based on SPF\'s database. It works in the background without you needing to do anything. Download it free from the App Store or Google Play Store.',
+          wrong: 'ScamShield automatically blocks known scam numbers and SMS messages using SPF\'s active scam database. It requires no action from you once installed — it protects you in the background.'
+        },
+        options: [
+          { id: 'a', text: 'It charges scammers a fee every time they call you' },
+          { id: 'b', text: 'It automatically identifies and blocks known scam calls and messages using SPF\'s database' },
+          { id: 'c', text: 'It records all your phone calls for evidence' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq3_q3',
+        story: 'You receive a suspicious phone call. You are not sure if it is a scam. There is a free government hotline specifically for scam-related advice.',
+        scenario: 'You are unsure if a call or message is a scam and want advice.',
+        correct: 'c',
+        feedback: {
+          correct: '1800-722-6688 is the National Crime Prevention Council\'s anti-scam hotline. Call them any time you are unsure about a call or message. They are specifically trained to advise on scams and can help you decide what to do.',
+          wrong: 'The Anti-Scam Hotline is 1800-722-6688 (NCPC). Call whenever you are unsure if something is a scam — they give free advice and help you report. Save this number in your phone today.'
+        },
+        options: [
+          { id: 'a', text: 'Just ignore it — if in doubt, do nothing' },
+          { id: 'b', text: 'Call MAS at 1800-110-0969' },
+          { id: 'c', text: 'Call the Anti-Scam Hotline at 1800-722-6688 for advice' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq3_q4',
+        story: 'You realise you transferred money to a scammer 30 minutes ago via PayNow. Is it too late to do anything?',
+        scenario: 'You just transferred money to a scammer 30 minutes ago.',
+        correct: 'b',
+        feedback: {
+          correct: 'Call your bank immediately — every minute counts. Banks have fraud response teams who can sometimes freeze the receiving account if you report quickly. Also call SPF at 999 for an emergency report. Do not delay.',
+          wrong: 'Act immediately — call your bank\'s 24-hour fraud hotline right away. DBS: 1800-111-1111, OCBC: 1800-363-3333, UOB: 1800-222-2121. The faster you report, the higher the chance of recovery.'
+        },
+        options: [
+          { id: 'a', text: 'It is too late — PayNow is instant and cannot be reversed' },
+          { id: 'b', text: 'Call your bank\'s fraud hotline immediately — speed increases recovery chances' },
+          { id: 'c', text: 'Wait to see if the scammer returns the money' }
+        ],
+        points: 100
+      },
+      {
+        id: 'snq3_q5',
+        story: 'You want to check if a phone number that called you is a known scam number before calling back.',
+        scenario: 'You want to check if a phone number is associated with scams before calling back.',
+        correct: 'b',
+        feedback: {
+          correct: 'ScamShield.org has a free "Check a Number" feature where you can type in any phone number to see if it has been reported as a scam. This takes less than 30 seconds and is completely free.',
+          wrong: 'ScamShield.org has a free "Check a Number" tool — visit scamshield.org and use the number check feature. You can also forward suspicious SMS to 74722 (ScamShield\'s SMS reporting number) to help protect others.'
+        },
+        options: [
+          { id: 'a', text: 'Call the number and ask if they are a scammer' },
+          { id: 'b', text: 'Check the number at ScamShield.org using their free "Check a Number" feature' },
+          { id: 'c', text: 'There is no way to check — just ignore all unknown numbers' }
+        ],
+        points: 100
+      }
+    ]
+  }
+
 MISSIONS.teens.push(
   {
     id: 'teens_linux_1',
