@@ -5,11 +5,17 @@ An interactive, standalone cybersecurity awareness and education game for **all 
 ## 🎮 Features
 
 - **4 Age Group Modes** with tailored themes and scenarios
-- **24 Missions** of real-world cybersecurity scenarios
+- **59 Missions** across 4 age groups + 4 mandatory CS101 foundational courses
 - **Singapore-specific content** — PayNow, SingPass, CPF, DBS/OCBC/UOB, SPF, ScamShield
-- **Zero dependencies** — single HTML file, works offline
+- **Level system** — Beginner / Intermediate / Hard / Expert with XP multipliers
+- **Hobby matching** — missions personalised to your interests with ✨ highlights
+- **Cross-group play** — attempt any age group's missions; harder = bonus XP 🔥
+- **Intro storyline** — 5-slide narrative cutscene for new users
+- **Background music** — looping ambient track with toggle (autoplay on first interaction)
 - **Instant feedback** with educational explanations after every answer
-- **Score tracking** and performance rating
+- **Score tracking**, leaderboard, and 8-badge achievement system
+- **Supabase backend** — auth, profiles, sessions, leaderboard
+- **Built by [Ivan Than](https://ivanthan.uk)**
 
 ## 🧒 Kids (7–12)
 Password safety, personal info protection, safe websites, cyberbullying, online strangers
@@ -32,7 +38,7 @@ cd cyberaware-game
 
 # 2. Add your Supabase credentials
 cp js/config.example.js js/config.js
-# Edit js/config.js — fill in SUPABASE_URL and SUPABASE_ANON
+# Edit js/config.js — fill in SUPABASE_URL and SUPABASE_ANON_KEY
 
 # 3. Run the Supabase schema
 # Paste supabase/schema.sql into your Supabase SQL Editor and run it
@@ -43,7 +49,22 @@ cp js/config.example.js js/config.js
 #   GRANT SELECT, INSERT ON public.level_attempts TO authenticated;
 #   GRANT SELECT ON public.leaderboard TO anon, authenticated;
 
-# 4. Serve locally
+# 4. Run the v1.4 migration (adds level, hobby, intro_completed, foundational_completed)
+# Run these in Supabase SQL Editor if upgrading from v1.3 or earlier:
+#   ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS level TEXT NOT NULL DEFAULT 'beginner';
+#   ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS hobby TEXT NOT NULL DEFAULT 'general';
+#   ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS intro_completed BOOLEAN NOT NULL DEFAULT FALSE;
+#   ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS foundational_completed BOOLEAN NOT NULL DEFAULT FALSE;
+# Then reload the schema cache:
+#   NOTIFY pgrst, 'reload schema';
+
+# 5. Supabase Auth settings
+# Authentication → Providers → Email → disable "Confirm email" (recommended for games)
+
+# 6. Add background music (optional)
+# Place your MP3 at audio/bgm.mp3 — loops automatically on first user interaction
+
+# 7. Serve locally
 npx serve .
 # → http://localhost:3000
 ```
@@ -64,15 +85,18 @@ MIT — Free to use, adapt, and share for education purposes.
 ## 🗂️ Changelog
 
 ### v1.4 — 2026-03-19
-- **Account registration fix** — skips OTP screen when Supabase email confirmation is disabled; added spam folder tip
+- **Account registration fix** — skips OTP screen when Supabase email confirmation is disabled; stale sessions auto-cleared on refresh
 - **Level system** — Beginner / Intermediate / Hard / Expert selected at registration, affects XP multiplier (×1.0 → ×2.0)
-- **Hobby system** — 8 hobby/interest options at registration; missions matching your hobby are highlighted with ✨
+- **Hobby system** — 8 hobby/interest options at registration; missions matching your hobby highlighted with ✨
 - **XP formula** — effective XP = baseXP × age-group multiplier × level multiplier (fully combined)
 - **Intro storyline** — 5-slide mandatory narrative cutscene shown to all new users after profile setup
-- **Foundational course (CS101)** — mandatory first mission per age group covering cybersecurity basics; marked with 📋 badge
+- **Foundational course (CS101)** — mandatory first mission per age group covering cybersecurity basics; marked with 📚 badge
 - **59 missions** — 30 new missions (kids ×7, teens ×8, adults ×8, seniors ×7) + 4 CS101 foundational; `Advanced` renamed to `Hard`; Expert tier added
+- **Background music** — HTML5 Audio with looping MP3, autoplay on first interaction, toggle button with localStorage state
+- **Footer** — "Built by Ivan Than" link to [ivanthan.uk](https://ivanthan.uk)
 - **DB schema** — `profiles` table extended: `level`, `hobby`, `intro_completed`, `foundational_completed` columns
 - **Dashboard** — shows age group + level together; foundational mission pinned to top with completion status
+- **Bug fixes** — login error shows real Supabase message; intro/foundation DB updates non-blocking; mission injection corrected (all new missions now inside their arrays)
 
 ### v1.3 — 2026-03-19
 - **Cross-group missions** — all users can browse and play missions from any age group
@@ -87,7 +111,7 @@ MIT — Free to use, adapt, and share for education purposes.
 - **Password reset fix** — email reset link now correctly goes to reset screen (not dashboard)
 - **Change Password** in Profile — synced with Supabase auth
 - **Expanded quiz questions** — Beginner: 5 questions, Intermediate: 7, Advanced: 10 (up from 3 each)
-- **Background music** — ambient drone with Web Audio API, togglable (default off)
+- **Background music** — ambient drone with Web Audio API, togglable (replaced in v1.4 with HTML5 Audio + MP3)
 - **Admin all-group access** — admin users can browse and play missions from any age group
 - **Avatar picker in Profile** — 40+ emoji avatars in 4 categories, changeable and synced to database
 
