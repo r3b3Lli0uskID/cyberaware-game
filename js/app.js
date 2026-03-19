@@ -337,12 +337,11 @@ async function createProfile(username, ageGroup, avatar, level = 'beginner', hob
 
   if (error) {
     loading(false);
+    console.error('createProfile error:', JSON.stringify(error));
     if (error.code === '23505') {
       toast('Username already taken — try another', 'error');
-    } else if (error.code === '42501' || (error.message && error.message.toLowerCase().includes('permission denied'))) {
-      toast('Permission denied. Run the GRANT statements in your Supabase SQL Editor (see README Setup step 3).', 'error');
     } else {
-      toast(error.message, 'error');
+      toast(`[${error.code}] ${error.message}`, 'error');
     }
     return false;
   }
