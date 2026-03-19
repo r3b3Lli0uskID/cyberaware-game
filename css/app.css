@@ -4,8 +4,7 @@
    Generated: 2026-03-18
    ============================================================ */
 
-/* ── Google Fonts ─────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap');
+/* ── Google Fonts loaded via <link> in HTML to avoid MIME-type issues ── */
 
 /* ============================================================
    1. CSS CUSTOM PROPERTIES — DEFAULT (CYBERPUNK DARK)
@@ -260,6 +259,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 [data-theme="seniors"] html,
@@ -320,6 +320,9 @@ button, input, select, textarea {
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────── */
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--color-border) var(--color-bg); }
+/* Chromium */
 ::-webkit-scrollbar              { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track        { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb        { background: var(--color-border); border-radius: var(--radius-full); }
