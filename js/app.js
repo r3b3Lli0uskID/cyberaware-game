@@ -1537,10 +1537,10 @@ function toggleSound() { SFX.toggleMute(); }
 // ─── BACKGROUND MUSIC (HTML5 Audio) ───────────────────────────────────────────
 const BGM = (() => {
   let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'false'); // on by default
-  // Create audio element immediately so browser can reference it
   const audio = new Audio('audio/bgm.mp3');
   audio.loop = true;
   audio.volume = 0.4;
+  let playPromise = null;
 
   function updateBtn() {
     const btn = document.getElementById('bgm-toggle-btn');
@@ -1552,11 +1552,17 @@ const BGM = (() => {
 
   function play() {
     if (muted) return;
-    audio.play().catch(() => {});
+    playPromise = audio.play().catch(() => {});
   }
 
   function stop() {
-    audio.pause();
+    // Chain pause onto the play promise to avoid AbortError race condition
+    if (playPromise) {
+      playPromise.then(() => { audio.pause(); }).catch(() => {});
+      playPromise = null;
+    } else {
+      audio.pause();
+    }
   }
 
   function toggleMute() {
