@@ -3243,7 +3243,7 @@ button, input, select, textarea {
 .hero-title { font-size:clamp(2rem, 5vw, 3.2rem); font-weight:900; line-height:1.15; margin:0 0 1rem; color:var(--color-text); }
 .hero-title span { color:var(--color-accent); }
 .hero-sub { font-size:1.1rem; color:var(--color-text-muted); line-height:1.65; margin:0 0 1.75rem; max-width:540px; }
-.hero-cta { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+.hero-cta { display:flex; flex-direction:column; align-items:flex-start; gap:.6rem; margin-bottom:2.5rem; }
 .hero-stats { display:flex; gap:2rem; flex-wrap:wrap; }
 .hero-stats .stat { text-align:center; }
 .hero-stats .stat-num { display:block; font-size:1.6rem; font-weight:900; color:var(--color-accent); }
@@ -4348,7 +4348,7 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   }
   .hero-title  { font-size: 1.65rem; }
   .hero-sub    { font-size: .95rem; max-width: none; }
-  .hero-cta    { justify-content: center; }
+  .hero-cta    { align-items: center; }
   .hero-stats  { gap: 1.25rem; justify-content: center; }
 
   /* Cards: edge-to-edge feel (no border-radius on phone) */
