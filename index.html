@@ -334,11 +334,11 @@
   <nav class="nav">
     <div class="nav-brand">🛡️ <span>CyberGuard</span></div>
     <div class="nav-links">
-      <button class="nav-btn active" onclick="showScreen('screen-dashboard');renderDashboard()">🏠 Home</button>
-      <button class="nav-btn" onclick="renderLeaderboard()">🏆 Leaderboard</button>
-      <button class="nav-btn" onclick="renderProfilePage();showScreen('screen-profile')">👤 Profile</button>
-      <button class="nav-btn admin-nav-btn" id="nav-admin-btn" style="display:none" onclick="openAdminPanel()">⚙️ Admin</button>
-      <button class="nav-btn" onclick="signOut()">🚪 Sign Out</button>
+      <button class="nav-btn active" onclick="showScreen('screen-dashboard');renderDashboard()"><span class="nav-icon">🏠</span><span class="nav-label"> Home</span></button>
+      <button class="nav-btn" onclick="renderLeaderboard()"><span class="nav-icon">🏆</span><span class="nav-label"> Leaderboard</span></button>
+      <button class="nav-btn" onclick="renderProfilePage();showScreen('screen-profile')"><span class="nav-icon">👤</span><span class="nav-label"> Profile</span></button>
+      <button class="nav-btn admin-nav-btn" id="nav-admin-btn" style="display:none" onclick="openAdminPanel()"><span class="nav-icon">⚙️</span><span class="nav-label"> Admin</span></button>
+      <button class="nav-btn" onclick="signOut()"><span class="nav-icon">🚪</span><span class="nav-label"> Sign Out</span></button>
     </div>
   </nav>
 
@@ -520,8 +520,8 @@
   <nav class="nav">
     <div class="nav-brand">⚙️ <span>Admin Panel</span></div>
     <div class="nav-links">
-      <button class="nav-btn" onclick="renderDashboard();showScreen('screen-dashboard')">🏠 Back to Game</button>
-      <button class="nav-btn" onclick="signOut()">🚪 Sign Out</button>
+      <button class="nav-btn" onclick="renderDashboard();showScreen('screen-dashboard')"><span class="nav-icon">🏠</span><span class="nav-label"> Back to Game</span></button>
+      <button class="nav-btn" onclick="signOut()"><span class="nav-icon">🚪</span><span class="nav-label"> Sign Out</span></button>
     </div>
   </nav>
 

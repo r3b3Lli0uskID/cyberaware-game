@@ -4330,13 +4330,14 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
     gap:       .25rem;
     flex-wrap: wrap;
   }
-  /* Hide text labels, show only leading emoji */
+  /* Show only emoji icon on mobile */
   .nav-btn {
     font-size: 0;
     padding:   .4rem .55rem;
     min-height: 40px;
   }
-  .nav-btn::first-letter { font-size: 1.1rem; }
+  .nav-btn .nav-icon { font-size: 1.2rem; display: inline-block; }
+  .nav-btn .nav-label { display: none; }
 
   /* Hero: single column, reduced font sizes */
   .hero {
