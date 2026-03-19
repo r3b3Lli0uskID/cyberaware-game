@@ -5,7 +5,7 @@ An interactive, standalone cybersecurity awareness and education game for **all 
 ## 🎮 Features
 
 - **4 Age Group Modes** with tailored themes and scenarios
-- **59 Missions** across 4 age groups + 4 mandatory CS101 foundational courses
+- **50+ Missions** across 4 age groups + 4 mandatory CS101 foundational courses
 - **Singapore-specific content** — PayNow, SingPass, CPF, DBS/OCBC/UOB, SPF, ScamShield
 - **Level system** — Beginner / Intermediate / Hard / Expert with XP multipliers
 - **Hobby matching** — missions personalised to your interests with ✨ highlights
@@ -40,14 +40,18 @@ cd cyberaware-game
 cp js/config.example.js js/config.js
 # Edit js/config.js — fill in SUPABASE_URL and SUPABASE_ANON_KEY
 
-# 3. Run the Supabase schema
-# Paste supabase/schema.sql into your Supabase SQL Editor and run it
-# Then run the GRANTs:
+# 3. Run the Supabase schema + permissions
+# Paste supabase/schema.sql into your Supabase SQL Editor and run it.
+# The schema includes tables, RLS policies, triggers, and views.
+# Then run these GRANTs (required — without them all DB writes will get 42501):
 #   GRANT SELECT ON public.profiles TO anon;
 #   GRANT SELECT, INSERT, UPDATE ON public.profiles TO authenticated;
 #   GRANT SELECT, INSERT, UPDATE ON public.game_sessions TO authenticated;
 #   GRANT SELECT, INSERT ON public.level_attempts TO authenticated;
 #   GRANT SELECT ON public.leaderboard TO anon, authenticated;
+# Then verify RLS policies exist (run in SQL Editor):
+#   SELECT policyname, cmd FROM pg_policies WHERE tablename = 'profiles';
+# You should see: profiles_read_all (SELECT), profiles_insert_own (INSERT), profiles_update_own (UPDATE)
 
 # 4. Run the v1.4 migration (adds level, hobby, intro_completed, foundational_completed)
 # Run these in Supabase SQL Editor if upgrading from v1.3 or earlier:
@@ -83,6 +87,21 @@ MIT — Free to use, adapt, and share for education purposes.
 ---
 
 ## 🗂️ Changelog
+
+### v1.5 — 2026-03-19
+- **Cloudflare Pages deployment** — `_headers` file with Content-Security-Policy; `config.js` committed to repo so credentials reach the CDN
+- **BGM toggle fixed** — `.sound-toggle-btn` was inheriting `pointer-events:none` from `.theme-controls` parent, blocking all clicks; fixed with explicit `pointer-events:all`; simplified stop/play logic removes race condition (no more "stuck" toggle)
+- **Font loading** — replaced Google Fonts `@import` (blocked by Cloudflare MIME/nosniff) with Bunny Fonts `<link>` + `crossorigin` preconnect; no more `NS_ERROR_CORRUPTED_CONTENT` in Firefox
+- **CSS warnings** — removed `-webkit-text-size-adjust` (Firefox unsupported); wrapped webkit scrollbar rules in `@supports selector(::-webkit-scrollbar)` so Firefox skips cleanly
+- **scenarios.js sparse hole** — `// Add to teens array\r,` had a bare `,` after the `\r` carriage return that ended the `//` comment, creating a sparse hole at `MISSIONS.seniors[5]` and crashing `renderDashboard`; removed rogue comma
+- **Duplicate mission ID** — `seniors_new_spot_1` appeared twice; second renamed to `seniors_new_spot_2`
+- **Permission denied (42501)** — root cause: `config.js` gitignored so Cloudflare Pages served placeholder credentials; Supabase client pointed to non-existent host; fixed by committing real `config.js`; also added GRANTs + RLS policies + schema cache reload to setup docs
+- **Stale session** — `loadProfile()` now distinguishes 42501 permission error from missing profile; auto signs out on stale session instead of looping to profile setup
+- **Login errors** — `signIn()` shows real Supabase error message; `email_not_confirmed` handled explicitly
+- **Landing page** — updated hero stats (50+ missions, centered row); age-group cards expanded with all new mission topics; new "Platform Features" 6-card section; hero CTA stacked vertically and centered; "Learn More" moved below "Start Training"
+- **Profile setup** — "Start My Training" button centered; Sign Out button centred below it
+- **Footer** — CyberGuard title and tagline split onto separate centered lines
+- **Mobile nav** — Sign Out button visible with 🚪 emoji; all nav buttons use `nav-icon`/`nav-label` spans instead of fragile `::first-letter` CSS hack
 
 ### v1.4 — 2026-03-19
 - **Account registration fix** — skips OTP screen when Supabase email confirmation is disabled; stale sessions auto-cleared on refresh
