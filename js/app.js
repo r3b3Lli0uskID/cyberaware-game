@@ -242,7 +242,16 @@ async function signIn(username, password) {
 
   const { data, error } = await db.auth.signInWithPassword({ email: profile.email, password });
   loading(false);
-  if (error) { toast('Incorrect password', 'error'); return false; }
+  if (error) {
+    if (error.message?.toLowerCase().includes('not confirmed') || error.code === 'email_not_confirmed') {
+      toast('Email not confirmed — check your inbox or spam for the verification link', 'error');
+    } else if (error.message?.toLowerCase().includes('invalid') || error.code === 'invalid_credentials') {
+      toast('Incorrect password', 'error');
+    } else {
+      toast(error.message || 'Login failed', 'error');
+    }
+    return false;
+  }
   App.user = data.user;
   await loadProfile();
   return true;
