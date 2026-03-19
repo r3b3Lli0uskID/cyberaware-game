@@ -3739,7 +3739,7 @@ const MISSIONS = {
 
 // ─── V1.1: Additional Linux/Coding Scenarios for Teens & Adults ───────────────
 
-// Add to teens array,
+// Add to teens array
 
   {
     id: 'seniors_new_quiz_1',
@@ -4071,7 +4071,7 @@ const MISSIONS = {
   },
 
   {
-    id: 'seniors_new_spot_1',
+    id: 'seniors_new_spot_2',
     type: 'spot-threat',
     title: 'Fake Job SMS for Your Child',
     subtitle: 'Part-Time Job Scam Alert',

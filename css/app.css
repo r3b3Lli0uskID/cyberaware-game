@@ -4634,6 +4634,7 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 
 /* ── Sound toggle button ─────────────────────────────────── */
 .sound-toggle-btn {
+  pointer-events: all;
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
