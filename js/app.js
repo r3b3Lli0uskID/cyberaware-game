@@ -278,8 +278,25 @@ async function loadProfile() {
     .eq('id', App.user.id)
     .single();
 
-  if (error || !data) {
+  if (error) {
+    // Permission denied = Supabase RLS / GRANT not configured
+    if (error.code === '42501' || (error.message && error.message.toLowerCase().includes('permission denied'))) {
+      toast('Database permission error. Ask your admin to run the GRANT statements in Supabase SQL Editor.', 'error');
+      showScreen('screen-landing');
+      return;
+    }
     // No profile found — if it's a fresh signup the flag is set; otherwise stale session → sign out
+    if (App.justSignedUp) {
+      showScreen('screen-profile-setup');
+      renderProfileSetup();
+    } else {
+      await db.auth.signOut();
+      App.user = null;
+      showScreen('screen-landing');
+    }
+    return;
+  }
+  if (!data) {
     if (App.justSignedUp) {
       showScreen('screen-profile-setup');
       renderProfileSetup();
@@ -320,7 +337,13 @@ async function createProfile(username, ageGroup, avatar, level = 'beginner', hob
 
   if (error) {
     loading(false);
-    toast(error.code === '23505' ? 'Username already taken — try another' : error.message, 'error');
+    if (error.code === '23505') {
+      toast('Username already taken — try another', 'error');
+    } else if (error.code === '42501' || (error.message && error.message.toLowerCase().includes('permission denied'))) {
+      toast('Permission denied. Run the GRANT statements in your Supabase SQL Editor (see README Setup step 3).', 'error');
+    } else {
+      toast(error.message, 'error');
+    }
     return false;
   }
 
@@ -1536,14 +1559,10 @@ function toggleSound() { SFX.toggleMute(); }
 
 // ─── BACKGROUND MUSIC (HTML5 Audio) ───────────────────────────────────────────
 const BGM = (() => {
-  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'false'); // on by default
+  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'false');
   const audio = new Audio('audio/bgm.mp3');
   audio.loop = true;
   audio.volume = 0.4;
-  let isPlaying = false;
-
-  audio.addEventListener('play',  () => { isPlaying = true;  });
-  audio.addEventListener('pause', () => { isPlaying = false; });
 
   function updateBtn() {
     const btn = document.getElementById('bgm-toggle-btn');
@@ -1555,17 +1574,11 @@ const BGM = (() => {
 
   function play() {
     if (muted) return;
-    const p = audio.play();
-    if (p) p.catch(() => {});
+    audio.play().catch(() => {});
   }
 
   function stop() {
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      // Audio may still be loading — pause once it starts
-      audio.addEventListener('play', () => { audio.pause(); }, { once: true });
-    }
+    audio.pause();
   }
 
   function toggleMute() {
