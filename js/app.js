@@ -1536,7 +1536,7 @@ function toggleSound() { SFX.toggleMute(); }
 
 // ─── BACKGROUND MUSIC (HTML5 Audio) ───────────────────────────────────────────
 const BGM = (() => {
-  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true'); // off by default
+  let muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'false'); // on by default
   // Create audio element immediately so browser can reference it
   const audio = new Audio('audio/bgm.mp3');
   audio.loop = true;
@@ -1568,7 +1568,7 @@ const BGM = (() => {
   }
 
   function initUI() {
-    muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'true');
+    muted = JSON.parse(localStorage.getItem('cg-bgm-muted') ?? 'false');
     updateBtn();
   }
 
