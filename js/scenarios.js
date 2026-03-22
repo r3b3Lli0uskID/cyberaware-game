@@ -5,6 +5,11 @@
 
 const MISSIONS = {
 
+  // Expert array initialised here so it is always defined before
+  // new_missions_expert.js runs (which uses MISSIONS.expert.push()).
+  // Core expert missions are pushed below after FOUNDATION_MISSIONS.
+  expert: [],
+
   // ╔══════════════════════════════════════════════════════╗
   // ║  KIDS  (7–12)                                        ║
   // ╚══════════════════════════════════════════════════════╝
@@ -4911,7 +4916,7 @@ const FOUNDATION_MISSIONS = {
 // ╔══════════════════════════════════════════════════════╗
 // ║  EXPERT  (Level 05)                                  ║
 // ╚══════════════════════════════════════════════════════╝
-MISSIONS.expert = [
+MISSIONS.expert.push(
 
   // ─── QUIZ: Web Application Threat Intelligence ───────────────────────────────
   {
@@ -5107,7 +5112,7 @@ MISSIONS.expert = [
       },
     },
   },
-];
+);
 
 // ─── Helper: get all missions for an age group ────────────────────────────────
 function getMissions(ageGroup, regionFilter) {
