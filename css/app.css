@@ -4969,7 +4969,7 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 /* ── CTA row layout ───────────────────────────────────────────── */
 .hero-cta--row {
   flex-direction: row !important;
-  justify-content: flex-start !important;
+  justify-content: center !important;
   align-items: center !important;
   gap: .75rem !important;
 }
