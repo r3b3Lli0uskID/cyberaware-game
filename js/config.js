@@ -6,10 +6,10 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 // ─── App Constants ────────────────────────────────────────────────────────────
 const AGE_GROUPS = {
-  kids:    { label: 'Kids',    range: '7 – 12',  emoji: '🧒', color: '#FF6B6B', theme: 'kids'    },
-  teens:   { label: 'Teens',   range: '13 – 17', emoji: '🧑‍💻', color: '#7C3AED', theme: 'teens'   },
-  adults:  { label: 'Adults',  range: '18 – 45', emoji: '👩‍💼', color: '#1770b5', theme: 'adults'  },
-  seniors: { label: 'Seniors', range: '46 – 65+',emoji: '👴', color: '#059669', theme: 'seniors' },
+  kids:    { label: 'Beginner',     range: 'Level 01', emoji: '🌱', color: '#FF6B6B', theme: 'kids'    },
+  teens:   { label: 'Intermediate', range: 'Level 02', emoji: '⚔️',  color: '#7C3AED', theme: 'teens'   },
+  adults:  { label: 'Advanced',     range: 'Level 03', emoji: '🔥', color: '#1770b5', theme: 'adults'  },
+  seniors: { label: 'Specialist',   range: 'Level 04', emoji: '💀', color: '#059669', theme: 'seniors' },
 };
 
 const AVATARS = {

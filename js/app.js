@@ -1260,7 +1260,7 @@ async function submitProfileSetup() {
 
   if (!username || username.length < 3) { toast('Username must be at least 3 characters', 'error'); return; }
   if (!avatarBtn) { toast('Please choose an avatar', 'error'); return; }
-  if (!groupBtn)  { toast('Please choose your age group', 'error'); return; }
+  if (!groupBtn)  { toast('Please choose your skill track', 'error'); return; }
 
   const level = levelBtn?.dataset.level || 'beginner';
   const hobby = hobbyBtn?.dataset.hobby || 'general';

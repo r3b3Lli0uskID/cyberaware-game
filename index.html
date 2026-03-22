@@ -70,22 +70,22 @@
       <div class="age-showcase-card" data-group="kids">
         <div class="asc-label">LEVEL 01 — BEGINNER</div>
         <h3>Foundations</h3>
-        <p>Password safety, safe browsing, online strangers, cyberbullying, personal info protection, screen time risks</p>
+        <p>Password hygiene, safe browsing, phishing awareness, personal data protection, recognising scam messages, secure account basics</p>
       </div>
       <div class="age-showcase-card" data-group="teens">
         <div class="asc-label">LEVEL 02 — INTERMEDIATE</div>
         <h3>Intermediate</h3>
-        <p>Social media privacy, phishing DMs, gaming account theft, digital footprint, public WiFi risks, fake influencer scams</p>
+        <p>Social engineering, spear phishing, account takeover, 2FA bypass tricks, digital footprint exposure, public WiFi attacks</p>
       </div>
       <div class="age-showcase-card" data-group="adults">
         <div class="asc-label">LEVEL 03 — ADVANCED</div>
         <h3>Advanced</h3>
-        <p>BEC fraud, vishing, malware, PayNow scams, workplace social engineering, credential leaks, secure code review</p>
+        <p>BEC fraud, vishing, malware delivery, supply chain attacks, credential phishing, insider threats, OSINT exposure risks</p>
       </div>
       <div class="age-showcase-card" data-group="seniors">
         <div class="asc-label">LEVEL 04 — SPECIALIST</div>
         <h3>Specialist</h3>
-        <p>Grandchild scams, bank impersonation, prize fraud, fake tech support, romance scams, CPF &amp; SingPass phishing</p>
+        <p>APT campaigns, threat intelligence, incident response, red team tradecraft, nation-state phishing, zero-day awareness, enterprise breach simulation</p>
       </div>
     </div>
 
@@ -104,7 +104,7 @@
       <div class="mission-type-card">
         <div class="mtc-tag">CROSS-PLAY</div>
         <h3>Open Group Access</h3>
-        <p>Attempt missions from any age group. Take on harder tracks for bonus XP or revisit easier ones with reduced XP.</p>
+        <p>Attempt missions from any skill track. Take on harder levels for bonus XP or revisit easier ones to sharpen your fundamentals.</p>
       </div>
       <div class="mission-type-card">
         <div class="mtc-tag">ONBOARDING</div>
@@ -151,7 +151,7 @@
         <div class="lnd-step-num">01</div>
         <div class="lnd-step-body">
           <h3>Create your account</h3>
-          <p>Register in under 30 seconds. No credit card. Choose your age group and select a starting difficulty level.</p>
+          <p>Register in under 30 seconds. No credit card. Choose your skill track and select a starting difficulty level.</p>
         </div>
       </div>
       <div class="lnd-step-arrow" aria-hidden="true">→</div>
@@ -465,7 +465,7 @@
       </div>
 
       <div class="form-group">
-        <label>Choose Your Age Group</label>
+        <label>Choose Your Skill Track</label>
         <div id="group-picker" class="group-picker"></div>
       </div>
 
@@ -512,7 +512,7 @@
     <div class="intro-slide" id="intro-slide-3" style="display:none">
       <div class="intro-icon">📋</div>
       <h2 class="intro-title">How Your Training Works</h2>
-      <p class="intro-body">Face <strong>real-world scenarios</strong> based on actual attacks. Complete missions to earn XP and climb the leaderboard. Your <strong>age group</strong> and <strong>experience level</strong> determine your XP multipliers — take on harder challenges for bigger rewards.</p>
+      <p class="intro-body">Face <strong>real-world scenarios</strong> based on actual attacks. Complete missions to earn XP and climb the leaderboard. Your <strong>skill track</strong> and <strong>experience level</strong> determine your XP multipliers — take on harder challenges for bigger rewards.</p>
     </div>
     <div class="intro-slide" id="intro-slide-4" style="display:none">
       <div class="intro-icon">🚀</div>
@@ -652,10 +652,10 @@
   <div class="lb-container">
     <div class="lb-filter">
       <select id="lb-group-select" onchange="renderLeaderboard()" class="lb-select">
-        <option value="kids">🧒 Kids</option>
-        <option value="teens">🧑‍💻 Teens</option>
-        <option value="adults" selected>👩‍💼 Adults</option>
-        <option value="seniors">👴 Seniors</option>
+        <option value="kids">🌱 Beginner</option>
+        <option value="teens">⚔️ Intermediate</option>
+        <option value="adults" selected>🔥 Advanced</option>
+        <option value="seniors">💀 Specialist</option>
       </select>
     </div>
     <div id="lb-loading" style="display:none;text-align:center;padding:2rem;color:var(--muted)">Loading...</div>
@@ -744,23 +744,23 @@
     <!-- Group breakdown -->
     <div class="admin-group-row" id="admin-group-row">
       <div class="admin-group-card" data-group="kids">
-        <span class="agc-emoji">🧒</span>
-        <div class="agc-label">Kids</div>
+        <span class="agc-emoji">🌱</span>
+        <div class="agc-label">Beginner</div>
         <div class="agc-count" id="agc-kids">— users</div>
       </div>
       <div class="admin-group-card" data-group="teens">
-        <span class="agc-emoji">🧑‍💻</span>
-        <div class="agc-label">Teens</div>
+        <span class="agc-emoji">⚔️</span>
+        <div class="agc-label">Intermediate</div>
         <div class="agc-count" id="agc-teens">— users</div>
       </div>
       <div class="admin-group-card" data-group="adults">
-        <span class="agc-emoji">👩‍💼</span>
-        <div class="agc-label">Adults</div>
+        <span class="agc-emoji">🔥</span>
+        <div class="agc-label">Advanced</div>
         <div class="agc-count" id="agc-adults">— users</div>
       </div>
       <div class="admin-group-card" data-group="seniors">
-        <span class="agc-emoji">👴</span>
-        <div class="agc-label">Seniors</div>
+        <span class="agc-emoji">💀</span>
+        <div class="agc-label">Specialist</div>
         <div class="agc-count" id="agc-seniors">— users</div>
       </div>
     </div>
@@ -777,10 +777,10 @@
         <input id="admin-search" type="text" placeholder="Search username…" oninput="filterAdminUsers()" class="admin-search" />
         <select id="admin-group-filter" onchange="filterAdminUsers()" class="lb-select">
           <option value="">All Groups</option>
-          <option value="kids">🧒 Kids</option>
-          <option value="teens">🧑‍💻 Teens</option>
-          <option value="adults">👩‍💼 Adults</option>
-          <option value="seniors">👴 Seniors</option>
+          <option value="kids">🌱 Beginner</option>
+          <option value="teens">⚔️ Intermediate</option>
+          <option value="adults">🔥 Advanced</option>
+          <option value="seniors">💀 Specialist</option>
         </select>
       </div>
       <div id="admin-users-wrap" class="admin-table-wrap">
