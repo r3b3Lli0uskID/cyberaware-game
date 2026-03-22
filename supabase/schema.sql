@@ -7,7 +7,7 @@
 CREATE TABLE IF NOT EXISTS public.profiles (
   id                    UUID        REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
   username              TEXT        UNIQUE NOT NULL,
-  age_group             TEXT        NOT NULL CHECK (age_group IN ('kids', 'teens', 'adults', 'seniors')),
+  age_group             TEXT        NOT NULL CHECK (age_group IN ('kids', 'teens', 'adults', 'seniors', 'expert')),
   avatar                TEXT        NOT NULL DEFAULT '🛡️',
   level                 TEXT        NOT NULL DEFAULT 'beginner' CHECK (level IN ('beginner', 'intermediate', 'hard', 'expert')),
   hobby                 TEXT        NOT NULL DEFAULT 'general',
@@ -25,6 +25,12 @@ ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS level TEXT NOT NULL DEFAULT
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS hobby TEXT NOT NULL DEFAULT 'general';
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS intro_completed BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS foundational_completed BOOLEAN NOT NULL DEFAULT FALSE;
+
+-- Migration v1.6: add 'expert' to age_group constraint
+-- Run in Supabase SQL Editor if upgrading from v1.5 or earlier:
+--   ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_age_group_check;
+--   ALTER TABLE public.profiles ADD CONSTRAINT profiles_age_group_check
+--     CHECK (age_group IN ('kids','teens','adults','seniors','expert'));
 
 -- ─── GAME SESSIONS ───────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.game_sessions (

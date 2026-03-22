@@ -4863,6 +4863,29 @@ const FOUNDATION_MISSIONS = {
     ]
   },
 
+  expert: {
+    id: 'foundation_expert',
+    type: 'quiz',
+    mandatory: true,
+    module: 'foundation',
+    title: '⚡ Security Operations Fundamentals',
+    subtitle: 'Professional Analyst Baseline — Level 05',
+    icon: '🔬',
+    difficulty: 'Expert',
+    xp: 600,
+    tags: ['general', 'education', 'tech', 'business'],
+    briefing: 'Welcome to Level 05 — Expert track. Before tackling operational missions you must demonstrate proficiency in core security operations concepts: threat modelling, vulnerability classification, attack frameworks, and defensive architecture. This baseline assessment sets your starting point.',
+    questions: [
+      { id: 'fe_q1', story: null, scenario: 'Which MITRE ATT&CK tactic describes an attacker establishing long-term access after initial compromise?', correct: 'b', feedback: { correct: 'Persistence (TA0003) covers techniques used by adversaries to maintain their foothold across system restarts, credential changes, or other interruptions. Examples include scheduled tasks, registry run keys, and implanted web shells.', wrong: 'Persistence (TA0003) is the correct tactic. It describes how adversaries survive disruption — through registry keys, scheduled tasks, service installs, and similar techniques.' }, options: [{ id: 'a', text: 'Initial Access (TA0001) — gaining the first foothold in the environment' }, { id: 'b', text: 'Persistence (TA0003) — maintaining access across restarts and credential changes' }, { id: 'c', text: 'Lateral Movement (TA0008) — moving through the network to reach target systems' }, { id: 'd', text: 'Exfiltration (TA0010) — stealing and transmitting data out of the environment' }], points: 100 },
+      { id: 'fe_q2', story: null, scenario: 'In the CVSS v3.1 scoring system, which metric reflects whether an attacker needs to interact with a victim to exploit a vulnerability?', correct: 'c', feedback: { correct: 'User Interaction (UI) captures whether exploitation requires a human victim to take an action — such as clicking a link or opening a file. UI:None means exploitation is fully automated; UI:Required means the victim must do something.', wrong: 'User Interaction (UI) is the CVSS metric for whether a victim must act. Attack Vector (AV) describes the network path; Privileges Required (PR) describes what access the attacker needs beforehand.' }, options: [{ id: 'a', text: 'Attack Vector (AV) — the network path the attacker uses to reach the target' }, { id: 'b', text: 'Privileges Required (PR) — the access level the attacker needs before exploitation' }, { id: 'c', text: 'User Interaction (UI) — whether a human victim must take an action to trigger exploitation' }, { id: 'd', text: 'Scope (S) — whether exploitation can affect resources outside the vulnerable component' }], points: 100 },
+      { id: 'fe_q3', story: null, scenario: 'What is the primary purpose of a Security Information and Event Management (SIEM) system?', correct: 'a', feedback: { correct: 'A SIEM aggregates log data from across the environment (firewalls, endpoints, servers, cloud), correlates events using detection rules, and generates alerts when patterns match known attack signatures or statistical anomalies — giving SOC analysts a unified view of security events.', wrong: 'A SIEM aggregates and correlates logs from multiple sources for centralised detection and alerting. It is not a firewall, vulnerability scanner, or endpoint protection tool.' }, options: [{ id: 'a', text: 'Aggregate logs from multiple sources, correlate events, and generate security alerts' }, { id: 'b', text: 'Block malicious network traffic at the perimeter in real time' }, { id: 'c', text: 'Scan systems for known vulnerabilities and misconfigured services' }, { id: 'd', text: 'Deploy endpoint detection agents to workstations and servers' }], points: 100 },
+      { id: 'fe_q4', story: null, scenario: 'A penetration tester discovers credentials in a system\'s memory that allow pivoting to a domain controller. What technique is being demonstrated?', correct: 'b', feedback: { correct: 'Pass-the-Hash (PtH) allows an attacker to authenticate using the NTLM hash of a password instead of the plaintext password. Tools like Mimikatz extract these hashes from LSASS memory. Mitigation: Credential Guard, restricted admin mode, and least-privilege account architecture.', wrong: 'Pass-the-Hash (PtH) uses an NTLM hash extracted from memory to authenticate without knowing the plaintext password. This is a lateral movement technique common in Windows environments.' }, options: [{ id: 'a', text: 'Golden Ticket — a forged Kerberos TGT allowing domain-wide authentication' }, { id: 'b', text: 'Pass-the-Hash — authenticating using an NTLM password hash extracted from memory' }, { id: 'c', text: 'Kerberoasting — cracking service account hashes extracted from Kerberos TGS tickets' }, { id: 'd', text: 'DCSync — simulating a domain controller to replicate Active Directory password hashes' }], points: 100 },
+      { id: 'fe_q5', story: null, scenario: 'What does "defence in depth" mean in a security architecture context?', correct: 'd', feedback: { correct: 'Defence in depth implements multiple independent security controls across different layers — network perimeter, endpoint detection, data encryption, IAM, logging. If one layer fails or is bypassed, remaining layers still limit attacker impact. No single control is relied upon exclusively.', wrong: 'Defence in depth means layering multiple independent controls so that failure of any single layer does not result in a complete breach. It is the opposite of relying on one strong control.' }, options: [{ id: 'a', text: 'Building the strongest possible perimeter firewall to stop all external attacks' }, { id: 'b', text: 'Encrypting all data at rest and in transit using AES-256' }, { id: 'c', text: 'Having a dedicated security team monitor the network 24/7' }, { id: 'd', text: 'Layering multiple independent security controls so failure of one does not cause complete compromise' }], points: 100 },
+      { id: 'fe_q6', story: null, scenario: 'In threat modelling using STRIDE, which category covers an attacker using another user\'s identity to perform actions?', correct: 'a', feedback: { correct: 'Spoofing (the S in STRIDE) covers impersonation — using another entity\'s identity. Examples include ARP spoofing, DNS spoofing, and session token theft. Authentication controls (MFA, certificates, signed tokens) are the primary mitigations.', wrong: 'STRIDE: Spoofing = identity impersonation; Tampering = data modification; Repudiation = denying actions; Information Disclosure = data leakage; Denial of Service = availability disruption; Elevation of Privilege = gaining unauthorised access levels.' }, options: [{ id: 'a', text: 'Spoofing — claiming to be another user or system to gain unauthorised access' }, { id: 'b', text: 'Repudiation — denying having performed an action when logs cannot prove otherwise' }, { id: 'c', text: 'Elevation of Privilege — gaining higher access rights than originally granted' }, { id: 'd', text: 'Tampering — modifying data or code in transit or at rest without authorisation' }], points: 100 },
+      { id: 'fe_q7', story: null, scenario: 'What is the key difference between a vulnerability assessment and a penetration test?', correct: 'c', feedback: { correct: 'A vulnerability assessment identifies and catalogues weaknesses (usually automated scanning). A penetration test actively exploits vulnerabilities to demonstrate real-world impact — simulating what an attacker would actually do with access. Pen tests require explicit written authorisation.', wrong: 'Vulnerability assessment = identify and list weaknesses. Penetration test = actively exploit weaknesses to demonstrate impact. The pen test goes further and requires explicit written authorisation.' }, options: [{ id: 'a', text: 'A vulnerability assessment is done by external consultants; a pen test is done internally' }, { id: 'b', text: 'A pen test only covers web applications; vulnerability assessments cover all systems' }, { id: 'c', text: 'A vulnerability assessment identifies weaknesses; a penetration test actively exploits them to demonstrate impact' }, { id: 'd', text: 'They are the same thing — the terms are interchangeable in the industry' }], points: 100 },
+    ]
+  },
+
   seniors: {
     id: 'foundation_seniors',
     type: 'quiz',
@@ -4884,6 +4907,207 @@ const FOUNDATION_MISSIONS = {
     ]
   },
 };
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  EXPERT  (Level 05)                                  ║
+// ╚══════════════════════════════════════════════════════╝
+MISSIONS.expert = [
+
+  // ─── QUIZ: Web Application Threat Intelligence ───────────────────────────────
+  {
+    id: 'expert_quiz_1',
+    type: 'quiz',
+    title: 'Web Application Threat Intelligence',
+    subtitle: 'Identify and Classify Web Vulnerabilities',
+    icon: '🌐',
+    difficulty: 'Expert',
+    xp: 900,
+    briefing: 'You are a senior security analyst at DefCore Consulting, contracted by FinTrust Bank to assess their customer web portal. During testing you observe several anomalous responses. Classify each finding correctly — your report goes to the CISO board.',
+    questions: [
+      {
+        id: 'ex_q1',
+        story: 'You submit the value `\' OR \'1\'=\'1\'--` into the username field on the login page. The application grants you admin access without a valid password.',
+        scenario: 'Which vulnerability class does this finding represent?',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. This is SQL Injection — specifically an authentication bypass variant. The payload terminates the SQL WHERE clause and comments out the password check, allowing login as any user. Parameterised queries or prepared statements are the primary mitigation.',
+          wrong: 'This is SQL Injection. The payload `\' OR \'1\'=\'1\'--` breaks out of the SQL string context, short-circuits the WHERE clause, and comments out everything after. Always use parameterised queries.'
+        },
+        options: [
+          { id: 'a', text: 'Cross-Site Scripting (XSS) — script injected into the page' },
+          { id: 'b', text: 'SQL Injection (Authentication Bypass) — database query manipulated via user input' },
+          { id: 'c', text: 'Command Injection — OS shell commands executed through the input field' },
+        ],
+        points: 150,
+      },
+      {
+        id: 'ex_q2',
+        story: 'The document download endpoint accepts a `filename` parameter. Requesting `/api/download?filename=../../../etc/shadow` returns the system\'s shadow password file.',
+        scenario: 'What is the correct vulnerability classification?',
+        correct: 'a',
+        feedback: {
+          correct: 'Correct. Path Traversal (also called Directory Traversal) allows an attacker to navigate outside the intended directory using `../` sequences. The application failed to canonicalise the path before opening the file. Mitigation: resolve the real path and confirm it starts within the intended base directory.',
+          wrong: 'This is Path Traversal. The `../` sequences walk up the directory tree beyond the intended base path. The fix is to canonicalise the file path and verify it stays within an allowed root.'
+        },
+        options: [
+          { id: 'a', text: 'Path Traversal — directory separators allow access to files outside the web root' },
+          { id: 'b', text: 'Insecure Direct Object Reference — a sequential ID exposes another user\'s record' },
+          { id: 'c', text: 'Server-Side Request Forgery — the server is tricked into making internal requests' },
+        ],
+        points: 150,
+      },
+      {
+        id: 'ex_q3',
+        story: 'An API endpoint accepts XML input. You submit a payload with an external entity declaration pointing to `file:///etc/passwd`. The API response includes the contents of that file.',
+        scenario: 'Which vulnerability class does this demonstrate?',
+        correct: 'c',
+        feedback: {
+          correct: 'Correct. XML External Entity (XXE) Injection occurs when an XML parser processes external entity references that the application did not intend to allow. Beyond local file disclosure, XXE can be used for SSRF, port scanning, and in some cases remote code execution. Mitigation: disable external entity processing in the XML parser configuration.',
+          wrong: 'This is XML External Entity (XXE) Injection. The XML parser resolved an external entity pointing to a local file. Disable external entity and DTD processing in your XML library configuration.'
+        },
+        options: [
+          { id: 'a', text: 'JSON Injection — malicious values injected into a JSON data structure' },
+          { id: 'b', text: 'Cross-Site Request Forgery — a forged cross-origin request executed on behalf of a victim' },
+          { id: 'c', text: 'XML External Entity (XXE) Injection — XML parser resolves an attacker-controlled external entity' },
+        ],
+        points: 150,
+      },
+      {
+        id: 'ex_q4',
+        story: 'The banking API returns `Access-Control-Allow-Origin: *` on all endpoints, including `/api/v1/account/balance`. An analyst demonstrates that JavaScript running on a third-party site can silently read authenticated balance data.',
+        scenario: 'What is the root cause of this finding?',
+        correct: 'b',
+        feedback: {
+          correct: 'Correct. A CORS misconfiguration with a wildcard origin (`*`) on a sensitive authenticated endpoint allows any external site to read the response. For credentialled endpoints, `*` should never be used — origins should be whitelisted explicitly.',
+          wrong: 'This is a CORS (Cross-Origin Resource Sharing) misconfiguration. The wildcard `Access-Control-Allow-Origin: *` tells the browser to allow any origin to read the response — dangerous for authenticated API endpoints.'
+        },
+        options: [
+          { id: 'a', text: 'Clickjacking — the page is embedded in an invisible iframe on the attacker\'s site' },
+          { id: 'b', text: 'CORS Misconfiguration — wildcard origin policy permits any site to read sensitive API responses' },
+          { id: 'c', text: 'Open Redirect — users are redirected to an external attacker-controlled domain' },
+        ],
+        points: 150,
+      },
+      {
+        id: 'ex_q5',
+        story: 'Changing the `user_id` parameter in a GET request from your own ID (4821) to another value (1) returns that user\'s full account details with no authorisation error.',
+        scenario: 'What vulnerability is this, and what is the primary remediation?',
+        correct: 'a',
+        feedback: {
+          correct: 'Correct. Insecure Direct Object Reference (IDOR) occurs when the application uses a user-controlled value to directly reference an internal object (database record, file) without verifying that the requester is authorised to access it. Fix: implement authorisation checks server-side for every object access — never rely solely on obscurity of IDs.',
+          wrong: 'This is Insecure Direct Object Reference (IDOR). The fix is server-side authorisation: verify that the authenticated user is permitted to access the specific resource they are requesting, not just that they are logged in.'
+        },
+        options: [
+          { id: 'a', text: 'Insecure Direct Object Reference (IDOR) — server-side authorisation check missing for each object' },
+          { id: 'b', text: 'Mass Assignment — an ORM automatically binds request fields to privileged model attributes' },
+          { id: 'c', text: 'Broken Authentication — session tokens are predictable and can be forged' },
+        ],
+        points: 150,
+      },
+    ],
+  },
+
+  // ─── SPOT-THREAT: Anomalous Network Activity Report ──────────────────────────
+  {
+    id: 'expert_spot_1',
+    type: 'spot-threat',
+    title: 'Anomalous Network Activity Report',
+    subtitle: 'Identify Indicators of Compromise in Network Logs',
+    icon: '📡',
+    difficulty: 'Expert',
+    xp: 950,
+    briefing: 'Your SOC has flagged suspicious activity on the SecureNet Asia corporate network. You are reviewing the automated network analysis report. Identify every line that represents a confirmed or suspected indicator of compromise (IoC). Safe traffic should not be flagged.',
+    totalPoints: 700,
+    items: [
+      { id: 'ex_ioc1', type: 'text', text: '[03:14:22] SNMP GET bulk request from 192.168.1.88 — community string "public" — 847 OID queries across all subnets in 6 seconds', isThreat: true, threatDesc: '🔴 SNMP Enumeration: A single internal host issuing 847 OID queries in 6 seconds using the default "public" community string is a classic network enumeration pattern — mapping device types, interfaces, and routing tables for later exploitation.' },
+      { id: 'ex_ioc2', type: 'text', text: '[03:15:01] TCP SYN packets from 192.168.1.88 — ports 21, 22, 23, 25, 53, 80, 110, 139, 443, 445, 3306, 3389 — 12 hosts scanned, 200ms intervals', isThreat: true, threatDesc: '🔴 Port Scan (Stealth/SYN): Sequential SYN packets to known service ports across multiple hosts at regular intervals is a TCP SYN (half-open) scan — designed to map open services while minimising noise in logs.' },
+      { id: 'ex_ioc3', type: 'text', text: '[03:16:45] Normal HTTPS session: 10.0.0.42 → 203.0.113.5:443 — 2.1 MB transferred — TLS 1.3 — standard browser user-agent', isThreat: false, threatDesc: '' },
+      { id: 'ex_ioc4', type: 'text', text: '[03:17:12] ARP replies from 192.168.1.88 claiming gateway MAC for IP 10.0.0.1 — legitimate gateway MAC confirmed as aa:bb:cc:dd:ee:ff at 10.0.0.1', isThreat: true, threatDesc: '🔴 ARP Poisoning: The host 192.168.1.88 is broadcasting ARP replies claiming to be the default gateway (10.0.0.1), while the real gateway has a different MAC. This is ARP poisoning — positioning 192.168.1.88 as a man-in-the-middle for all gateway-bound traffic.' },
+      { id: 'ex_ioc5', type: 'text', text: '[03:18:30] DHCP server at 192.168.1.88 responding to broadcast requests — legitimate DHCP server is 10.0.0.254', isThreat: true, threatDesc: '🔴 Rogue DHCP Server: A second DHCP server appeared on the network. A rogue DHCP server can hand out attacker-controlled DNS servers and gateway IPs, rerouting all new connections through an adversary-controlled host.' },
+      { id: 'ex_ioc6', type: 'text', text: '[03:22:00] Internal DNS query: hostname "intranet-portal.secnet.local" → 10.0.0.15 resolved successfully', isThreat: false, threatDesc: '' },
+      { id: 'ex_ioc7', type: 'text', text: '[03:24:18] Banner grab responses collected: SSH-2.0-OpenSSH_7.2p2, Apache/2.4.18, Microsoft-IIS/7.5, vsftpd 2.3.4 — collected by 192.168.1.88', isThreat: true, threatDesc: '🔴 Banner Grabbing: Collecting software version banners (SSH version, web server version, FTP daemon) from multiple services maps the exact software stack and version numbers running on each host — enabling targeted exploitation of known CVEs.' },
+    ],
+    threats: ['ex_ioc1','ex_ioc2','ex_ioc4','ex_ioc5','ex_ioc7'],
+    pointsPerThreat: 140,
+  },
+
+  // ─── DECISION-TREE: Advanced Persistent Threat Incident Response ─────────────
+  {
+    id: 'expert_dt_1',
+    type: 'decision-tree',
+    title: 'APT Incident Response',
+    subtitle: 'Lead the CSIRT Response to an Active Intrusion',
+    icon: '🎯',
+    difficulty: 'Expert',
+    xp: 1000,
+    briefing: 'You are the CSIRT Lead at MegaCorp Asia. At 03:00 on a Thursday, automated alerts fire: unusual outbound traffic detected from three workstations in the Finance department. Your SOC analyst says the traffic pattern looks like command-and-control (C2) beaconing. You have full authority to act.',
+    maxScore: 400,
+    tree: {
+      start: {
+        type: 'choice',
+        text: 'Alerts show regular 6-hour outbound HTTPS connections from three Finance workstations to an IP registered in Eastern Europe. The packets are small and evenly timed — consistent with C2 beaconing. What is your immediate first action?',
+        choices: [
+          { text: 'Immediately shut down and reimage all three workstations', next: 'reimage_early', points: 0 },
+          { text: 'Monitor silently and collect full packet captures for 30 minutes before acting', next: 'monitor', points: 100 },
+          { text: 'Send a company-wide security alert so all staff are aware', next: 'broadcast', points: 0 },
+        ]
+      },
+      reimage_early: {
+        type: 'outcome',
+        text: '❌ Reimaging immediately destroys forensic evidence — memory artefacts, malware samples, and attacker tooling are gone. You also have no idea of the full scope: are other systems compromised? The attacker likely has persistence elsewhere and you\'ve lost your visibility window.',
+        points: 0,
+      },
+      broadcast: {
+        type: 'outcome',
+        text: '❌ A company-wide alert tips off any insider threat and may cause the external attacker to activate a kill-switch, wipe evidence, or accelerate exfiltration. CSIRT responses are need-to-know until containment is confirmed.',
+        points: 0,
+      },
+      monitor: {
+        type: 'choice',
+        text: '✅ Good call. Passive monitoring preserves evidence and reveals scope. After 30 minutes of PCAP collection, your analysis shows: the malware uses process injection to hide inside a legitimate Windows process (svchost.exe), sends encrypted traffic on port 443, and has been active for 11 days. What do you do next?',
+        choices: [
+          { text: 'Take memory dumps of all three workstations before any shutdown', next: 'memory_dump', points: 100 },
+          { text: 'Run a full antivirus scan on the affected machines', next: 'av_scan', points: 25 },
+          { text: 'Block the C2 IP at the perimeter firewall immediately', next: 'block_c2_only', points: 50 },
+        ]
+      },
+      av_scan: {
+        type: 'outcome',
+        text: '⚠️ AV scans miss fileless and process-injected malware — the malware is running in memory inside a trusted process, leaving no disk artefact for AV to detect. You get a clean result and a false sense of security. Memory forensics is the correct approach.',
+        points: 0,
+      },
+      block_c2_only: {
+        type: 'outcome',
+        text: '⚠️ Blocking the C2 IP alone is insufficient — APT actors use multiple C2 infrastructure nodes and will simply switch. Without evidence collection, you have lost visibility and the attacker may pivot to dormant backdoors. Always collect forensic evidence before containment actions.',
+        points: 0,
+      },
+      memory_dump: {
+        type: 'choice',
+        text: '✅ Excellent. Memory dumps capture the injected shellcode, decrypted C2 configuration, and any additional credentials harvested in memory. Forensics confirms a second-stage implant and identifies lateral movement to two servers. How do you contain?',
+        choices: [
+          { text: 'Isolate all confirmed compromised systems from the network immediately, preserve images', next: 'isolate_contain', points: 100 },
+          { text: 'Reimage all systems immediately to restore clean state', next: 'reimage_late', points: 25 },
+          { text: 'Leave systems running and continue monitoring — don\'t tip off the attacker', next: 'no_contain', points: 0 },
+        ]
+      },
+      reimage_late: {
+        type: 'outcome',
+        text: '⚠️ Reimaging before identifying all compromised systems leaves dormant implants running on other hosts. Without full scoping, the attacker retains access and can re-establish footholds at will. Isolate and scope before any reimaging.',
+        points: 0,
+      },
+      no_contain: {
+        type: 'outcome',
+        text: '❌ Continuing to let the attacker operate without containment while you observe risks data exfiltration escalating. Without a clear endpoint to observation, the risk/reward calculation turns negative. Evidence collection must be paired with a containment window.',
+        points: 0,
+      },
+      isolate_contain: {
+        type: 'outcome',
+        text: '🏆 Outstanding incident response. You monitored to establish scope, collected forensic memory dumps before shutdown, identified lateral movement, and executed a coordinated isolation of all confirmed compromised systems. The forensic evidence enables root-cause analysis and supports any legal or regulatory action. You contained the APT within 4 hours of initial detection.',
+        points: 100,
+      },
+    },
+  },
+];
 
 // ─── Helper: get all missions for an age group ────────────────────────────────
 function getMissions(ageGroup, regionFilter) {

@@ -13,6 +13,7 @@ const AGE_GROUPS = {
   teens:   { label: 'Intermediate', range: 'Level 02', emoji: '⚔️',  color: '#7C3AED', theme: 'teens'   },
   adults:  { label: 'Advanced',     range: 'Level 03', emoji: '🔥', color: '#1770b5', theme: 'adults'  },
   seniors: { label: 'Specialist',   range: 'Level 04', emoji: '💀', color: '#059669', theme: 'seniors' },
+  expert:  { label: 'Expert',       range: 'Level 05', emoji: '⚡', color: '#F59E0B', theme: 'expert'  },
 };
 
 const AVATARS = {

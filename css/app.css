@@ -246,6 +246,34 @@
   --nav-height:  72px;
 }
 
+/* ── Expert — deep obsidian + amber gold ── */
+[data-theme="expert"] {
+  --color-bg:          #08050F;
+  --color-bg-surface:  #120D1E;
+  --color-bg-elevated: #1E1530;
+  --color-border:      #2D1F4A;
+  --color-border-glow: #6B21A8;
+
+  --color-primary:     #F59E0B;
+  --color-primary-dim: #B45309;
+  --color-primary-fg:  #000000;
+
+  --color-accent:      #FCD34D;
+  --color-accent-dim:  #D97706;
+
+  --color-success:     #10B981;
+  --color-warning:     #F59E0B;
+  --color-danger:      #EF4444;
+  --color-info:        #8B5CF6;
+
+  --color-text:        #F5F0FF;
+  --color-text-muted:  #A78BFA;
+  --color-text-faint:  #6D28D9;
+
+  --shadow-glow: 0 0 20px rgba(245,158,11,0.3);
+  --shadow-accent-glow: 0 0 24px rgba(252,211,77,0.25);
+}
+
 /* ============================================================
    3. RESET & BASE
    ============================================================ */

@@ -26,10 +26,10 @@ const $ = id => document.getElementById(id);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
 
 // ─── XP MULTIPLIER ───────────────────────────────────────────────────────────
-// Age group difficulty: kids=1, teens=2, seniors=2, adults=3
+// Age group difficulty: kids=1, teens=2, adults=3, seniors=4, expert=5
 // Mission difficulty level: beginner=1, intermediate=2, hard=3, expert=4
 // Final XP = baseXP × ageGroupMult × levelMult
-const GROUP_DIFFICULTY = { kids: 1, teens: 2, seniors: 2, adults: 3 };
+const GROUP_DIFFICULTY = { kids: 1, teens: 2, adults: 3, seniors: 4, expert: 5 };
 const LEVEL_DIFFICULTY = { beginner: 1, intermediate: 2, hard: 3, expert: 4 };
 
 function ageGroupMult(playerGroup, missionGroup) {
@@ -329,7 +329,7 @@ async function loadProfile() {
   if (savedVisual && VISUAL_THEMES.includes(savedVisual)) {
     applyVisualTheme(savedVisual);
   } else {
-    const ageVisualMap = { kids: 'kiddy', teens: 'teen', adults: 'adult', seniors: 'default' };
+    const ageVisualMap = { kids: 'kiddy', teens: 'teen', adults: 'teen', seniors: 'crimson', expert: 'crimson' };
     const autoTheme = ageVisualMap[data.age_group];
     if (autoTheme) applyVisualTheme(autoTheme);
   }
@@ -1085,7 +1085,7 @@ async function awardBadges(pct, missionType) {
       ...(allSessions || []).map(s => s.age_group),
       App.profile.age_group,
     ]);
-    if (['kids','teens','adults','seniors'].every(g => doneGroups.has(g))) add('cyber_guardian');
+    if (['kids','teens','adults','seniors','expert'].every(g => doneGroups.has(g))) add('cyber_guardian');
   }
 
   if (toAdd.length > 0) {
@@ -1390,7 +1390,7 @@ async function loadAdminStats() {
   $('ast-completed').textContent = completed.length;
   $('ast-avg').textContent       = avgPct + '%';
 
-  const groups = { kids: 0, teens: 0, adults: 0, seniors: 0 };
+  const groups = { kids: 0, teens: 0, adults: 0, seniors: 0, expert: 0 };
   (users || []).forEach(u => { if (groups[u.age_group] !== undefined) groups[u.age_group]++; });
   Object.entries(groups).forEach(([g, n]) => {
     const el = $('agc-' + g);
