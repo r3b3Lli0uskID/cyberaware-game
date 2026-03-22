@@ -5,9 +5,10 @@
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
 const App = {
-  user:      null,
-  profile:   null,
-  session:   null,   // current game session DB record
+  user:       null,
+  profile:    null,
+  isRecovery: false, // true while password-reset flow is active
+  session:    null,  // current game session DB record
   game: {
     mission:      null,
     currentNode:  'start',   // for decision-tree
@@ -137,8 +138,9 @@ function formatScore(n) { return n.toLocaleString(); }
 async function initAuth() {
   // Detect Supabase password recovery redirect (#type=recovery in hash)
   // Must check BEFORE getSession() so the recovery session doesn't trigger loadProfile()
-  const isRecovery = window.location.hash.includes('type=recovery');
-  if (isRecovery) {
+  const hashHasRecovery = window.location.hash.includes('type=recovery');
+  if (hashHasRecovery) {
+    App.isRecovery = true;
     // Clear hash so refresh doesn't re-trigger
     history.replaceState(null, '', window.location.pathname + window.location.search);
     showScreen('screen-reset');
@@ -155,11 +157,18 @@ async function initAuth() {
   db.auth.onAuthStateChange(async (event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
       App.user = session?.user || null;
+      App.isRecovery = true;
       showScreen('screen-reset');
       return;
     }
     // USER_UPDATED fires when updateUser() is called — handled by the calling function
     if (event === 'USER_UPDATED') return;
+    // Suppress SIGNED_IN during password reset flow — the recovery screen must stay visible
+    if (App.isRecovery) {
+      App.user = session?.user || null;
+      showScreen('screen-reset');
+      return;
+    }
     App.user = session?.user || null;
     if (App.user) {
       await loadProfile();
@@ -228,35 +237,40 @@ async function resendOtp() {
 
 async function signIn(username, password) {
   loading(true);
+  try {
+    // Look up email by username from profiles table
+    const { data: profile, error: lookupErr } = await db
+      .from('profiles')
+      .select('email')
+      .eq('username', username)
+      .single();
 
-  // Look up email by username from profiles table
-  const { data: profile, error: lookupErr } = await db
-    .from('profiles')
-    .select('email')
-    .eq('username', username)
-    .single();
-
-  if (lookupErr || !profile?.email) {
-    loading(false);
-    toast('Username not found', 'error');
-    return false;
-  }
-
-  const { data, error } = await db.auth.signInWithPassword({ email: profile.email, password });
-  loading(false);
-  if (error) {
-    if (error.message?.toLowerCase().includes('not confirmed') || error.code === 'email_not_confirmed') {
-      toast('Email not confirmed — check your inbox or spam for the verification link', 'error');
-    } else if (error.message?.toLowerCase().includes('invalid') || error.code === 'invalid_credentials') {
-      toast('Incorrect password', 'error');
-    } else {
-      toast(error.message || 'Login failed', 'error');
+    if (lookupErr || !profile?.email) {
+      toast('Username not found', 'error');
+      return false;
     }
+
+    const { data, error } = await db.auth.signInWithPassword({ email: profile.email, password });
+    if (error) {
+      if (error.message?.toLowerCase().includes('not confirmed') || error.code === 'email_not_confirmed') {
+        toast('Email not confirmed — check your inbox or spam for the verification link', 'error');
+      } else if (error.message?.toLowerCase().includes('invalid') || error.code === 'invalid_credentials') {
+        toast('Incorrect password', 'error');
+      } else {
+        toast(error.message || 'Login failed', 'error');
+      }
+      return false;
+    }
+    App.user = data.user;
+    await loadProfile();
+    return true;
+  } catch (e) {
+    console.error('signIn error:', e);
+    toast('Login failed — please refresh and try again', 'error');
     return false;
+  } finally {
+    loading(false);
   }
-  App.user = data.user;
-  await loadProfile();
-  return true;
 }
 
 async function signOut() {
@@ -1305,6 +1319,7 @@ async function handleResetPassword(e) {
   const { error } = await db.auth.updateUser({ password });
   loading(false);
   if (error) { toast(error.message, 'error'); return; }
+  App.isRecovery = false; // recovery complete — allow normal auth flow to resume
   toast('Password updated! Signing you in…', 'success');
   await loadProfile();
 }
