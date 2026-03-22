@@ -7,8 +7,12 @@
 | `cyberguard-logo-horizontal.svg` | SVG (scalable) | Primary logo — white/light backgrounds |
 | `cyberguard-logo-darkbg.svg` | SVG (scalable) | Dark background variant (nav, dark slides) |
 | `cyberguard-icon.svg` | SVG (scalable) | Icon only — favicons, app icons, avatars |
-| `cyberguard-wallpaper-4k.html` | HTML → PNG | 4K wallpaper (3840×2160) |
-| `cyberguard-wallpaper-2k.html` | HTML → PNG | 2K wallpaper (2560×1440) |
+| `cyberguard-wallpaper-4k.html` | HTML → PNG | 4K wallpaper — Cyan/Navy (original) |
+| `cyberguard-wallpaper-2k.html` | HTML → PNG | 2K wallpaper — Cyan/Navy (original) |
+| `cyberguard-wallpaper-4k-crimson.html` | HTML → PNG | 4K wallpaper — Crimson/Red variant |
+| `cyberguard-wallpaper-2k-crimson.html` | HTML → PNG | 2K wallpaper — Crimson/Red variant |
+| `cyberguard-wallpaper-4k-gold.html` | HTML → PNG | 4K wallpaper — Gold/Obsidian variant |
+| `cyberguard-wallpaper-2k-gold.html` | HTML → PNG | 2K wallpaper — Gold/Obsidian variant |
 
 ## Exporting PNG from SVG (for print / marketing)
 
