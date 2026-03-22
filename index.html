@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="default">
+<html lang="en" data-theme="teen">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
   <!-- App CSS (loaded after fonts) -->
   <link rel="stylesheet" href="css/app.css" />
 </head>
-<body>
+<body data-mode="dark">
 
 <!-- ─── LOADING OVERLAY ──────────────────────────────────────────────────── -->
 <div id="loading-overlay" style="display:none">
@@ -834,29 +834,14 @@
   <div class="theme-popup hidden" id="theme-popup" role="menu" aria-label="Visual theme selector">
     <div class="theme-popup-title">Visual Theme</div>
 
-    <button class="theme-pill active" data-theme-val="default"
-            onclick="setVisualTheme('default')" role="menuitem">
-      <span class="theme-pill-dot"></span> Default
-    </button>
-
-    <button class="theme-pill" data-theme-val="synthwave"
-            onclick="setVisualTheme('synthwave')" role="menuitem">
-      <span class="theme-pill-dot"></span> Synthwave
-    </button>
-
-    <button class="theme-pill" data-theme-val="teen"
+    <button class="theme-pill active" data-theme-val="teen"
             onclick="setVisualTheme('teen')" role="menuitem">
-      <span class="theme-pill-dot"></span> Teen
+      <span class="theme-pill-dot"></span> Default
     </button>
 
     <button class="theme-pill" data-theme-val="kiddy"
             onclick="setVisualTheme('kiddy')" role="menuitem">
-      <span class="theme-pill-dot"></span> Kiddy
-    </button>
-
-    <button class="theme-pill" data-theme-val="adult"
-            onclick="setVisualTheme('adult')" role="menuitem">
-      <span class="theme-pill-dot"></span> Adult
+      <span class="theme-pill-dot"></span> Arcade
     </button>
 
     <button class="theme-pill" data-theme-val="crimson"
@@ -871,13 +856,6 @@
           aria-expanded="false" title="Choose visual theme"
           aria-controls="theme-popup">
     🎨
-  </button>
-
-  <!-- Sun/Moon mode toggle -->
-  <button class="theme-mode-btn" id="theme-mode-btn"
-          onclick="toggleMode()" title="Toggle light/dark mode"
-          aria-label="Toggle colour mode">
-    🌙
   </button>
 
   <!-- Sound toggle -->

@@ -312,7 +312,7 @@ async function loadProfile() {
   setTheme(AGE_GROUPS[data.age_group]?.theme || 'default');
   // Re-apply visual theme: saved user choice wins; fall back to age-group auto-theme
   const savedVisual = localStorage.getItem('cg-vtheme');
-  if (savedVisual && savedVisual !== 'default') {
+  if (savedVisual && VISUAL_THEMES.includes(savedVisual)) {
     applyVisualTheme(savedVisual);
   } else {
     const ageVisualMap = { kids: 'kiddy', teens: 'teen', adults: 'adult', seniors: 'default' };
@@ -1497,7 +1497,7 @@ async function loadAdminSessions() {
  * same data-theme attribute — the visual theme is only held in
  * localStorage and applied on non-gameplay screens.
  */
-const VISUAL_THEMES = ['default', 'synthwave', 'teen', 'kiddy', 'adult'];
+const VISUAL_THEMES = ['teen', 'kiddy', 'crimson'];
 
 // ─── SOUND SYSTEM (Web Audio API) ────────────────────────────────────────────
 const SFX = (() => {
@@ -1711,8 +1711,8 @@ function launchConfetti() {
 
 function initThemeControls() {
   // Read saved preferences
-  const savedMode  = localStorage.getItem('cg-mode')  || 'dark';
-  const savedTheme = localStorage.getItem('cg-vtheme') || 'default';
+  const savedMode  = 'dark'; // dark-only
+  const savedTheme = localStorage.getItem('cg-vtheme') || 'teen';
 
   // Apply mode
   setMode(savedMode, /* silent */ true);
@@ -1741,7 +1741,7 @@ function setMode(mode, silent) {
 }
 
 function setVisualTheme(theme) {
-  if (!VISUAL_THEMES.includes(theme)) theme = 'default';
+  if (!VISUAL_THEMES.includes(theme)) theme = 'teen';
   localStorage.setItem('cg-vtheme', theme);
 
   // If user is on a gameplay screen with an age-group theme, don't override
@@ -1761,16 +1761,8 @@ function applyVisualTheme(theme) {
   document.body.setAttribute('data-theme', theme === 'default' ? 'default' : theme);
 }
 
-/** Toggle light/dark mode; cycles: dark -> light -> system -> dark */
-function toggleMode() {
-  const current = localStorage.getItem('cg-mode') || 'dark';
-  const next = current === 'dark' ? 'light' : current === 'light' ? 'system' : 'dark';
-  setMode(next);
-  if (!App.profile) {
-    // Re-apply visual theme so color vars recalculate
-    applyVisualTheme(localStorage.getItem('cg-vtheme') || 'default');
-  }
-}
+/** Dark mode only — toggle is disabled */
+function toggleMode() { /* no-op: dark mode locked */ }
 
 /** Open/close the theme popup */
 function toggleThemePopup() {
@@ -1834,7 +1826,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                        document.getElementById('screen-mission-briefing')?.classList.contains('active');
     if (!onGameplay && App.profile) {
       const saved = localStorage.getItem('cg-vtheme');
-      if (saved && saved !== 'default') {
+      if (saved && VISUAL_THEMES.includes(saved)) {
         // Age-group theme takes priority for gameplay — on other screens restore visual
         // Note: setTheme() in app.js already handles age-group via data-theme;
         // visual theme is a cosmetic layer not linked to age group on non-game screens
