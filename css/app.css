@@ -3243,8 +3243,8 @@ button, input, select, textarea {
 .hero-content { flex:1; min-width:280px; }
 .hero-visual { flex-shrink:0; }
 .hero-badge { display:inline-block; background:rgba(79,142,247,.15); color:var(--color-primary); border:1px solid var(--color-primary); border-radius:20px; padding:.3rem .9rem; font-size:.8rem; font-weight:700; margin-bottom:1rem; letter-spacing:.04em; }
-.hero-title { font-size:clamp(2rem, 5vw, 3.2rem); font-weight:900; line-height:1.15; margin:0 0 1rem; color:var(--color-text); }
-.hero-title span { color:var(--color-accent); }
+.hero-title { font-family:'Fjalla One',sans-serif; font-size:clamp(2rem, 5vw, 3.2rem); font-weight:400; line-height:1.1; margin:0 0 1rem; color:var(--color-text); letter-spacing:0.01em; }
+.hero-title span { color:transparent; background:linear-gradient(90deg,#1770b5,#00e5ff); -webkit-background-clip:text; background-clip:text; }
 .hero-sub { font-size:1.1rem; color:var(--color-text-muted); line-height:1.65; margin:0 0 1.75rem; max-width:540px; }
 .hero-cta { display:flex; flex-direction:column; align-items:center; gap:.6rem; margin-bottom:2.5rem; }
 .hero-stats { display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; }
