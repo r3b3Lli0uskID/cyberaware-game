@@ -1,10 +1,11 @@
 // ─── Supabase Configuration ───────────────────────────────────────────────────
-const SUPABASE_URL    = 'https://skiludhuuwgobngvucsv.supabase.co';
-const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNraWx1ZGh1dXdnb2JuZ3Z1Y3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDM1ODIsImV4cCI6MjA4OTQxOTU4Mn0.ZXRvioOD37l9KS0K8io-9BKOIbNPcbKb81JSOHe-Bx0';
-
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const SUPABASE_URL  = 'https://skiludhuuwgobngvucsv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNraWx1ZGh1dXdnb2JuZ3Z1Y3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDM1ODIsImV4cCI6MjA4OTQxOTU4Mn0.ZXRvioOD37l9KS0K8io-9BKOIbNPcbKb81JSOHe-Bx0';
 
 // ─── App Constants ────────────────────────────────────────────────────────────
+// NOTE: db client is initialised at the BOTTOM of this file, after all
+// constants are declared — so a Supabase CDN timing issue never prevents
+// REGIONS / AGE_GROUPS / LEVELS etc. from being defined.
 const AGE_GROUPS = {
   kids:    { label: 'Beginner',     range: 'Level 01', emoji: '🌱', color: '#FF6B6B', theme: 'kids'    },
   teens:   { label: 'Intermediate', range: 'Level 02', emoji: '⚔️',  color: '#7C3AED', theme: 'teens'   },
@@ -75,3 +76,7 @@ const BADGES = {
   cyber_guardian:   { id: 'cyber_guardian',   emoji: '🏆',  label: 'Cyber Guardian',     desc: 'Completed missions in all age groups' },
   streak_3:         { id: 'streak_3',         emoji: '🔥',  label: 'On Fire',            desc: 'Completed 3 missions in a row'        },
 };
+
+// ─── Supabase Client ──────────────────────────────────────────────────────────
+// Initialised LAST so a CDN timing failure never halts constant definitions above.
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
