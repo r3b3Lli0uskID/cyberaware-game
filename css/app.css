@@ -4926,3 +4926,132 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 
 /* ─── LEVEL BADGE-DIFF EXTENSION ───────────────────────────────────────── */
 .badge-diff.badge-expert { background: rgba(139,92,246,.15); color: #8b5cf6; border-color: rgba(139,92,246,.35); }
+
+/* ═══════════════════════════════════════════════════════════════
+   HTB / THM / pwn.college Landing Style — v2
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Terminal prompt line ─────────────────────────────────────── */
+.hero-term-line {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin-bottom: 1.1rem;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+.hero-term-ps  { color: var(--color-accent); }
+.hero-term-cmd { color: var(--color-text); }
+.hero-term-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: var(--color-accent);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: term-blink 1.1s step-end infinite;
+  opacity: 0.9;
+}
+@keyframes term-blink { 50% { opacity: 0; } }
+
+/* ── Hero badge — monospace bracket style ─────────────────────── */
+.hero .hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  background: rgba(0,200,240,.07);
+  border: 1px solid rgba(0,200,240,.25);
+  border-radius: 4px;
+  padding: .28rem .8rem;
+  color: var(--color-accent);
+  font-weight: 400;
+}
+
+/* ── CTA row layout ───────────────────────────────────────────── */
+.hero-cta--row {
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: .75rem !important;
+}
+
+/* ── Hero logo panel ──────────────────────────────────────────── */
+.hero-logo-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-logo-scan {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,200,240,.06) 50%, transparent 100%);
+  background-size: 100% 40%;
+  animation: scan-move 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes scan-move {
+  0%   { background-position: 0 -40%; }
+  100% { background-position: 0 140%; }
+}
+
+/* ── Section titles — mono comment style ─────────────────────── */
+.lnd-section-title {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  color: var(--color-accent) !important;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem !important;
+}
+
+/* ── Age showcase — remove emoji, add label ───────────────────── */
+.age-showcase-card .asc-emoji { display: none; }
+.asc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  letter-spacing: 0.14em;
+  margin-bottom: 0.5rem;
+  opacity: 0.75;
+}
+.age-showcase-card {
+  border-radius: 8px !important;
+  text-align: left !important;
+  position: relative;
+}
+.age-showcase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 8px 0 0 8px;
+  opacity: 0.5;
+}
+.age-showcase-card:hover::before { opacity: 1; }
+
+/* ── Mission type cards — tag label ──────────────────────────── */
+.mtc-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--color-accent);
+  letter-spacing: 0.14em;
+  margin-bottom: 0.45rem;
+  opacity: 0.7;
+}
+.mission-type-card {
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.mission-type-card span { display: none !important; }
+
+/* ── Footer wordmark ──────────────────────────────────────────── */
+.footer-wordmark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--color-accent) !important;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem !important;
+}
