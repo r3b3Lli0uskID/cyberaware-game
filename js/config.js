@@ -37,6 +37,34 @@ const HOBBIES = [
   { id: 'general',   emoji: '🌐', label: 'General'             },
 ];
 
+// ─── Regions ──────────────────────────────────────────────────────────────────
+// Ordered: ASEAN → APAC → Global (expanding rings)
+const REGIONS = [
+  { id: 'all', label: 'All',           emoji: '🌐', group: null      },
+  // ── ASEAN ──
+  { id: 'sg',  label: 'Singapore',     emoji: '🇸🇬', group: 'ASEAN'  },
+  { id: 'my',  label: 'Malaysia',      emoji: '🇲🇾', group: 'ASEAN'  },
+  { id: 'ph',  label: 'Philippines',   emoji: '🇵🇭', group: 'ASEAN'  },
+  { id: 'th',  label: 'Thailand',      emoji: '🇹🇭', group: 'ASEAN'  },
+  { id: 'id',  label: 'Indonesia',     emoji: '🇮🇩', group: 'ASEAN'  },
+  { id: 'vn',  label: 'Vietnam',       emoji: '🇻🇳', group: 'ASEAN'  },
+  { id: 'mm',  label: 'Myanmar',       emoji: '🇲🇲', group: 'ASEAN'  },
+  // ── APAC ──
+  { id: 'jp',  label: 'Japan',         emoji: '🇯🇵', group: 'APAC'   },
+  { id: 'kr',  label: 'South Korea',   emoji: '🇰🇷', group: 'APAC'   },
+  { id: 'au',  label: 'Australia',     emoji: '🇦🇺', group: 'APAC'   },
+  { id: 'nz',  label: 'New Zealand',   emoji: '🇳🇿', group: 'APAC'   },
+  { id: 'in',  label: 'India',         emoji: '🇮🇳', group: 'APAC'   },
+  { id: 'cn',  label: 'China',         emoji: '🇨🇳', group: 'APAC'   },
+  // ── Global ──
+  { id: 'uk',  label: 'United Kingdom',emoji: '🇬🇧', group: 'Global' },
+  { id: 'eu',  label: 'Europe',        emoji: '🇪🇺', group: 'Global' },
+  { id: 'us',  label: 'United States', emoji: '🇺🇸', group: 'Global' },
+  { id: 'me',  label: 'Middle East',   emoji: '🌍',  group: 'Global' },
+  { id: 'af',  label: 'Africa',        emoji: '🌍',  group: 'Global' },
+  { id: 'sa',  label: 'South America', emoji: '🌎',  group: 'Global' },
+];
+
 const BADGES = {
   first_mission:    { id: 'first_mission',    emoji: '🎖️',  label: 'First Mission',     desc: 'Completed your first mission'         },
   perfect_score:    { id: 'perfect_score',    emoji: '💯',  label: 'Perfect Score',      desc: 'Scored 100% on a mission'             },

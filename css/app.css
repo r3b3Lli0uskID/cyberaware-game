@@ -4788,6 +4788,35 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 .group-tab-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 600; }
 .group-tab-btn .xp-mult-tag { pointer-events: none; }
 
+/* ─── REGION FILTER BAR ──────────────────────────────────────────────────── */
+.region-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 0 4px;
+  margin-bottom: 4px;
+}
+.region-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.region-pill:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.region-pill.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 600; }
+.region-sep { color: var(--border); font-size: 0.7rem; padding: 0 2px; user-select: none; }
+.badge-region { background: transparent !important; border: none !important; padding: 0 2px !important; font-size: 1em; }
+.no-missions-msg { color: var(--text-muted); font-size: 0.9rem; padding: 2rem 0; text-align: center; width: 100%; }
+
 /* ─── PROFILE AVATAR PICKER ─────────────────────────────────────────────── */
 .prof-avatar-picker {
   display: flex;

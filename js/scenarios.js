@@ -4886,13 +4886,24 @@ const FOUNDATION_MISSIONS = {
 };
 
 // ─── Helper: get all missions for an age group ────────────────────────────────
-function getMissions(ageGroup) {
+function getMissions(ageGroup, regionFilter) {
   const foundation = FOUNDATION_MISSIONS[ageGroup];
   const regular = MISSIONS[ageGroup] || [];
-  return foundation ? [foundation, ...regular] : regular;
+  // Missions without a region field default to 'sg' (original content)
+  const all = (foundation ? [foundation, ...regular] : regular)
+    .map(m => ({ ...m, region: m.region || 'sg' }));
+  if (!regionFilter || regionFilter === 'all') return all;
+  return all.filter(m => m.region === regionFilter);
 }
 
 function getMission(ageGroup, missionId) {
   if (FOUNDATION_MISSIONS[ageGroup]?.id === missionId) return FOUNDATION_MISSIONS[ageGroup];
   return (MISSIONS[ageGroup] || []).find(m => m.id === missionId);
+}
+
+// Returns only regions that have at least 1 mission for the given ageGroup
+function getActiveRegions(ageGroup) {
+  const all = getMissions(ageGroup, 'all');
+  const seen = new Set(all.map(m => m.region));
+  return REGIONS.filter(r => r.id === 'all' || seen.has(r.id));
 }

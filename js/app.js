@@ -375,7 +375,7 @@ async function createProfile(username, ageGroup, avatar, level = 'beginner', hob
 // Track which group the admin is currently browsing (defaults to own group)
 App.browsedGroup = null;
 
-function renderDashboard(overrideGroup) {
+function renderDashboard(overrideGroup, overrideRegion) {
   const p = App.profile;
   if (!p) return;
 
@@ -383,7 +383,11 @@ function renderDashboard(overrideGroup) {
   const activeGroup = overrideGroup || App.browsedGroup || p.age_group;
   App.browsedGroup = activeGroup;
 
-  const missions = getMissions(activeGroup);
+  // Region filter — persists across group switches
+  if (overrideRegion !== undefined) App.selectedRegion = overrideRegion;
+  if (!App.selectedRegion) App.selectedRegion = 'all';
+
+  const missions = getMissions(activeGroup, App.selectedRegion);
 
   // Show admin nav button if admin
   const adminBtn = $('nav-admin-btn');
@@ -417,13 +421,41 @@ function renderDashboard(overrideGroup) {
     </button>`;
   }).join('');
 
+  // Region filter bar (only show regions that have missions for this group)
+  let regionBar = $('region-filter-bar');
+  if (!regionBar) {
+    regionBar = el('div', 'region-filter-bar', '');
+    regionBar.id = 'region-filter-bar';
+    const grid = $('mission-grid');
+    grid.parentNode.insertBefore(regionBar, grid);
+  }
+  const activeRegions = getActiveRegions(activeGroup);
+  if (activeRegions.length > 2) {
+    // Group regions by cluster for visual separation
+    let lastGroup = null;
+    regionBar.innerHTML = activeRegions.map(r => {
+      const separator = (r.group && r.group !== lastGroup && lastGroup !== null)
+        ? `<span class="region-sep">·</span>` : '';
+      lastGroup = r.group;
+      const active = r.id === App.selectedRegion;
+      return `${separator}<button class="region-pill${active ? ' active' : ''}" onclick="renderDashboard('${activeGroup}','${r.id}')">${r.emoji} ${r.label}</button>`;
+    }).join('');
+    regionBar.style.display = '';
+  } else {
+    regionBar.style.display = 'none';
+  }
+
   // Mission cards
   const grid = $('mission-grid');
   grid.innerHTML = '';
-  missions.forEach(m => {
-    const card = buildMissionCard(m, activeGroup);
-    grid.appendChild(card);
-  });
+  if (missions.length === 0) {
+    grid.innerHTML = '<p class="no-missions-msg">No missions available for this region yet. <button class="btn btn-ghost btn-sm" onclick="renderDashboard(\'' + activeGroup + '\',\'all\')">Show all regions</button></p>';
+  } else {
+    missions.forEach(m => {
+      const card = buildMissionCard(m, activeGroup);
+      grid.appendChild(card);
+    });
+  }
 }
 
 function buildMissionCard(mission, ageGroup) {
@@ -453,6 +485,11 @@ function buildMissionCard(mission, ageGroup) {
     ? `<div class="mandatory-banner">📋 Complete First — Foundational Course</div>`
     : isMandatory ? `<div class="mandatory-banner done">✅ Foundation Complete</div>` : '';
 
+  // Region badge
+  const missionRegion = mission.region || 'sg';
+  const regionInfo = REGIONS.find(r => r.id === missionRegion);
+  const regionBadge = regionInfo ? `<span class="badge badge-region" title="${regionInfo.label}">${regionInfo.emoji}</span>` : '';
+
   const card = el('div', `mission-card${isMandatory ? ' mission-mandatory' : ''}`);
   card.innerHTML = `
     ${mandatoryBanner}
@@ -462,6 +499,7 @@ function buildMissionCard(mission, ageGroup) {
         <span class="badge" style="background:${t.color}20;color:${t.color};border-color:${t.color}40">${t.icon} ${t.label}</span>
         <span class="badge badge-diff badge-${mission.difficulty.toLowerCase()}">${mission.difficulty}</span>
         ${mission.module === 'foundation' ? '<span class="badge badge-foundation">📚 CS101</span>' : ''}
+        ${regionBadge}
       </div>
     </div>
     <h3 class="mc-title">${mission.title}</h3>
