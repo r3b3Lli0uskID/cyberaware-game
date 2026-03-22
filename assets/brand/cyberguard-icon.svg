@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" role="img" aria-label="CyberGuard Icon">
+  <defs>
+    <linearGradient id="shieldBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#112236"/>
+      <stop offset="100%" style="stop-color:#091520"/>
+    </linearGradient>
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#00C8F0"/>
+      <stop offset="100%" style="stop-color:#005580"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <path d="M40 5 L72 15 L72 46 Q72 68 40 77 Q8 68 8 46 L8 15 Z" fill="#000" opacity="0.2" transform="translate(2,2)"/>
+  <!-- Shield -->
+  <path d="M40 5 L72 15 L72 46 Q72 68 40 77 Q8 68 8 46 L8 15 Z" fill="url(#shieldBody)" stroke="url(#strokeGrad)" stroke-width="2"/>
+  <!-- Corner accents -->
+  <line x1="8" y1="25" x2="18" y2="15" stroke="#00C8F0" stroke-width="1.2" opacity="0.6"/>
+  <line x1="72" y1="25" x2="62" y2="15" stroke="#00C8F0" stroke-width="1.2" opacity="0.6"/>
+  <!-- Armor plate -->
+  <line x1="10" y1="26" x2="70" y2="26" stroke="#1E4060" stroke-width="1.2"/>
+  <line x1="11" y1="28" x2="69" y2="28" stroke="#00C8F0" stroke-width="0.5" opacity="0.3"/>
+  <!-- Inner border -->
+  <path d="M40 11 L66 20 L66 46 Q66 64 40 73 Q14 64 14 46 L14 20 Z" fill="none" stroke="#1A3A58" stroke-width="1"/>
+  <!-- Outer bullseye -->
+  <circle cx="40" cy="46" r="20" fill="none" stroke="#1B3E5E" stroke-width="1.5"/>
+  <!-- Tick marks -->
+  <line x1="40" y1="26" x2="40" y2="30" stroke="#00C8F0" stroke-width="1.2" opacity="0.7"/>
+  <line x1="40" y1="62" x2="40" y2="66" stroke="#00C8F0" stroke-width="1.2" opacity="0.7"/>
+  <line x1="20" y1="46" x2="24" y2="46" stroke="#00C8F0" stroke-width="1.2" opacity="0.7"/>
+  <line x1="56" y1="46" x2="60" y2="46" stroke="#00C8F0" stroke-width="1.2" opacity="0.7"/>
+  <!-- Mid ring -->
+  <circle cx="40" cy="46" r="12" fill="none" stroke="#1E4A6E" stroke-width="1.5"/>
+  <!-- Inner ring -->
+  <circle cx="40" cy="46" r="6"  fill="none" stroke="#00C8F0" stroke-width="2"/>
+  <!-- Circuit traces -->
+  <polyline points="40,40 40,33 47,33" fill="none" stroke="#00C8F0" stroke-width="1.1" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40" cy="33" r="1.8" fill="#00C8F0" opacity="0.8"/>
+  <circle cx="47" cy="33" r="2.2" fill="#00C8F0"/>
+  <polyline points="40,52 40,59 33,59" fill="none" stroke="#00C8F0" stroke-width="1.1" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40" cy="59" r="1.8" fill="#00C8F0" opacity="0.8"/>
+  <circle cx="33" cy="59" r="2.2" fill="#00C8F0"/>
+  <polyline points="34,46 27,46 27,40" fill="none" stroke="#00C8F0" stroke-width="1.1" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="27" cy="46" r="1.8" fill="#00C8F0" opacity="0.8"/>
+  <circle cx="27" cy="40" r="2.2" fill="#00C8F0"/>
+  <polyline points="46,46 53,46 53,52" fill="none" stroke="#00C8F0" stroke-width="1.1" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="53" cy="46" r="1.8" fill="#00C8F0" opacity="0.8"/>
+  <circle cx="53" cy="52" r="2.2" fill="#00C8F0"/>
+  <!-- Diamond crosshair -->
+  <polygon points="40,42 44,46 40,50 36,46" fill="none" stroke="#00E5FF" stroke-width="1.5"/>
+  <circle cx="40" cy="46" r="2" fill="#00E5FF"/>
+  <!-- Corner brackets -->
+  <g stroke="#00C8F0" stroke-width="1.5" opacity="0.5" stroke-linecap="square">
+    <polyline points="4,16 4,8 12,8"/>
+    <polyline points="76,16 76,8 68,8"/>
+  </g>
+</svg>

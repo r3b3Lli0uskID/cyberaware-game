@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CyberGuard — 4K Wallpaper</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:3840px; height:2160px; overflow:hidden; background:#020810; }
+  canvas { position:absolute; top:0; left:0; }
+  .overlay { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<canvas id="bg" width="3840" height="2160"></canvas>
+
+<div class="overlay">
+  <!-- Logo SVG centred, scaled up -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 76" width="1440" height="304" style="margin-bottom:60px;filter:drop-shadow(0 0 40px #00C8F088)">
+    <defs>
+      <linearGradient id="shieldBody" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   style="stop-color:#112236"/>
+        <stop offset="100%" style="stop-color:#091520"/>
+      </linearGradient>
+      <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"   style="stop-color:#00E5FF"/>
+        <stop offset="100%" style="stop-color:#0099CC"/>
+      </linearGradient>
+      <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   style="stop-color:#00C8F0"/>
+        <stop offset="100%" style="stop-color:#005580"/>
+      </linearGradient>
+    </defs>
+    <path d="M38 7 L65 15 L65 42 Q65 62 38 73 Q11 62 11 42 L11 15 Z" fill="#000" opacity="0.25" transform="translate(1.5,2)"/>
+    <path d="M38 7 L65 15 L65 42 Q65 62 38 73 Q11 62 11 42 L11 15 Z" fill="url(#shieldBody)" stroke="url(#strokeGrad)" stroke-width="1.8"/>
+    <line x1="11" y1="22" x2="18" y2="15" stroke="#00C8F0" stroke-width="1" opacity="0.6"/>
+    <line x1="65" y1="22" x2="58" y2="15" stroke="#00C8F0" stroke-width="1" opacity="0.6"/>
+    <path d="M13 22 L63 22" stroke="#1E4060" stroke-width="1"/>
+    <path d="M38 12 L60 19 L60 42 Q60 58 38 68 Q16 58 16 42 L16 19 Z" fill="none" stroke="#1A3A58" stroke-width="1"/>
+    <circle cx="38" cy="42" r="17" fill="none" stroke="#1B3E5E" stroke-width="1.2"/>
+    <line x1="38" y1="25" x2="38" y2="28" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
+    <line x1="38" y1="56" x2="38" y2="59" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
+    <line x1="21" y1="42" x2="24" y2="42" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
+    <line x1="52" y1="42" x2="55" y2="42" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
+    <circle cx="38" cy="42" r="10" fill="none" stroke="#1E4A6E" stroke-width="1.2"/>
+    <circle cx="38" cy="42" r="5"  fill="none" stroke="#00C8F0" stroke-width="1.5"/>
+    <polyline points="38,37 38,31 43,31" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="38" cy="31" r="1.4" fill="#00C8F0" opacity="0.8"/>
+    <circle cx="43" cy="31" r="1.8" fill="#00C8F0" opacity="0.9"/>
+    <polyline points="38,47 38,53 33,53" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="38" cy="53" r="1.4" fill="#00C8F0" opacity="0.8"/>
+    <circle cx="33" cy="53" r="1.8" fill="#00C8F0" opacity="0.9"/>
+    <polyline points="33,42 27,42 27,37" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="27" cy="42" r="1.4" fill="#00C8F0" opacity="0.8"/>
+    <circle cx="27" cy="37" r="1.8" fill="#00C8F0" opacity="0.9"/>
+    <polyline points="43,42 49,42 49,47" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="49" cy="42" r="1.4" fill="#00C8F0" opacity="0.8"/>
+    <circle cx="49" cy="47" r="1.8" fill="#00C8F0" opacity="0.9"/>
+    <polygon points="38,39 41,42 38,45 35,42" fill="none" stroke="#00E5FF" stroke-width="1.2"/>
+    <circle cx="38" cy="42" r="1.5" fill="#00E5FF"/>
+    <g stroke="#00C8F0" stroke-width="1.2" opacity="0.5" stroke-linecap="square">
+      <polyline points="7,11 7,7 11,7"/>
+      <polyline points="65,11 65,7 69,7"/>
+    </g>
+    <rect x="82" y="8" width="1.5" height="58" rx="0.75" fill="#1E4060"/>
+    <text y="40" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="800" font-size="26" letter-spacing="1">
+      <tspan x="92" fill="#FFFFFF" letter-spacing="1">CYBER</tspan><tspan fill="url(#cyanGrad)" letter-spacing="1">GUARD</tspan>
+    </text>
+    <rect x="92" y="44" width="246" height="1.5" rx="0.75" fill="url(#cyanGrad)" opacity="0.35"/>
+    <text x="93" y="60" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="400" font-size="7.8" letter-spacing="4" fill="#4A7090">SECURITY AWARENESS PLATFORM</text>
+    <text x="92" y="70" font-family="'Segoe UI',Helvetica,Arial,sans-serif" font-weight="300" font-size="6.5" letter-spacing="5" fill="#2A5070" opacity="0.6">● ASEAN  ●  APAC  ●  GLOBAL</text>
+  </svg>
+
+  <!-- Tagline -->
+  <div style="font-family:'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:52px;font-weight:300;letter-spacing:18px;color:#4A7090;text-transform:uppercase;margin-bottom:32px;">
+    CYBER RESILIENCE AT GLOBAL SCALE
+  </div>
+
+  <!-- Divider line -->
+  <div style="width:900px;height:1px;background:linear-gradient(90deg,transparent,#00C8F0,transparent);margin-bottom:32px;"></div>
+
+  <!-- Stats row -->
+  <div style="display:flex;gap:120px;align-items:center;">
+    <div style="text-align:center;">
+      <div style="font-family:'Segoe UI',sans-serif;font-size:64px;font-weight:800;color:#00E5FF;letter-spacing:2px;">80+</div>
+      <div style="font-family:'Segoe UI',sans-serif;font-size:22px;font-weight:400;letter-spacing:6px;color:#2A5070;margin-top:8px;">MISSIONS</div>
+    </div>
+    <div style="width:1px;height:80px;background:#1A3050;"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Segoe UI',sans-serif;font-size:64px;font-weight:800;color:#00E5FF;letter-spacing:2px;">7+</div>
+      <div style="font-family:'Segoe UI',sans-serif;font-size:22px;font-weight:400;letter-spacing:6px;color:#2A5070;margin-top:8px;">REGIONS</div>
+    </div>
+    <div style="width:1px;height:80px;background:#1A3050;"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Segoe UI',sans-serif;font-size:64px;font-weight:800;color:#00E5FF;letter-spacing:2px;">4</div>
+      <div style="font-family:'Segoe UI',sans-serif;font-size:22px;font-weight:400;letter-spacing:6px;color:#2A5070;margin-top:8px;">DIFFICULTY TIERS</div>
+    </div>
+    <div style="width:1px;height:80px;background:#1A3050;"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Segoe UI',sans-serif;font-size:64px;font-weight:800;color:#00E5FF;letter-spacing:2px;">∞</div>
+      <div style="font-family:'Segoe UI',sans-serif;font-size:22px;font-weight:400;letter-spacing:6px;color:#2A5070;margin-top:8px;">SKILL CEILING</div>
+    </div>
+  </div>
+
+  <!-- Bottom URL -->
+  <div style="position:absolute;bottom:80px;font-family:'Segoe UI',sans-serif;font-size:28px;font-weight:300;letter-spacing:8px;color:#1A3A55;">
+    CYBERGUARD.IVANTHAN.UK
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+const W = 3840, H = 2160;
+
+// ── Deep space gradient background ──
+const bg = ctx.createRadialGradient(W/2, H/2, 200, W/2, H/2, 1800);
+bg.addColorStop(0,   '#070F1C');
+bg.addColorStop(0.5, '#040C16');
+bg.addColorStop(1,   '#020810');
+ctx.fillStyle = bg;
+ctx.fillRect(0, 0, W, H);
+
+// ── Hex grid ──
+function drawHex(cx, cy, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const a = Math.PI / 180 * (60 * i - 30);
+    i === 0 ? ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a))
+            : ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+ctx.strokeStyle = 'rgba(0,180,220,0.045)';
+ctx.lineWidth = 1.5;
+const hr = 90;
+const hh = hr * Math.sqrt(3);
+for (let row = -1; row < H / hh + 2; row++) {
+  for (let col = -1; col < W / (hr * 1.5) + 2; col++) {
+    const x = col * hr * 3 + (row % 2 === 0 ? 0 : hr * 1.5);
+    const y = row * hh;
+    drawHex(x, y, hr);
+  }
+}
+
+// ── Vertical scan lines ──
+ctx.strokeStyle = 'rgba(0,200,240,0.012)';
+ctx.lineWidth = 1;
+for (let x = 0; x < W; x += 4) {
+  ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+}
+
+// ── Circuit traces ──
+function drawTrace(points, opacity) {
+  ctx.strokeStyle = `rgba(0,200,240,${opacity})`;
+  ctx.lineWidth = 1.5;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
+  ctx.stroke();
+  // Node dots
+  for (const [x, y] of points) {
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,200,240,${opacity * 1.5})`;
+    ctx.fill();
+  }
+}
+
+// Left side traces
+drawTrace([[0,400],[180,400],[180,600],[400,600],[400,700],[600,700]], 0.18);
+drawTrace([[0,800],[240,800],[240,900],[500,900]], 0.14);
+drawTrace([[0,1200],[320,1200],[320,1000],[600,1000],[600,1100],[800,1100]], 0.12);
+drawTrace([[0,1600],[200,1600],[200,1500],[450,1500],[450,1400],[700,1400]], 0.16);
+drawTrace([[0,1900],[300,1900],[300,1800],[550,1800],[550,2000],[700,2000]], 0.1);
+drawTrace([[100,2160],[100,2000],[350,2000],[350,1900],[600,1900]], 0.13);
+
+// Right side traces
+drawTrace([[3840,400],[3660,400],[3660,600],[3440,600],[3440,700],[3240,700]], 0.18);
+drawTrace([[3840,800],[3600,800],[3600,900],[3340,900]], 0.14);
+drawTrace([[3840,1200],[3520,1200],[3520,1000],[3240,1000],[3240,1100],[3040,1100]], 0.12);
+drawTrace([[3840,1600],[3640,1600],[3640,1500],[3390,1500],[3390,1400],[3140,1400]], 0.16);
+drawTrace([[3840,1900],[3540,1900],[3540,1800],[3290,1800],[3290,2000],[3140,2000]], 0.1);
+
+// ── Glowing orbs (depth effect) ──
+function glow(x, y, r, color, alpha) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0,   color.replace('alpha', String(alpha)));
+  g.addColorStop(0.4, color.replace('alpha', String(alpha * 0.3)));
+  g.addColorStop(1,   color.replace('alpha', '0'));
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+}
+glow(W/2, H/2, 900, 'rgba(0,100,160,alpha)', 0.25);
+glow(W/2, H/2, 400, 'rgba(0,180,220,alpha)', 0.12);
+glow(400, 400,  600, 'rgba(0,60,120,alpha)',  0.15);
+glow(W-400, H-400, 600, 'rgba(0,40,100,alpha)', 0.12);
+glow(300, H-300, 500, 'rgba(20,0,80,alpha)', 0.08);
+glow(W-300, 300, 500, 'rgba(0,80,40,alpha)', 0.06);
+
+// ── Data stream particles (random dots along grid lines) ──
+ctx.fillStyle = 'rgba(0,220,255,0.35)';
+for (let i = 0; i < 400; i++) {
+  const x = Math.random() * W;
+  const y = Math.random() * H;
+  const r = Math.random() * 2.5 + 0.5;
+  const dist = Math.sqrt(Math.pow(x - W/2, 2) + Math.pow(y - H/2, 2));
+  const alpha = Math.max(0, 0.4 - dist / 3000);
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+}
+ctx.globalAlpha = 1;
+
+// ── Corner frame brackets ──
+ctx.strokeStyle = 'rgba(0,200,240,0.3)';
+ctx.lineWidth = 3;
+ctx.lineCap = 'square';
+const bL = 120;
+// TL
+ctx.beginPath(); ctx.moveTo(40, 40+bL); ctx.lineTo(40,40); ctx.lineTo(40+bL, 40); ctx.stroke();
+// TR
+ctx.beginPath(); ctx.moveTo(W-40-bL, 40); ctx.lineTo(W-40,40); ctx.lineTo(W-40, 40+bL); ctx.stroke();
+// BL
+ctx.beginPath(); ctx.moveTo(40, H-40-bL); ctx.lineTo(40,H-40); ctx.lineTo(40+bL, H-40); ctx.stroke();
+// BR
+ctx.beginPath(); ctx.moveTo(W-40-bL, H-40); ctx.lineTo(W-40,H-40); ctx.lineTo(W-40, H-40-bL); ctx.stroke();
+
+// ── HUD tick marks on corners ──
+ctx.strokeStyle = 'rgba(0,200,240,0.2)';
+ctx.lineWidth = 1.5;
+for (let i = 1; i <= 4; i++) {
+  ctx.beginPath(); ctx.moveTo(40 + i*30, 40); ctx.lineTo(40 + i*30, 55); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(40, 40 + i*30); ctx.lineTo(55, 40 + i*30); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W-40-i*30, 40); ctx.lineTo(W-40-i*30, 55); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W-40, 40+i*30); ctx.lineTo(W-55, 40+i*30); ctx.stroke();
+}
+
+// ── Binary rain strips (faint, corners only) ──
+ctx.font = '18px monospace';
+ctx.fillStyle = 'rgba(0,180,200,0.07)';
+const chars = '01アイウエオカキクケコ';
+for (let col = 0; col < 12; col++) {
+  for (let row = 0; row < 30; row++) {
+    const c = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(c, 60 + col * 22, 200 + row * 28);
+    ctx.fillText(c, W - 300 + col * 22, 200 + row * 28);
+  }
+}
+</script>
+</body>
+</html>
