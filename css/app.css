@@ -748,13 +748,15 @@ button, input, select, textarea {
    8. BUTTONS
    ============================================================ */
 .btn {
-  display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  gap:             var(--space-2);
-  padding:         0 var(--space-6);
-  height:          var(--tap-min);
-  min-width:       var(--tap-min);
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              var(--space-2);
+  padding:          0 var(--space-6);
+  height:           var(--tap-min);
+  min-width:        var(--tap-min);
+  -webkit-appearance: none;
+  appearance:       none;
   border-radius:   var(--radius-md);
   font-size:       var(--font-size-md);
   font-weight:     var(--font-weight-bold);
@@ -3231,8 +3233,20 @@ button, input, select, textarea {
 }
 .loading-text { color: #fff; font-size: 1rem; font-weight: 700; }
 
+/* ─── Flat-class button aliases (HTML uses these; BEM defined above) ────────── */
+.btn-primary  { background:var(--color-primary); color:var(--color-primary-fg); border-color:var(--color-primary); }
+.btn-primary:hover  { background:var(--color-primary-dim); border-color:var(--color-primary-dim); box-shadow:var(--shadow-glow); }
+.btn-outline  { background:transparent; color:var(--color-text); border-color:var(--color-border); }
+.btn-outline:hover  { border-color:var(--color-primary); color:var(--color-primary); }
+.btn-ghost    { background:transparent; color:var(--color-text-muted); border-color:transparent; }
+.btn-ghost:hover    { background:var(--color-bg-elevated); color:var(--color-text); }
+.btn-sm  { height:36px; padding:0 var(--space-4); font-size:var(--font-size-sm); min-width:unset; }
+.btn-lg  { height:56px; padding:0 var(--space-8); font-size:var(--font-size-lg); }
+
 /* ─── Navigation extras ────────────────────────────────────────────────────── */
-.nav { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1.5rem; background:var(--color-bg-surface); border-bottom:1px solid var(--color-border); position:sticky; top:0; z-index:50; }
+/* flex-wrap: nowrap baked into base rule — Safari does not reliably inherit
+   the mobile-breakpoint override without an explicit base declaration */
+.nav { display:flex; flex-wrap:nowrap; -webkit-flex-wrap:nowrap; align-items:center; justify-content:space-between; padding:.75rem 1.5rem; background:var(--color-bg-surface); border-bottom:1px solid var(--color-border); position:sticky; top:0; z-index:50; }
 .nav-brand { font-size:1.1rem; font-weight:800; }
 .nav-links { display:flex; gap:.5rem; align-items:center; }
 .nav-btn { background:transparent; border:none; padding:.4rem .85rem; border-radius:8px; cursor:pointer; font-size:.85rem; font-weight:600; color:var(--color-text-muted); font-family:inherit; transition:all .2s; }
@@ -4324,15 +4338,28 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 /* ---- Phone: max 480px --------------------------------------- */
 @media (max-width: 480px) {
 
-  /* Nav: keep logo + button on one row */
+  /* Nav: keep logo + button on one row — explicit for Safari */
   .nav {
     flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
     padding:   .5rem .75rem;
     gap:       .5rem;
+    /* iPhone notch/home-indicator safe area */
+    padding-left:  max(.75rem, env(safe-area-inset-left));
+    padding-right: max(.75rem, env(safe-area-inset-right));
   }
   .nav-brand { flex-shrink: 0; min-width: 0; overflow: hidden; }
-  .nav-brand img { max-width: 140px; height: 28px !important; }
-  .nav-signin-btn { flex-shrink: 0; white-space: nowrap; font-size: .78rem !important; padding: .35rem .7rem !important; }
+  .nav-brand img { max-width: 130px; height: 26px !important; width: auto !important; }
+  .nav-signin-btn {
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: auto !important;
+    white-space: nowrap;
+    font-size: .76rem !important;
+    padding: .3rem .65rem !important;
+    height: 36px !important;
+    min-width: unset !important;
+  }
   .nav-links {
     gap:       .25rem;
     flex-wrap: wrap;
