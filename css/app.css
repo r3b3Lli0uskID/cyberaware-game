@@ -4305,6 +4305,7 @@ button, input, select, textarea {
 .theme-pill[data-theme-val="teen"]      .theme-pill-dot { background: linear-gradient(135deg, #7c3aed, #06b6d4); }
 .theme-pill[data-theme-val="kiddy"]     .theme-pill-dot { background: linear-gradient(135deg, #ff6b6b, #ffd93d); }
 .theme-pill[data-theme-val="adult"]     .theme-pill-dot { background: #1d4ed8; }
+.theme-pill[data-theme-val="crimson"]   .theme-pill-dot { background: linear-gradient(135deg, #FF3040, #8b0010); }
 
 /* ============================================================
    TASK 5 — Mobile Responsive (comprehensive)
@@ -4323,12 +4324,15 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 /* ---- Phone: max 480px --------------------------------------- */
 @media (max-width: 480px) {
 
-  /* Nav: wrap and reduce padding */
+  /* Nav: keep logo + button on one row */
   .nav {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding:   .5rem .75rem;
-    gap:       .35rem;
+    gap:       .5rem;
   }
+  .nav-brand { flex-shrink: 0; min-width: 0; overflow: hidden; }
+  .nav-brand img { max-width: 140px; height: 28px !important; }
+  .nav-signin-btn { flex-shrink: 0; white-space: nowrap; font-size: .78rem !important; padding: .35rem .7rem !important; }
   .nav-links {
     gap:       .25rem;
     flex-wrap: wrap;
@@ -5367,3 +5371,132 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   margin: 0 2rem;
   opacity: 0.5;
 }
+
+/* ============================================================
+   THEME: CRIMSON  (inspired by CyberGuard Crimson/Red wallpaper)
+   ============================================================ */
+[data-theme="crimson"] {
+  --color-bg:           #0C0408;
+  --color-bg-surface:   #150608;
+  --color-bg-elevated:  #2A0E14;
+  --color-border:       #3d1020;
+  --color-border-glow:  #CC0020;
+
+  --color-primary:      #FF3040;
+  --color-primary-dim:  #CC0020;
+  --color-primary-fg:   #ffffff;
+
+  --color-accent:       #FF6070;
+  --color-accent-dim:   #800010;
+
+  --color-success:      #00c896;
+  --color-warning:      #ffb020;
+  --color-danger:       #FF3040;
+  --color-info:         #cc4455;
+
+  --color-text:         #f0e0e2;
+  --color-text-muted:   #a06070;
+  --color-text-faint:   #5a2030;
+
+  --shadow-sm:   0 0 8px  rgba(255,48,64,0.15);
+  --shadow-md:   0 0 16px rgba(255,48,64,0.2);
+  --shadow-lg:   0 0 32px rgba(255,48,64,0.25);
+  --shadow-glow: 0 0 20px rgba(255,48,64,0.4);
+  --shadow-accent-glow: 0 0 20px rgba(255,96,112,0.35);
+}
+
+/* Hero title — Fjalla One + crimson gradient on span */
+[data-theme="crimson"] .hero-title span {
+  background: linear-gradient(90deg, #FF3040, #ff8090) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* Terminal prompt colour */
+[data-theme="crimson"] .hero-term-ps { color: #FF6070; }
+[data-theme="crimson"] .hero-term-cursor { background: #FF3040; }
+
+/* Particle / hero glow tint */
+[data-theme="crimson"] .hero { background: radial-gradient(ellipse at 60% 40%, rgba(160,20,30,0.18) 0%, transparent 70%); }
+
+/* Nav */
+[data-theme="crimson"] .nav {
+  background: rgba(12,4,8,0.95);
+  border-bottom-color: #3d1020;
+  box-shadow: 0 1px 0 rgba(255,48,64,0.08);
+}
+
+/* Cards */
+[data-theme="crimson"] .card,
+[data-theme="crimson"] .mission-card,
+[data-theme="crimson"] .auth-card,
+[data-theme="crimson"] .setup-card,
+[data-theme="crimson"] .briefing-card,
+[data-theme="crimson"] .complete-card {
+  box-shadow: 0 0 24px rgba(255,48,64,0.12);
+  border-color: #3d1020;
+}
+
+[data-theme="crimson"] .card:hover,
+[data-theme="crimson"] .mission-card:hover {
+  box-shadow: 0 0 36px rgba(255,48,64,0.3), 0 0 8px rgba(255,96,112,0.1);
+  border-color: #FF3040;
+}
+
+/* Primary button glow */
+[data-theme="crimson"] .btn-primary,
+[data-theme="crimson"] .btn.btn-primary {
+  background: linear-gradient(135deg, #FF3040, #CC0020);
+  box-shadow: 0 0 18px rgba(255,48,64,0.45);
+}
+[data-theme="crimson"] .btn-primary:hover,
+[data-theme="crimson"] .btn.btn-primary:hover {
+  box-shadow: 0 0 28px rgba(255,48,64,0.65);
+  background: linear-gradient(135deg, #ff4a58, #e0001a);
+}
+
+/* Feedback states */
+[data-theme="crimson"] .feedback-correct {
+  background: rgba(0,200,150,0.10) !important;
+  border-color: #00c896 !important;
+  color: #a0ffd8 !important;
+}
+[data-theme="crimson"] .feedback-wrong {
+  background: rgba(255,48,64,0.12) !important;
+  border-color: #FF3040 !important;
+  color: #ffb0b8 !important;
+}
+[data-theme="crimson"] .quiz-tip {
+  background: rgba(255,176,32,0.08) !important;
+  border-color: #ffb020 !important;
+  color: #fff0cc !important;
+}
+[data-theme="crimson"] .tip-label { color: #ffb020 !important; }
+
+/* Landing section accents */
+[data-theme="crimson"] .lnd-section-title-h,
+[data-theme="crimson"] .lnd-section-title    { color: #FF6070 !important; }
+[data-theme="crimson"] .lnd-step:hover       { border-color: #FF3040; }
+[data-theme="crimson"] .lnd-threat-bar span  { background: linear-gradient(90deg, #800010, #FF3040); }
+[data-theme="crimson"] .lnd-rtag:hover       { border-color: #FF3040; color: #FF6070; }
+[data-theme="crimson"] .lnd-term-cmd-line    { color: #FF6070; }
+[data-theme="crimson"] .hero-badge           { background: rgba(255,48,64,0.12); color: #FF6070; border-color: rgba(255,48,64,0.35); }
+
+/* Threat terminal window */
+[data-theme="crimson"] .lnd-threat-terminal,
+[data-theme="crimson"] .lnd-cta-terminal {
+  border-color: #3d1020;
+  box-shadow: 0 0 40px rgba(255,48,64,0.1);
+}
+
+/* Footer wordmark */
+[data-theme="crimson"] .footer-wordmark { color: #FF6070 !important; }
+
+/* Score / XP badges */
+[data-theme="crimson"] .badge-primary,
+[data-theme="crimson"] .badge--primary { background: rgba(255,48,64,0.15); color: #FF6070; border-color: rgba(255,48,64,0.3); }
+
+/* Scrollbar tint */
+[data-theme="crimson"] ::-webkit-scrollbar-thumb { background: #3d1020; }
+[data-theme="crimson"] ::-webkit-scrollbar-thumb:hover { background: #CC0020; }

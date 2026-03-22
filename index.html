@@ -34,9 +34,9 @@
 <div id="screen-landing" class="screen active">
   <nav class="nav">
     <div class="nav-brand">
-      <img src="assets/cyberguard-logo.svg" alt="CyberGuard" height="36" style="display:block;" />
+      <img src="assets/brand/cyberguard-logo-nav.svg" alt="CyberGuard" height="36" style="display:block;" />
     </div>
-    <button class="btn btn-primary btn-sm" onclick="showScreen('screen-auth')">Sign In / Register</button>
+    <button class="btn btn-primary btn-sm nav-signin-btn" onclick="showScreen('screen-auth')">Sign In / Register</button>
   </nav>
 
   <section class="hero" style="position:relative;overflow:hidden">
@@ -58,7 +58,7 @@
     </div>
     <div class="hero-visual" style="position:relative;z-index:1">
       <div class="hero-logo-panel">
-        <img src="assets/cyberguard-logo.svg" alt="CyberGuard" width="320" style="display:block;filter:drop-shadow(0 0 24px rgba(0,200,240,.35));" />
+        <img src="assets/brand/cyberguard-logo-darkbg.svg" alt="CyberGuard" width="320" style="display:block;filter:drop-shadow(0 0 24px rgba(0,200,240,.35));" />
         <div class="hero-logo-scan" aria-hidden="true"></div>
       </div>
     </div>
@@ -319,7 +319,7 @@
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-logo">
-        <img src="assets/cyberguard-logo.svg" alt="CyberGuard" height="48" style="display:block;margin:0 auto;" />
+        <img src="assets/brand/cyberguard-logo-nav.svg" alt="CyberGuard" height="48" style="display:block;margin:0 auto;" />
       </div>
       <div class="auth-tabs">
         <button id="tab-login"  class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
@@ -537,7 +537,7 @@
 <div id="screen-dashboard" class="screen">
   <nav class="nav">
     <div class="nav-brand">
-      <img src="assets/cyberguard-logo.svg" alt="CyberGuard" height="36" style="display:block;" />
+      <img src="assets/brand/cyberguard-logo-nav.svg" alt="CyberGuard" height="36" style="display:block;" />
     </div>
     <div class="nav-links">
       <button class="nav-btn active" onclick="showScreen('screen-dashboard');renderDashboard()"><span class="nav-icon">🏠</span><span class="nav-label"> Home</span></button>
@@ -857,6 +857,11 @@
     <button class="theme-pill" data-theme-val="adult"
             onclick="setVisualTheme('adult')" role="menuitem">
       <span class="theme-pill-dot"></span> Adult
+    </button>
+
+    <button class="theme-pill" data-theme-val="crimson"
+            onclick="setVisualTheme('crimson')" role="menuitem">
+      <span class="theme-pill-dot"></span> Crimson
     </button>
   </div>
 
