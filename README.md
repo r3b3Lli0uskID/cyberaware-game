@@ -1,6 +1,6 @@
 # 🛡️ CyberGuard — Security Awareness Platform
 
-An interactive cybersecurity awareness game covering threats across **ASEAN, APAC, and Global** regions — with skill-based progression from Beginner to Specialist.
+An interactive cybersecurity awareness game covering threats across **ASEAN, APAC, and Global** regions — with skill-based progression across **5 tiers from Beginner to Expert**.
 
 **Live:** https://cyberguard.ivanthan.uk
 **Built by:** [Ivan Than](https://ivanthan.uk)
@@ -9,8 +9,8 @@ An interactive cybersecurity awareness game covering threats across **ASEAN, APA
 
 ## Features
 
-- **4 Skill Tracks** — Beginner / Intermediate / Advanced / Specialist with XP multipliers
-- **59+ Missions** across all skill tracks, ASEAN, and APAC regional scenarios
+- **5 Skill Tracks** — Beginner / Intermediate / Advanced / Specialist / Expert with XP multipliers
+- **100+ Missions** across all skill tracks, ASEAN, and APAC regional scenarios
 - **Regional content** — ASEAN (SG, MY, PH, TH, ID, VN, MM) + APAC (JP, KR, AU, NZ, IN, CN)
 - **Singapore-specific scenarios** — PayNow, SingPass, CPF, DBS/OCBC/UOB, SPF, ScamShield
 - **3 Mission Types** — Quiz, Spot the Threat, Decision Tree
@@ -42,6 +42,14 @@ CPF/SingPass phishing, credential stuffing, fake tech support, home office secur
 ### 💀 Level 04 — Specialist
 APT campaigns, threat intelligence, incident response, red team tradecraft,
 nation-state phishing, zero-day awareness, enterprise breach simulation
+
+### ⚡ Level 05 — Expert *(new in v1.6)*
+Web app exploitation (SQLi, Path Traversal, XXE, CORS, IDOR), wireless attack vectors
+(Evil Twin, rogue RADIUS, WEP, Karma, WPA3), malware behaviour analysis (fileless PowerShell,
+process injection, registry persistence, C2 beaconing), cloud breach response (AWS IAM
+compromise, S3 exfiltration, backdoor IAM persistence), OSINT & social engineering defence
+(Google Dorking, Dumpster Diving, Spear Phishing, urgency manipulation, FIDO2 MFA).
+CEH v13-aligned scenarios reframed as professional workplace situations.
 
 ---
 
@@ -99,13 +107,18 @@ cp js/config.example.js js/config.js
 #   ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS foundational_completed BOOLEAN NOT NULL DEFAULT FALSE;
 #   NOTIFY pgrst, 'reload schema';
 
-# 5. Supabase Auth settings
+# 5. Run v1.6 migration (add Expert skill track support)
+#   ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_age_group_check;
+#   ALTER TABLE public.profiles ADD CONSTRAINT profiles_age_group_check
+#     CHECK (age_group IN ('kids','teens','adults','seniors','expert'));
+
+# 6. Supabase Auth settings
 # Authentication → Providers → Email → disable "Confirm email" (recommended)
 
-# 6. Add background music (optional)
+# 7. Add background music (optional)
 # Place your MP3 at audio/bgm.mp3 — loops on first user interaction
 
-# 7. Serve locally
+# 8. Serve locally
 npx serve .
 # → http://localhost:3000
 ```
@@ -142,37 +155,51 @@ MIT — Free to use, adapt, and share for education purposes.
 ## Changelog
 
 ### v1.6 — 2026-03-23
-- **REGIONS fix** — `config.example.js` (the build template) was missing the `REGIONS` constant entirely; `build.sh` regenerates `config.js` on each Cloudflare Pages deploy, so edits to `config.js` were silently overwritten — root cause of `ReferenceError: REGIONS is not defined` on every login
-- **db init order** — moved `const db = createClient()` to bottom of `config.example.js` so a CDN timing failure can no longer halt constant declarations mid-file
-- **Password reset bounce** — Supabase replays current auth state as `SIGNED_IN` immediately when `onAuthStateChange` is subscribed; this was calling `loadProfile()` → `showScreen('screen-dashboard')` before `PASSWORD_RECOVERY` could fire, bouncing users off the reset screen; fixed with `App.isRecovery` flag that suppresses `loadProfile` during the reset flow
-- **Stuck loading overlay** — wrapped `signIn()` in `try/finally` so `loading(false)` is guaranteed even if an uncaught exception occurs downstream
-- **CSP** — added `https://static.cloudflareinsights.com` to `script-src` and `https://cloudflareinsights.com` to `connect-src` to allow Cloudflare analytics beacon
-- **Skill-level framing** — replaced age-group language throughout UI with skill tracks (Level 01 Beginner → Level 04 Specialist); DB keys (kids/teens/adults/seniors) preserved to avoid migration
-- **Theme simplification** — reduced to 3 dark-only themes: Default (teen), Arcade (kiddy), Crimson; removed light/system mode toggle
-- **Crimson theme** — new dark theme: `#0C0408` bg, `#FF3040` accent, inspired by CyberGuard wallpaper
-- **Logo** — new `cyberguard-logo-nav.svg` with transparent background and white CYBER text for dark nav bars
-- **Hero title** — Fjalla One font, blue-to-purple gradient (`#1770b5 → #8b5cf6`) matching portfolio style
-- **iOS Safari fixes** — `flex-wrap:nowrap` on base `.nav` rule (not just in media query); `-webkit-appearance:none` on `.btn`; explicit `flex-shrink:0` on sign-in button prevents wrap on Safari
-- **btn-outline** — added missing flat-class bridge aliases (`btn-primary`, `btn-outline`, `btn-ghost`, `btn-sm`, `btn-lg`) — HTML uses flat class names but CSS only had BEM variants
-- **Landing page** — 4 new sections: How to Begin, Threat Coverage, Active Regions, Final CTA
+- **Expert skill track (Level 05)** — 8 new missions: Security Operations Fundamentals (foundation),
+  Web App Threat Intelligence (SQLi/Path Traversal/XXE/CORS/IDOR), Anomalous Network Activity Report
+  (SNMP enum/port scan/ARP poisoning/rogue DHCP/banner grabbing), APT Incident Response (C2/memory
+  forensics/containment), Wireless Security Assessment (Evil Twin/rogue RADIUS/WEP/Karma/WPA3),
+  Malware Behaviour Analysis (fileless PS/process injection/C2 beaconing), Cloud Security Breach
+  Response (AWS IAM/S3 exfiltration), OSINT & Social Engineering Defence (Google Dorking/Spear
+  Phishing/FIDO2). CEH v13-inspired, reframed as professional workplace scenarios.
+- **GROUP_DIFFICULTY corrected** — `seniors` was incorrectly set to 2 (same as teens/Intermediate);
+  fixed to `seniors=4, expert=5` — Specialist now correctly outranks Advanced in XP calculations
+- **Expert CSS theme** — `[data-theme="expert"]`: obsidian bg `#08050F`, amber/gold primary `#F59E0B`
+- **MISSIONS.expert initialised inline** — declared as `expert: []` in the initial MISSIONS object
+  so it is always defined before `new_missions_expert.js` runs (fixes `TypeError: MISSIONS.expert
+  is undefined` in browser when FOUNDATION_MISSIONS parsing stalled execution)
+- **index.html** — Expert training track card (Level 05), leaderboard dropdown, admin group card
+  and filter, "5 Adaptive Skill Tiers" copy, threat coverage terminal updated (100+ scenarios,
+  3 new categories: Web App Exploitation, Network Attacks, Cloud & Wireless), intro storytelling
+  slides updated for 5-tier narrative, final CTA copy updated
+- **Admin group count** — admin panel now tracks and displays Expert user count
+- **cyber_guardian badge** — now requires missions across all 5 tracks (was 4)
+- **REGIONS fix** — `config.example.js` (the build template) was missing the `REGIONS` constant;
+  `build.sh` regenerates `config.js` on each deploy, silently overwriting fixes — root cause of
+  `ReferenceError: REGIONS is not defined` on every login
+- **db init order** — moved `const db = createClient()` to bottom of `config.example.js`
+- **Password reset bounce** — fixed with `App.isRecovery` flag suppressing `loadProfile` during reset
+- **Stuck loading overlay** — `signIn()` wrapped in `try/finally` guaranteeing `loading(false)`
+- **CSP** — added Cloudflare analytics beacon to `script-src` and `connect-src`
+- **Skill-level framing** — replaced age-group language with skill track labels throughout UI
+- **Crimson theme** — new dark theme: `#0C0408` bg, `#FF3040` accent
+- **iOS Safari fixes** — `flex-wrap:nowrap`, `-webkit-appearance:none`, `flex-shrink:0`
+- **Landing page** — 5-tier narrative, 100+ scenario count, updated threat coverage terminal
 
 ### v1.5 — 2026-03-19
 - **Cloudflare Pages deployment** — `_headers` with CSP; `build.sh` generates `config.js` from env vars
 - **BGM toggle fixed** — `pointer-events:none` inherited from parent was blocking clicks
-- **Font loading** — replaced Google Fonts with Bunny Fonts `<link>` to fix Cloudflare MIME/nosniff errors
-- **CSS warnings** — removed `-webkit-text-size-adjust`; wrapped webkit scrollbar rules in `@supports`
-- **scenarios.js sparse hole** — rogue comma after carriage return comment crashed `renderDashboard`
-- **Duplicate mission ID** — `seniors_new_spot_1` appeared twice; second renamed to `seniors_new_spot_2`
-- **Permission denied (42501)** — GRANTs and RLS policies added; schema cache reload documented
-- **Stale session** — `loadProfile()` distinguishes 42501 from missing profile; auto signs out on stale session
+- **Font loading** — replaced Google Fonts with Bunny Fonts to fix Cloudflare MIME/nosniff errors
+- **scenarios.js sparse hole** — rogue comma crashed `renderDashboard`
+- **Duplicate mission ID** — `seniors_new_spot_1` renamed to `seniors_new_spot_2`
+- **Permission denied (42501)** — GRANTs and RLS policies added
 
 ### v1.4 — 2026-03-19
 - **Level system** — Beginner / Intermediate / Hard / Expert with XP multipliers (×1.0 → ×2.0)
 - **Hobby system** — 8 hobby options; matching missions highlighted with ✨
-- **Intro storyline** — 5-slide mandatory narrative cutscene for new users
+- **Intro storyline** — 5-slide mandatory narrative cutscene
 - **Foundational course (CS101)** — mandatory first mission per skill track
 - **59 missions** — 30 new missions + 4 CS101 foundational
-- **Background music** — HTML5 Audio with looping MP3
 
 ### v1.3 — 2026-03-19
 - **Cross-group missions** — all users can browse and play any skill track
@@ -185,8 +212,8 @@ MIT — Free to use, adapt, and share for education purposes.
 
 ### v1.1 — 2026-03-19
 - 4 new missions: Linux Terminal Survival, Hacked GitHub Repo, Secure Code Review, Credential Leak
-- Sound effects system, GSAP screen transitions, XP burst animations, confetti on mission complete
-- Visual themes: Teen, Kiddy, Adult; age-group auto-theme on login
+- Sound effects, GSAP transitions, XP burst animations, confetti on mission complete
+- Visual themes: Teen, Kiddy, Adult
 
 ### v1.0 — 2026-03-19
 - 20 missions across 4 skill tracks, 3 mission types
