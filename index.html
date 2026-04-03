@@ -58,9 +58,6 @@
         <div class="proof-stat"><span class="proof-num" id="lp-region-count">13</span><span class="proof-label">Countries</span></div>
       </div>
     </div>
-    <div class="hero-visual" style="position:relative;z-index:1">
-      <p class="hero-brand-text">CyberGuard</p>
-    </div>
   </section>
 
   <section class="features" id="features">
@@ -351,7 +348,6 @@
       <span>&middot;</span>
       <a href="#" onclick="startGuestMode(); return false;">Try Demo</a>
     </p>
-    <p class="footer-built">Built by <a href="https://ivanthan.uk" target="_blank" rel="noopener" class="footer-link">Ivan Than</a></p>
   </footer>
 </div>
 
@@ -954,7 +950,10 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.lnd-section').forEach(s => observer.observe(s));
+  document.querySelectorAll('.lnd-section, .features').forEach(s => {
+    s.classList.add('lnd-reveal');
+    observer.observe(s);
+  });
 </script>
 </body>
 </html>

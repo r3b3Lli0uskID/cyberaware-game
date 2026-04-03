@@ -3298,7 +3298,7 @@ button, input, select, textarea {
 .section-title { font-size:1.5rem; font-weight:800; text-align:center; margin:0 0 2rem; color:var(--color-text); }
 .age-showcase { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:1rem; }
 .age-showcase-card { background:var(--color-bg-surface); border:1.5px solid var(--color-border); border-radius:16px; padding:1.5rem; text-align:center; cursor:pointer; transition:all .2s; }
-.age-showcase-card:hover { border-color:var(--color-accent); transform:translateY(-3px); }
+/* .age-showcase-card:hover — handled by unified card hover below */
 .asc-emoji { font-size:2.5rem; display:block; margin-bottom:.75rem; }
 .age-showcase-card h3 { margin:0 0 .35rem; font-size:1rem; font-weight:800; }
 .age-showcase-card small { color:var(--color-text-muted); font-weight:400; font-size:.85rem; }
@@ -5047,16 +5047,17 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   margin-top: var(--space-6);
 }
 
-/* ── Section titles — mono comment style ─────────────────────── */
-.lnd-section-title {
-  font-family: var(--font-base) !important;
-  font-size: 0.8rem !important;
-  font-weight: 700 !important;
+/* ── Section titles — unified style ───────────────────────────── */
+.lnd-section-title,
+.lnd-section-title-h,
+.features > .section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-align: left !important;
-  color: var(--color-primary) !important;
-  margin-bottom: var(--space-2) !important;
+  color: var(--color-primary);
+  font-family: var(--font-base);
+  margin-bottom: var(--space-4);
 }
 
 /* ── Age showcase — remove emoji, add label ───────────────────── */
@@ -5078,7 +5079,7 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   content: '';
   position: absolute;
   top: 0; left: 0;
-  width: 2px;
+  width: 3px;
   height: 100%;
   background: var(--color-accent);
   border-radius: 8px 0 0 8px;
@@ -5113,8 +5114,8 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 .age-showcase-card:hover,
 .mission-type-card:hover {
   transform: translateY(-3px);
-  border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(52,211,153,0.1);
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(52,211,153,0.15);
 }
 
 /* ── Footer wordmark ──────────────────────────────────────────── */
@@ -5142,15 +5143,7 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   border-radius: var(--radius-lg);
   padding: var(--space-12) var(--space-6);
 }
-.lnd-section-title-h {
-  font-family: var(--font-base);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: 2px;
-  margin-bottom: var(--space-2);
-  text-transform: uppercase;
-}
+/* .lnd-section-title-h — now unified above with .lnd-section-title */
 .lnd-section-sub {
   font-size: var(--font-size-md);
   color: var(--color-text-muted);
@@ -5785,12 +5778,12 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 .lnd-footer-links span { color: var(--color-text-faint); }
 
 /* ── Scroll-reveal animation for landing sections ────────────── */
-.lnd-section {
+.lnd-reveal {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.lnd-section.visible {
+.lnd-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
