@@ -557,6 +557,18 @@ button, input, select, textarea {
   letter-spacing: 0.5px;
 }
 
+.nav-logo-text {
+  font-family: 'Fjalla One', var(--font-base);
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav-logo-cyber { color: var(--color-text); }
+.nav-logo-guard { color: var(--color-primary); }
+
 .nav__logo-icon {
   width:       36px;
   height:      36px;
