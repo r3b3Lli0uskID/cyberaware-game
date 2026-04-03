@@ -1,64 +1,64 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 76" width="360" height="76" role="img" aria-label="CyberGuard">
   <defs>
     <linearGradient id="shieldBodyN" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   style="stop-color:#112236"/>
-      <stop offset="100%" style="stop-color:#091520"/>
+      <stop offset="0%"   style="stop-color:#112b22"/>
+      <stop offset="100%" style="stop-color:#091a14"/>
     </linearGradient>
     <linearGradient id="cyanGradN" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   style="stop-color:#00E5FF"/>
-      <stop offset="100%" style="stop-color:#0099CC"/>
+      <stop offset="0%"   style="stop-color:#34d399"/>
+      <stop offset="100%" style="stop-color:#059669"/>
     </linearGradient>
     <linearGradient id="strokeGradN" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   style="stop-color:#00C8F0"/>
-      <stop offset="100%" style="stop-color:#005580"/>
+      <stop offset="0%"   style="stop-color:#34d399"/>
+      <stop offset="100%" style="stop-color:#065f46"/>
     </linearGradient>
   </defs>
   <path d="M38 7 L65 15 L65 42 Q65 62 38 73 Q11 62 11 42 L11 15 Z" fill="#000" opacity="0.25" transform="translate(1.5,2)"/>
   <path d="M38 7 L65 15 L65 42 Q65 62 38 73 Q11 62 11 42 L11 15 Z" fill="url(#shieldBodyN)" stroke="url(#strokeGradN)" stroke-width="1.8"/>
-  <line x1="11" y1="22" x2="18" y2="15" stroke="#00C8F0" stroke-width="1" opacity="0.6"/>
-  <line x1="65" y1="22" x2="58" y2="15" stroke="#00C8F0" stroke-width="1" opacity="0.6"/>
-  <path d="M13 22 L63 22" stroke="#1E4060" stroke-width="1"/>
-  <path d="M14 24 L62 24" stroke="#00C8F0" stroke-width="0.5" opacity="0.3"/>
-  <path d="M38 12 L60 19 L60 42 Q60 58 38 68 Q16 58 16 42 L16 19 Z" fill="none" stroke="#1A3A58" stroke-width="1"/>
+  <line x1="11" y1="22" x2="18" y2="15" stroke="#34d399" stroke-width="1" opacity="0.6"/>
+  <line x1="65" y1="22" x2="58" y2="15" stroke="#34d399" stroke-width="1" opacity="0.6"/>
+  <path d="M13 22 L63 22" stroke="#1a4a38" stroke-width="1"/>
+  <path d="M14 24 L62 24" stroke="#34d399" stroke-width="0.5" opacity="0.3"/>
+  <path d="M38 12 L60 19 L60 42 Q60 58 38 68 Q16 58 16 42 L16 19 Z" fill="none" stroke="#1a4a38" stroke-width="1"/>
   <clipPath id="shieldClipN"><path d="M38 12 L60 19 L60 42 Q60 58 38 68 Q16 58 16 42 L16 19 Z"/></clipPath>
   <g clip-path="url(#shieldClipN)" opacity="0.06">
-    <line x1="0" y1="20" x2="80" y2="80" stroke="#00C8F0" stroke-width="1"/>
-    <line x1="10" y1="20" x2="80" y2="70" stroke="#00C8F0" stroke-width="1"/>
-    <line x1="20" y1="20" x2="80" y2="60" stroke="#00C8F0" stroke-width="1"/>
-    <line x1="30" y1="20" x2="80" y2="50" stroke="#00C8F0" stroke-width="1"/>
-    <line x1="0" y1="30" x2="80" y2="90" stroke="#00C8F0" stroke-width="1"/>
-    <line x1="0" y1="40" x2="60" y2="90" stroke="#00C8F0" stroke-width="1"/>
+    <line x1="0" y1="20" x2="80" y2="80" stroke="#34d399" stroke-width="1"/>
+    <line x1="10" y1="20" x2="80" y2="70" stroke="#34d399" stroke-width="1"/>
+    <line x1="20" y1="20" x2="80" y2="60" stroke="#34d399" stroke-width="1"/>
+    <line x1="30" y1="20" x2="80" y2="50" stroke="#34d399" stroke-width="1"/>
+    <line x1="0" y1="30" x2="80" y2="90" stroke="#34d399" stroke-width="1"/>
+    <line x1="0" y1="40" x2="60" y2="90" stroke="#34d399" stroke-width="1"/>
   </g>
-  <circle cx="38" cy="42" r="17" fill="none" stroke="#1B3E5E" stroke-width="1.2"/>
-  <line x1="38" y1="25" x2="38" y2="28" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
-  <line x1="38" y1="56" x2="38" y2="59" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
-  <line x1="21" y1="42" x2="24" y2="42" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
-  <line x1="52" y1="42" x2="55" y2="42" stroke="#00C8F0" stroke-width="1" opacity="0.7"/>
-  <circle cx="38" cy="42" r="10" fill="none" stroke="#1E4A6E" stroke-width="1.2"/>
-  <circle cx="38" cy="42" r="5"  fill="none" stroke="#00C8F0" stroke-width="1.5"/>
-  <polyline points="38,37 38,31 43,31" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="38" cy="31" r="1.4" fill="#00C8F0" opacity="0.8"/>
-  <circle cx="43" cy="31" r="1.8" fill="#00C8F0" opacity="0.9"/>
-  <polyline points="38,47 38,53 33,53" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="38" cy="53" r="1.4" fill="#00C8F0" opacity="0.8"/>
-  <circle cx="33" cy="53" r="1.8" fill="#00C8F0" opacity="0.9"/>
-  <polyline points="33,42 27,42 27,37" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="27" cy="42" r="1.4" fill="#00C8F0" opacity="0.8"/>
-  <circle cx="27" cy="37" r="1.8" fill="#00C8F0" opacity="0.9"/>
-  <polyline points="43,42 49,42 49,47" fill="none" stroke="#00C8F0" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="49" cy="42" r="1.4" fill="#00C8F0" opacity="0.8"/>
-  <circle cx="49" cy="47" r="1.8" fill="#00C8F0" opacity="0.9"/>
-  <polygon points="38,39 41,42 38,45 35,42" fill="none" stroke="#00E5FF" stroke-width="1.2"/>
-  <circle cx="38" cy="42" r="1.5" fill="#00E5FF"/>
-  <g stroke="#00C8F0" stroke-width="1.2" opacity="0.5" stroke-linecap="square">
+  <circle cx="38" cy="42" r="17" fill="none" stroke="#1a5040" stroke-width="1.2"/>
+  <line x1="38" y1="25" x2="38" y2="28" stroke="#34d399" stroke-width="1" opacity="0.7"/>
+  <line x1="38" y1="56" x2="38" y2="59" stroke="#34d399" stroke-width="1" opacity="0.7"/>
+  <line x1="21" y1="42" x2="24" y2="42" stroke="#34d399" stroke-width="1" opacity="0.7"/>
+  <line x1="52" y1="42" x2="55" y2="42" stroke="#34d399" stroke-width="1" opacity="0.7"/>
+  <circle cx="38" cy="42" r="10" fill="none" stroke="#1a5a48" stroke-width="1.2"/>
+  <circle cx="38" cy="42" r="5"  fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <polyline points="38,37 38,31 43,31" fill="none" stroke="#34d399" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="38" cy="31" r="1.4" fill="#34d399" opacity="0.8"/>
+  <circle cx="43" cy="31" r="1.8" fill="#34d399" opacity="0.9"/>
+  <polyline points="38,47 38,53 33,53" fill="none" stroke="#34d399" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="38" cy="53" r="1.4" fill="#34d399" opacity="0.8"/>
+  <circle cx="33" cy="53" r="1.8" fill="#34d399" opacity="0.9"/>
+  <polyline points="33,42 27,42 27,37" fill="none" stroke="#34d399" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="27" cy="42" r="1.4" fill="#34d399" opacity="0.8"/>
+  <circle cx="27" cy="37" r="1.8" fill="#34d399" opacity="0.9"/>
+  <polyline points="43,42 49,42 49,47" fill="none" stroke="#34d399" stroke-width="0.9" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="49" cy="42" r="1.4" fill="#34d399" opacity="0.8"/>
+  <circle cx="49" cy="47" r="1.8" fill="#34d399" opacity="0.9"/>
+  <polygon points="38,39 41,42 38,45 35,42" fill="none" stroke="#6ee7b7" stroke-width="1.2"/>
+  <circle cx="38" cy="42" r="1.5" fill="#6ee7b7"/>
+  <g stroke="#34d399" stroke-width="1.2" opacity="0.5" stroke-linecap="square">
     <polyline points="7,11 7,7 11,7"/>
     <polyline points="65,11 65,7 69,7"/>
   </g>
-  <rect x="82" y="8" width="1.5" height="58" rx="0.75" fill="#1E4060"/>
+  <rect x="82" y="8" width="1.5" height="58" rx="0.75" fill="#1a4a38"/>
   <text y="40" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="800" font-size="26" letter-spacing="1">
-    <tspan x="92" fill="#FFFFFF" letter-spacing="1">CYBER</tspan><tspan fill="url(#cyanGradN)" letter-spacing="1">GUARD</tspan>
+    <tspan x="92" fill="#e4e7ef" letter-spacing="1">CYBER</tspan><tspan fill="url(#cyanGradN)" letter-spacing="1">GUARD</tspan>
   </text>
   <rect x="92" y="44" width="246" height="1.5" rx="0.75" fill="url(#cyanGradN)" opacity="0.35"/>
-  <text x="93" y="60" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="400" font-size="7.8" letter-spacing="4" fill="#4A7090">SECURITY AWARENESS PLATFORM</text>
-  <text x="92" y="70" font-family="'Segoe UI',Helvetica,Arial,sans-serif" font-weight="300" font-size="6.5" letter-spacing="5" fill="#2A5070" opacity="0.6">● ASEAN  ●  APAC  ●  GLOBAL</text>
+  <text x="93" y="60" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="400" font-size="7.8" letter-spacing="4" fill="#4a9080">SECURITY AWARENESS PLATFORM</text>
+  <text x="92" y="70" font-family="'Segoe UI',Helvetica,Arial,sans-serif" font-weight="300" font-size="6.5" letter-spacing="5" fill="#2a6050" opacity="0.6">● ASEAN  ●  APAC  ●  GLOBAL</text>
 </svg>
