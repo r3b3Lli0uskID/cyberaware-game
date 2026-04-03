@@ -7,11 +7,11 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 // constants are declared — so a Supabase CDN timing issue never prevents
 // REGIONS / AGE_GROUPS / LEVELS etc. from being defined.
 const AGE_GROUPS = {
-  kids:    { label: 'Beginner',     range: 'Level 01', emoji: '🌱', color: '#FF6B6B', theme: 'kids'    },
-  teens:   { label: 'Intermediate', range: 'Level 02', emoji: '⚔️',  color: '#7C3AED', theme: 'teens'   },
-  adults:  { label: 'Advanced',     range: 'Level 03', emoji: '🔥', color: '#1770b5', theme: 'adults'  },
-  seniors: { label: 'Specialist',   range: 'Level 04', emoji: '💀', color: '#059669', theme: 'seniors' },
-  expert:  { label: 'Expert',       range: 'Level 05', emoji: '⚡', color: '#F59E0B', theme: 'expert'  },
+  kids:    { label: 'Beginner',     range: 'Level 01', icon: 'shield',  emoji: '🌱', color: '#FF6B6B', theme: 'kids'    },
+  teens:   { label: 'Intermediate', range: 'Level 02', icon: 'swords',  emoji: '⚔️',  color: '#7C3AED', theme: 'teens'   },
+  adults:  { label: 'Advanced',     range: 'Level 03', icon: 'flame',   emoji: '🔥', color: '#1770b5', theme: 'adults'  },
+  seniors: { label: 'Specialist',   range: 'Level 04', icon: 'skull',   emoji: '💀', color: '#059669', theme: 'seniors' },
+  expert:  { label: 'Expert',       range: 'Level 05', icon: 'bolt',    emoji: '⚡', color: '#F59E0B', theme: 'expert'  },
 };
 
 const AVATARS = {
@@ -22,21 +22,21 @@ const AVATARS = {
 };
 
 const LEVELS = {
-  beginner:     { label: 'Beginner',     emoji: '🌱', desc: 'New to cybersecurity — start here!',           xpMult: 1.0  },
-  intermediate: { label: 'Intermediate', emoji: '⚔️',  desc: 'Know the basics, ready for more',              xpMult: 1.25 },
-  hard:         { label: 'Hard',         emoji: '🔥',  desc: 'Confident — bring on the real challenges',     xpMult: 1.5  },
-  expert:       { label: 'Expert',       emoji: '💀',  desc: 'Professional mindset, maximum XP rewards',     xpMult: 2.0  },
+  beginner:     { label: 'Beginner',     icon: 'shield',  emoji: '🌱', desc: 'New to cybersecurity — start here!',           xpMult: 1.0  },
+  intermediate: { label: 'Intermediate', icon: 'swords',  emoji: '⚔️',  desc: 'Know the basics, ready for more',              xpMult: 1.25 },
+  hard:         { label: 'Hard',         icon: 'flame',   emoji: '🔥',  desc: 'Confident — bring on the real challenges',     xpMult: 1.5  },
+  expert:       { label: 'Expert',       icon: 'skull',   emoji: '💀',  desc: 'Professional mindset, maximum XP rewards',     xpMult: 2.0  },
 };
 
 const HOBBIES = [
-  { id: 'gaming',    emoji: '🎮', label: 'Gaming'              },
-  { id: 'finance',   emoji: '💰', label: 'Finance & Investing' },
-  { id: 'social',    emoji: '📱', label: 'Social Media'        },
-  { id: 'health',    emoji: '🏥', label: 'Healthcare'          },
-  { id: 'tech',      emoji: '💻', label: 'Technology'          },
-  { id: 'business',  emoji: '🏢', label: 'Business'            },
-  { id: 'education', emoji: '📚', label: 'Education'           },
-  { id: 'general',   emoji: '🌐', label: 'General'             },
+  { id: 'gaming',    icon: 'gamepad',   emoji: '🎮', label: 'Gaming'              },
+  { id: 'finance',   icon: 'dollar',    emoji: '💰', label: 'Finance & Investing' },
+  { id: 'social',    icon: 'phone',     emoji: '📱', label: 'Social Media'        },
+  { id: 'health',    icon: 'heart',     emoji: '🏥', label: 'Healthcare'          },
+  { id: 'tech',      icon: 'monitor',   emoji: '💻', label: 'Technology'          },
+  { id: 'business',  icon: 'briefcase', emoji: '🏢', label: 'Business'            },
+  { id: 'education', icon: 'book',      emoji: '📚', label: 'Education'           },
+  { id: 'general',   icon: 'globe',     emoji: '🌐', label: 'General'             },
 ];
 
 // ─── Regions ──────────────────────────────────────────────────────────────────
@@ -68,14 +68,14 @@ const REGIONS = [
 ];
 
 const BADGES = {
-  first_mission:    { id: 'first_mission',    emoji: '🎖️',  label: 'First Mission',     desc: 'Completed your first mission'         },
-  perfect_score:    { id: 'perfect_score',    emoji: '💯',  label: 'Perfect Score',      desc: 'Scored 100% on a mission'             },
-  quiz_master:      { id: 'quiz_master',      emoji: '🧠',  label: 'Quiz Master',        desc: 'Aced a quiz mission'                  },
-  threat_hunter:    { id: 'threat_hunter',    emoji: '🔍',  label: 'Threat Hunter',      desc: 'Aced a spot-the-threat mission'       },
-  decision_maker:   { id: 'decision_maker',   emoji: '🎯',  label: 'Decision Maker',     desc: 'Aced a decision-tree mission'         },
-  group_complete:   { id: 'group_complete',   emoji: '🏅',  label: 'Group Champion',     desc: 'Completed all missions in your group' },
-  cyber_guardian:   { id: 'cyber_guardian',   emoji: '🏆',  label: 'Cyber Guardian',     desc: 'Completed missions in all age groups' },
-  streak_3:         { id: 'streak_3',         emoji: '🔥',  label: 'On Fire',            desc: 'Completed 3 missions in a row'        },
+  first_mission:    { id: 'first_mission',    icon: 'medal',   emoji: '🎖️',  label: 'First Mission',     desc: 'Completed your first mission'         },
+  perfect_score:    { id: 'perfect_score',    icon: 'check',   emoji: '💯',  label: 'Perfect Score',      desc: 'Scored 100% on a mission'             },
+  quiz_master:      { id: 'quiz_master',      icon: 'brain',   emoji: '🧠',  label: 'Quiz Master',        desc: 'Aced a quiz mission'                  },
+  threat_hunter:    { id: 'threat_hunter',    icon: 'search',  emoji: '🔍',  label: 'Threat Hunter',      desc: 'Aced a spot-the-threat mission'       },
+  decision_maker:   { id: 'decision_maker',   icon: 'target',  emoji: '🎯',  label: 'Decision Maker',     desc: 'Aced a decision-tree mission'         },
+  group_complete:   { id: 'group_complete',   icon: 'award',   emoji: '🏅',  label: 'Group Champion',     desc: 'Completed all missions in your group' },
+  cyber_guardian:   { id: 'cyber_guardian',   icon: 'trophy',  emoji: '🏆',  label: 'Cyber Guardian',     desc: 'Completed missions in all age groups' },
+  streak_3:         { id: 'streak_3',         icon: 'streak',  emoji: '🔥',  label: 'On Fire',            desc: 'Completed 3 missions in a row'        },
 };
 
 // ─── Supabase Client ──────────────────────────────────────────────────────────

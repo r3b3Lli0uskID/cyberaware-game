@@ -5883,3 +5883,33 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   .hero-social-proof { gap: var(--space-4); }
   .proof-num { font-size: var(--font-size-xl); }
 }
+
+/* ── SVG Icon Alignment ─────────────────────────────────────────────────── */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -3px;
+  margin-right: 4px;
+}
+.btn-icon svg { width: 16px; height: 16px; }
+.nav-icon { display: inline-flex; align-items: center; }
+.nav-icon svg { width: 18px; height: 18px; }
+.mc-icon svg,
+.briefing-icon svg,
+.complete-emoji svg,
+.complete-stars svg,
+.badge-emoji svg,
+.intro-icon svg,
+.agc-emoji svg { display: inline-block; vertical-align: middle; }
+.mc-xp svg,
+.xp-mult-tag svg,
+.hobby-match-tag svg,
+.mandatory-banner svg,
+.badge-foundation svg,
+.group-tab-btn svg,
+.admin-tab svg,
+.guest-banner-content svg,
+.guest-convert-emoji svg,
+.auth-trust svg,
+.auth-logo svg,
+.nav-brand svg { display: inline-block; vertical-align: -3px; }

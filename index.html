@@ -389,7 +389,7 @@
           <label>Password</label>
           <div class="pw-wrap">
             <input id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1">👁</button>
+            <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-full">Sign In →</button>
@@ -416,14 +416,14 @@
           <label>Password <small>(min 8 chars · A–Z · a–z · 0–9 · symbol)</small></label>
           <div class="pw-wrap">
             <input id="signup-password" type="password" placeholder="e.g. CyberG0!ard" required minlength="8" autocomplete="new-password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('signup-password', this)" tabindex="-1">👁</button>
+            <button type="button" class="pw-toggle" onclick="togglePw('signup-password', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <div class="form-group">
           <label>Confirm Password</label>
           <div class="pw-wrap">
             <input id="signup-confirm" type="password" placeholder="Repeat your password" required autocomplete="new-password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('signup-confirm', this)" tabindex="-1">👁</button>
+            <button type="button" class="pw-toggle" onclick="togglePw('signup-confirm', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-full">Create Account →</button>
@@ -432,9 +432,9 @@
       <button class="btn btn-ghost btn-sm" style="margin-top:1rem;width:100%" onclick="showScreen('screen-landing')">← Back to Home</button>
 
       <div class="auth-trust">
-        <span>🔒 Encrypted connection</span>
-        <span>📧 Email never shared</span>
-        <span>🗑️ Delete account anytime</span>
+        <span><span class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span> Encrypted connection</span>
+        <span><span class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span> Email never shared</span>
+        <span><span class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Delete account anytime</span>
       </div>
     </div>
   </div>
@@ -446,7 +446,7 @@
 <div id="screen-reset" class="screen">
   <div class="auth-container">
     <div class="auth-card">
-      <div class="auth-logo">🔐 Set New Password</div>
+      <div class="auth-logo"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span> Set New Password</div>
       <p style="text-align:center;color:var(--color-text-muted);font-size:.9rem;margin:0 0 1.5rem">
         Enter a new password for your account.
       </p>
@@ -456,14 +456,14 @@
           <label>New Password <small>(min 8 chars · A–Z · a–z · 0–9 · symbol)</small></label>
           <div class="pw-wrap">
             <input id="reset-password" type="password" placeholder="e.g. CyberG0!ard" required minlength="8" autocomplete="new-password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('reset-password', this)" tabindex="-1">👁</button>
+            <button type="button" class="pw-toggle" onclick="togglePw('reset-password', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <div class="form-group">
           <label>Confirm New Password</label>
           <div class="pw-wrap">
             <input id="reset-confirm" type="password" placeholder="Repeat your password" required autocomplete="new-password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('reset-confirm', this)" tabindex="-1">👁</button>
+            <button type="button" class="pw-toggle" onclick="togglePw('reset-confirm', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-full">Update Password →</button>
@@ -478,7 +478,7 @@
 <div id="screen-verify" class="screen">
   <div class="auth-container">
     <div class="auth-card">
-      <div class="auth-logo">📧 Check Your Email</div>
+      <div class="auth-logo"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span> Check Your Email</div>
       <p style="text-align:center;color:var(--color-text-muted);font-size:.9rem;margin:0 0 .75rem">
         We sent a <strong>6-digit code</strong> to<br>
         <strong id="verify-email-display"></strong>
@@ -543,7 +543,7 @@
       </div>
 
       <div style="text-align:center;margin-top:1.5rem">
-        <button class="btn btn-primary btn-lg" onclick="submitProfileSetup()">🚀 Start My Training</button>
+        <button class="btn btn-primary btn-lg" onclick="submitProfileSetup()"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span> Start My Training</button>
         <br>
         <button class="btn btn-ghost btn-sm" style="margin-top:.75rem" onclick="signOut()">Sign Out</button>
       </div>
@@ -557,17 +557,17 @@
 <div id="screen-intro" class="screen">
   <div class="intro-wrap">
     <div class="intro-slide" id="intro-slide-0">
-      <div class="intro-icon">🛡️</div>
+      <div class="intro-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h2 class="intro-title">Welcome to CyberGuard</h2>
       <p class="intro-body">You've joined a community of cyber defenders. CyberGuard teaches you to spot scams, phishing, and online threats through hands-on missions based on real incidents. No prior experience needed — just curiosity and a willingness to learn.</p>
     </div>
     <div class="intro-slide" id="intro-slide-1" style="display:none">
-      <div class="intro-icon">⚡</div>
+      <div class="intro-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <h2 class="intro-title">How It Works</h2>
       <p class="intro-body">Five skill tiers take you from <strong>Beginner</strong> all the way to <strong>Expert</strong>. Complete missions to earn XP, unlock badges, and climb the leaderboard. Your skill track and difficulty level set your XP multipliers — harder challenges yield greater rewards.</p>
     </div>
     <div class="intro-slide" id="intro-slide-2" style="display:none">
-      <div class="intro-icon">🚀</div>
+      <div class="intro-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
       <h2 class="intro-title">Ready? Let's Start!</h2>
       <p class="intro-body">Begin with the <strong>Foundational Briefing</strong> to establish your baseline, then unlock the full mission roster. Start where you are and go as far as you can. Your first mission is waiting.</p>
     </div>
@@ -592,11 +592,11 @@
       <img src="assets/brand/cyberguard-logo-nav.svg" alt="CyberGuard" height="36" style="display:block;" />
     </div>
     <div class="nav-links">
-      <button class="nav-btn active" onclick="showScreen('screen-dashboard');renderDashboard()"><span class="nav-icon">🏠</span><span class="nav-label"> Home</span></button>
-      <button class="nav-btn" onclick="renderLeaderboard()"><span class="nav-icon">🏆</span><span class="nav-label"> Leaderboard</span></button>
-      <button class="nav-btn" onclick="renderProfilePage();showScreen('screen-profile')"><span class="nav-icon">👤</span><span class="nav-label"> Profile</span></button>
-      <button class="nav-btn admin-nav-btn" id="nav-admin-btn" style="display:none" onclick="openAdminPanel()"><span class="nav-icon">⚙️</span><span class="nav-label"> Admin</span></button>
-      <button class="nav-btn" onclick="signOut()"><span class="nav-icon">🚪</span><span class="nav-label"> Sign Out</span></button>
+      <button class="nav-btn active" onclick="showScreen('screen-dashboard');renderDashboard()"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nav-label"> Home</span></button>
+      <button class="nav-btn" onclick="renderLeaderboard()"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg></span><span class="nav-label"> Leaderboard</span></button>
+      <button class="nav-btn" onclick="renderProfilePage();showScreen('screen-profile')"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-label"> Profile</span></button>
+      <button class="nav-btn admin-nav-btn" id="nav-admin-btn" style="display:none" onclick="openAdminPanel()"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span><span class="nav-label"> Admin</span></button>
+      <button class="nav-btn" onclick="signOut()"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="nav-label"> Sign Out</span></button>
     </div>
   </nav>
 
@@ -626,21 +626,21 @@
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="screen-mission-briefing" class="screen">
   <nav class="nav">
-    <div class="nav-brand">🛡️ CyberGuard</div>
+    <div class="nav-brand"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> CyberGuard</div>
     <button class="btn btn-ghost btn-sm" onclick="showScreen('screen-dashboard');renderDashboard()">← Back</button>
   </nav>
   <div class="briefing-container">
     <div class="briefing-card">
-      <div class="briefing-icon" id="brief-icon">🎯</div>
+      <div class="briefing-icon" id="brief-icon"></div>
       <h1 class="briefing-title" id="brief-title">Mission Title</h1>
       <p class="briefing-sub" id="brief-sub">Subtitle</p>
       <div class="briefing-meta">
-        <span id="brief-type" class="badge">❓ Quiz</span>
+        <span id="brief-type" class="badge"></span>
         <span id="brief-diff" class="badge">Intermediate</span>
-        <span id="brief-xp" class="badge badge-xp">⚡ XP</span>
+        <span id="brief-xp" class="badge badge-xp"></span>
       </div>
       <div class="briefing-text" id="brief-text"></div>
-      <button class="btn btn-primary btn-lg btn-full" onclick="launchMission()">🚀 Launch Mission</button>
+      <button class="btn btn-primary btn-lg btn-full" onclick="launchMission()"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span> Launch Mission</button>
     </div>
   </div>
 </div>
@@ -669,11 +669,11 @@
 <div id="screen-mission-complete" class="screen">
   <div class="complete-container">
     <div class="complete-card">
-      <span class="complete-emoji" id="complete-emoji">🏆</span>
+      <span class="complete-emoji" id="complete-emoji"></span>
       <h1 class="complete-title" id="complete-title">Outstanding!</h1>
       <p class="complete-sub" id="complete-sub"></p>
 
-      <div class="complete-stars" id="complete-stars">⭐⭐⭐</div>
+      <div class="complete-stars" id="complete-stars"></div>
       <div class="complete-xp-badge" id="complete-xp">+XP</div>
 
       <div class="complete-stats">
@@ -686,8 +686,8 @@
       <div class="complete-badges-row" id="complete-new-badges"></div>
 
       <div class="complete-actions">
-        <button class="btn btn-primary" onclick="renderDashboard();showScreen('screen-dashboard')">🏠 Back to Missions</button>
-        <button class="btn btn-secondary" onclick="renderLeaderboard()">🏆 Leaderboard</button>
+        <button class="btn btn-primary" onclick="renderDashboard();showScreen('screen-dashboard')"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Back to Missions</button>
+        <button class="btn btn-secondary" onclick="renderLeaderboard()"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg></span> Leaderboard</button>
       </div>
     </div>
   </div>
@@ -698,17 +698,17 @@
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="screen-leaderboard" class="screen">
   <nav class="nav">
-    <div class="nav-brand">🏆 Leaderboard</div>
+    <div class="nav-brand"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg></span> Leaderboard</div>
     <button class="btn btn-ghost btn-sm" onclick="renderDashboard();showScreen('screen-dashboard')">← Back</button>
   </nav>
   <div class="lb-container">
     <div class="lb-filter">
       <select id="lb-group-select" onchange="renderLeaderboard()" class="lb-select">
-        <option value="kids">🌱 Beginner</option>
-        <option value="teens">⚔️ Intermediate</option>
-        <option value="adults" selected>🔥 Advanced</option>
-        <option value="seniors">💀 Specialist</option>
-        <option value="expert">⚡ Expert</option>
+        <option value="kids">Beginner</option>
+        <option value="teens">Intermediate</option>
+        <option value="adults" selected>Advanced</option>
+        <option value="seniors">Specialist</option>
+        <option value="expert">Expert</option>
       </select>
     </div>
     <div id="lb-loading" style="display:none;text-align:center;padding:2rem;color:var(--muted)">Loading...</div>
@@ -726,7 +726,7 @@
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="screen-profile" class="screen">
   <nav class="nav">
-    <div class="nav-brand">👤 Profile</div>
+    <div class="nav-brand"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Profile</div>
     <button class="btn btn-ghost btn-sm" onclick="renderDashboard();showScreen('screen-dashboard')">← Back</button>
   </nav>
   <div class="profile-container">
@@ -745,7 +745,7 @@
     <!-- Avatar Picker -->
     <h3 class="section-heading">Change Avatar</h3>
     <div class="prof-avatar-picker" id="prof-avatar-picker"></div>
-    <button class="btn btn-primary btn-sm" style="margin-top:.75rem" onclick="saveAvatarChange()">💾 Save Avatar</button>
+    <button class="btn btn-primary btn-sm" style="margin-top:.75rem" onclick="saveAvatarChange()"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></span> Save Avatar</button>
 
     <!-- Change Password -->
     <h3 class="section-heading" style="margin-top:2rem">Change Password</h3>
@@ -755,17 +755,17 @@
         <label>New Password <small>(min 8 · A–Z · a–z · 0–9 · symbol)</small></label>
         <div class="pw-wrap">
           <input id="cp-new" type="password" placeholder="New password" minlength="8" required autocomplete="new-password" />
-          <button type="button" class="pw-toggle" onclick="togglePw('cp-new', this)" tabindex="-1">👁</button>
+          <button type="button" class="pw-toggle" onclick="togglePw('cp-new', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
       </div>
       <div class="form-group">
         <label>Confirm New Password</label>
         <div class="pw-wrap">
           <input id="cp-confirm" type="password" placeholder="Repeat password" required autocomplete="new-password" />
-          <button type="button" class="pw-toggle" onclick="togglePw('cp-confirm', this)" tabindex="-1">👁</button>
+          <button type="button" class="pw-toggle" onclick="togglePw('cp-confirm', this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">🔒 Update Password</button>
+      <button type="submit" class="btn btn-primary"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span> Update Password</button>
     </form>
 
     <h3 class="section-heading" style="margin-top:2rem">Badges & Achievements</h3>
@@ -778,10 +778,10 @@
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="screen-admin" class="screen">
   <nav class="nav">
-    <div class="nav-brand">⚙️ <span>Admin Panel</span></div>
+    <div class="nav-brand"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span> <span>Admin Panel</span></div>
     <div class="nav-links">
-      <button class="nav-btn" onclick="renderDashboard();showScreen('screen-dashboard')"><span class="nav-icon">🏠</span><span class="nav-label"> Back to Game</span></button>
-      <button class="nav-btn" onclick="signOut()"><span class="nav-icon">🚪</span><span class="nav-label"> Sign Out</span></button>
+      <button class="nav-btn" onclick="renderDashboard();showScreen('screen-dashboard')"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nav-label"> Back to Game</span></button>
+      <button class="nav-btn" onclick="signOut()"><span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="nav-label"> Sign Out</span></button>
     </div>
   </nav>
 
@@ -798,27 +798,27 @@
     <!-- Group breakdown -->
     <div class="admin-group-row" id="admin-group-row">
       <div class="admin-group-card" data-group="kids">
-        <span class="agc-emoji">🌱</span>
+        <span class="agc-emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
         <div class="agc-label">Beginner</div>
         <div class="agc-count" id="agc-kids">— users</div>
       </div>
       <div class="admin-group-card" data-group="teens">
-        <span class="agc-emoji">⚔️</span>
+        <span class="agc-emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>
         <div class="agc-label">Intermediate</div>
         <div class="agc-count" id="agc-teens">— users</div>
       </div>
       <div class="admin-group-card" data-group="adults">
-        <span class="agc-emoji">🔥</span>
+        <span class="agc-emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></span>
         <div class="agc-label">Advanced</div>
         <div class="agc-count" id="agc-adults">— users</div>
       </div>
       <div class="admin-group-card" data-group="seniors">
-        <span class="agc-emoji">💀</span>
+        <span class="agc-emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17l-.5-1-.5 1"/><path d="M16 20a2 2 0 001.56-3.25 8 8 0 10-11.12 0A2 2 0 008 20"/></svg></span>
         <div class="agc-label">Specialist</div>
         <div class="agc-count" id="agc-seniors">— users</div>
       </div>
       <div class="admin-group-card" data-group="expert">
-        <span class="agc-emoji">⚡</span>
+        <span class="agc-emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
         <div class="agc-label">Expert</div>
         <div class="agc-count" id="agc-expert">— users</div>
       </div>
@@ -826,8 +826,8 @@
 
     <!-- Tabs -->
     <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchAdminTab('users', this)">👥 Users</button>
-      <button class="admin-tab" onclick="switchAdminTab('sessions', this)">🎮 Sessions</button>
+      <button class="admin-tab active" onclick="switchAdminTab('users', this)"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span> Users</button>
+      <button class="admin-tab" onclick="switchAdminTab('sessions', this)"><span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></span> Sessions</button>
     </div>
 
     <!-- Users Tab -->
@@ -836,11 +836,11 @@
         <input id="admin-search" type="text" placeholder="Search username…" oninput="filterAdminUsers()" class="admin-search" />
         <select id="admin-group-filter" onchange="filterAdminUsers()" class="lb-select">
           <option value="">All Groups</option>
-          <option value="kids">🌱 Beginner</option>
-          <option value="teens">⚔️ Intermediate</option>
-          <option value="adults">🔥 Advanced</option>
-          <option value="seniors">💀 Specialist</option>
-          <option value="expert">⚡ Expert</option>
+          <option value="kids">Beginner</option>
+          <option value="teens">Intermediate</option>
+          <option value="adults">Advanced</option>
+          <option value="seniors">Specialist</option>
+          <option value="expert">Expert</option>
         </select>
       </div>
       <div id="admin-users-wrap" class="admin-table-wrap">
@@ -861,9 +861,9 @@
       <div class="admin-toolbar">
         <select id="admin-session-filter" onchange="loadAdminSessions()" class="lb-select">
           <option value="">All Missions</option>
-          <option value="quiz">❓ Quiz</option>
-          <option value="spot-threat">🔍 Spot the Threat</option>
-          <option value="decision-tree">🌿 Decision Tree</option>
+          <option value="quiz">Quiz</option>
+          <option value="spot-threat">Spot the Threat</option>
+          <option value="decision-tree">Decision Tree</option>
         </select>
       </div>
       <div class="admin-table-wrap">
@@ -940,6 +940,7 @@
 </div>
 
 <!-- Scripts -->
+<script src="js/icons.js"></script>
 <script src="js/config.js"></script>
 <script src="js/scenarios.js"></script>
 <script src="js/new_missions_expert.js"></script>

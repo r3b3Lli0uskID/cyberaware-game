@@ -83,7 +83,7 @@ function renderGuestDashboard() {
   if (dashScore) dashScore.textContent = '0';
   if (dashMissions) dashMissions.textContent = '0';
   if (dashBadges) dashBadges.textContent = '0';
-  if (dashGroup) dashGroup.textContent = '\u{1F331} Demo Mode';
+  if (dashGroup) dashGroup.innerHTML = iconHTML('shield',16) + ' Demo Mode';
 
   // Add guest banner
   let banner = document.getElementById('guest-banner');
@@ -93,7 +93,7 @@ function renderGuestDashboard() {
     banner.className = 'guest-banner';
     banner.innerHTML = `
       <div class="guest-banner-content">
-        <span>\u{1F3AE} You're in Demo Mode \u2014 try ${DEMO_MISSION_IDS.length} free missions!</span>
+        <span>${iconHTML('play',16)} You're in Demo Mode \u2014 try ${DEMO_MISSION_IDS.length} free missions!</span>
         <button class="btn btn-primary btn-sm" onclick="showScreen('screen-auth')">Sign Up to Unlock All</button>
       </div>
     `;
@@ -110,7 +110,7 @@ function showGuestConversionPrompt() {
   overlay.className = 'guest-convert-overlay';
   overlay.innerHTML = `
     <div class="guest-convert-card">
-      <div class="guest-convert-emoji">\u{1F389}</div>
+      <div class="guest-convert-emoji">${ICONS.party(48)}</div>
       <h2>Great job!</h2>
       <p>You've completed the demo. Sign up free to unlock 80+ missions, track your progress, and compete on the leaderboard!</p>
       <button class="btn btn-primary btn-lg" onclick="this.closest('.guest-convert-overlay').remove(); showScreen('screen-auth');">Create Free Account</button>
@@ -204,7 +204,7 @@ function _renderIntroSlide() {
   const backBtn = $('intro-back-btn');
   const nextBtn = $('intro-next-btn');
   if (backBtn) backBtn.style.display = _introSlide > 0 ? 'inline-flex' : 'none';
-  if (nextBtn) nextBtn.textContent = _introSlide === INTRO_TOTAL - 1 ? "Let's Go! 🚀" : 'Next →';
+  if (nextBtn) nextBtn.innerHTML = _introSlide === INTRO_TOTAL - 1 ? ICONS.rocket(16) + " Let's Go!" : 'Next →';
 }
 
 function introNav(dir) {
@@ -570,7 +570,7 @@ function renderDashboard(overrideGroup, overrideRegion) {
   $('dash-username').textContent = p.username;
   const lv = LEVELS[p.level || 'beginner'];
   const hb = HOBBIES.find(h => h.id === (p.hobby || 'general'));
-  $('dash-group').textContent = `${AGE_GROUPS[p.age_group].emoji} ${AGE_GROUPS[p.age_group].label} · ${lv.emoji} ${lv.label}`;
+  $('dash-group').innerHTML = `${iconHTML(AGE_GROUPS[p.age_group].icon, 16)} ${AGE_GROUPS[p.age_group].label} · ${iconHTML(lv.icon, 16)} ${lv.label}`;
   $('dash-score').textContent = formatScore(p.total_score);
   $('dash-missions').textContent = p.missions_completed;
   $('dash-badges').textContent = (p.badges || []).length;
@@ -585,11 +585,11 @@ function renderDashboard(overrideGroup, overrideRegion) {
   }
   groupBar.innerHTML = Object.entries(AGE_GROUPS).map(([key, g]) => {
     const mult = parseFloat(ageGroupMult(p.age_group, key).toFixed(2));
-    const tag = mult > 1 ? `<span class="xp-mult-tag bonus">🔥×${mult}</span>`
-               : mult < 1 ? `<span class="xp-mult-tag penalty">📉×${mult}</span>`
+    const tag = mult > 1 ? `<span class="xp-mult-tag bonus">${iconHTML('flame',14)}×${mult}</span>`
+               : mult < 1 ? `<span class="xp-mult-tag penalty">${iconHTML('arrowDown',14)}×${mult}</span>`
                : '';
     return `<button class="group-tab-btn ${key === activeGroup ? 'active' : ''}" onclick="renderDashboard('${key}')">
-      ${g.emoji} ${g.label}${tag}
+      ${iconHTML(g.icon, 16)} ${g.label}${tag}
     </button>`;
   }).join('');
 
@@ -640,7 +640,7 @@ function renderDashboard(overrideGroup, overrideRegion) {
 }
 
 function buildMissionCard(mission, ageGroup) {
-  const types = { quiz: { label: 'Quiz', icon: '❓', color: 'var(--accent)' }, 'spot-threat': { label: 'Spot the Threat', icon: '🔍', color: '#f59e0b' }, 'decision-tree': { label: 'Decision Tree', icon: '🌿', color: '#10b981' } };
+  const types = { quiz: { label: 'Quiz', icon: iconHTML('quiz',14), color: 'var(--accent)' }, 'spot-threat': { label: 'Spot the Threat', icon: iconHTML('searchPlus',14), color: '#f59e0b' }, 'decision-tree': { label: 'Decision Tree', icon: iconHTML('gitBranch',14), color: '#10b981' } };
   const t = types[mission.type];
   const group = ageGroup || App.profile?.age_group;
   const playerGroup = App.profile?.age_group;
@@ -649,22 +649,22 @@ function buildMissionCard(mission, ageGroup) {
   const effectiveXP = Math.round(mission.xp * mult);
   const multDisplay = mult !== 1 ? `×${mult}` : '';
   const xpLabel = mult > 1
-    ? `<span class="mc-xp bonus">⚡ ${effectiveXP} XP <span class="xp-mult-tag bonus">🔥 ${multDisplay}</span></span>`
+    ? `<span class="mc-xp bonus">${iconHTML('bolt',14)} ${effectiveXP} XP <span class="xp-mult-tag bonus">${iconHTML('flame',14)} ${multDisplay}</span></span>`
     : mult < 1
-    ? `<span class="mc-xp penalty">⚡ ${effectiveXP} XP <span class="xp-mult-tag penalty">📉 ${multDisplay}</span></span>`
-    : `<span class="mc-xp">⚡ ${effectiveXP} XP</span>`;
+    ? `<span class="mc-xp penalty">${iconHTML('bolt',14)} ${effectiveXP} XP <span class="xp-mult-tag penalty">${iconHTML('arrowDown',14)} ${multDisplay}</span></span>`
+    : `<span class="mc-xp">${iconHTML('bolt',14)} ${effectiveXP} XP</span>`;
 
   // Hobby relevance tag
   const playerHobby = App.profile?.hobby || 'general';
   const missionTags = mission.tags || [];
   const hobbyMatch = playerHobby !== 'general' && missionTags.includes(playerHobby);
-  const hobbyTag = hobbyMatch ? `<span class="hobby-match-tag">✨ Matches your interest</span>` : '';
+  const hobbyTag = hobbyMatch ? `<span class="hobby-match-tag">${iconHTML('sparkle',14)} Matches your interest</span>` : '';
 
   const isMandatory = mission.mandatory === true;
   const isFoundationDone = App.profile?.foundational_completed;
   const mandatoryBanner = isMandatory && !isFoundationDone
-    ? `<div class="mandatory-banner">📋 Complete First — Foundational Course</div>`
-    : isMandatory ? `<div class="mandatory-banner done">✅ Foundation Complete</div>` : '';
+    ? `<div class="mandatory-banner">${iconHTML('clipboard',14)} Complete First — Foundational Course</div>`
+    : isMandatory ? `<div class="mandatory-banner done">${iconHTML('checkCircle',14)} Foundation Complete</div>` : '';
 
   // Region badge
   const missionRegion = mission.region || 'sg';
@@ -675,11 +675,11 @@ function buildMissionCard(mission, ageGroup) {
   card.innerHTML = `
     ${mandatoryBanner}
     <div class="mc-header">
-      <span class="mc-icon">${mission.icon}</span>
+      <span class="mc-icon">${missionIcon(mission.icon, 28)}</span>
       <div class="mc-badges">
         <span class="badge" style="background:${t.color}20;color:${t.color};border-color:${t.color}40">${t.icon} ${t.label}</span>
         <span class="badge badge-diff badge-${mission.difficulty.toLowerCase()}">${mission.difficulty}</span>
-        ${mission.module === 'foundation' ? '<span class="badge badge-foundation">📚 CS101</span>' : ''}
+        ${mission.module === 'foundation' ? '<span class="badge badge-foundation">' + iconHTML('book',14) + ' CS101</span>' : ''}
         ${regionBadge}
       </div>
     </div>
@@ -688,7 +688,7 @@ function buildMissionCard(mission, ageGroup) {
     ${hobbyTag}
     <div class="mc-footer">
       ${xpLabel}
-      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')">▶ Start Mission</button>
+      <button class="btn btn-primary btn-sm" onclick="startMission('${mission.id}','${group}')"><span class="btn-icon">${iconHTML('play',14)}</span> Start Mission</button>
     </div>
   `;
   return card;
@@ -768,12 +768,12 @@ async function startMission(missionId, ageGroup) {
 }
 
 function renderMissionBriefing(mission) {
-  $('brief-icon').textContent = mission.icon;
+  $('brief-icon').innerHTML = missionIcon(mission.icon, 36);
   $('brief-title').textContent = mission.title;
   $('brief-sub').textContent = mission.subtitle;
   $('brief-text').textContent = mission.briefing;
-  $('brief-type').textContent = { quiz: '❓ Quiz', 'spot-threat': '🔍 Spot the Threat', 'decision-tree': '🌿 Decision Tree' }[mission.type];
-  $('brief-xp').textContent = `⚡ ${mission.xp} XP`;
+  $('brief-type').innerHTML = { quiz: iconHTML('quiz',16)+' Quiz', 'spot-threat': iconHTML('searchPlus',16)+' Spot the Threat', 'decision-tree': iconHTML('gitBranch',16)+' Decision Tree' }[mission.type];
+  $('brief-xp').innerHTML = `${iconHTML('bolt',16)} ${mission.xp} XP`;
   $('brief-diff').textContent = mission.difficulty;
   $('brief-diff').className = `badge badge-diff badge-${mission.difficulty.toLowerCase()}`;
 }
@@ -1191,31 +1191,32 @@ async function loadProfileData() {
 }
 
 function renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges, mult = 1) {
-  let emoji, title, sub;
-  if (pct >= 90)      { emoji = '🏆'; title = 'Outstanding!'; sub = 'You nailed it. Perfect score range!'; }
-  else if (pct >= 60) { emoji = '🥈'; title = 'Well Done!';   sub = 'Solid performance. Review the tips to go even higher next time.'; }
-  else                { emoji = '📚'; title = 'Keep Learning!'; sub = 'Each attempt makes you more secure. Try again to improve!'; }
+  let emojiHtml, title, sub;
+  if (pct >= 90)      { emojiHtml = ICONS.trophy(32); title = 'Outstanding!'; sub = 'You nailed it. Perfect score range!'; }
+  else if (pct >= 60) { emojiHtml = ICONS.award(32); title = 'Well Done!';   sub = 'Solid performance. Review the tips to go even higher next time.'; }
+  else                { emojiHtml = ICONS.book(32); title = 'Keep Learning!'; sub = 'Each attempt makes you more secure. Try again to improve!'; }
 
-  const stars = pct >= 90 ? '⭐⭐⭐' : pct >= 60 ? '⭐⭐' : '⭐';
+  const starCount = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
+  const stars = Array.from({length: 3}, (_, i) => i < starCount ? ICONS.starFill(18) : ICONS.star(18)).join('');
   const effectiveXP = Math.round(mission.xp * mult);
   const multLabel = mult > 1
-    ? ` <span class="xp-mult-tag bonus">🔥 ×${mult} Bonus!</span>`
+    ? ` <span class="xp-mult-tag bonus">${iconHTML('flame',14)} ×${mult} Bonus!</span>`
     : mult < 1
-    ? ` <span class="xp-mult-tag penalty">📉 ×${mult} Reduced</span>`
+    ? ` <span class="xp-mult-tag penalty">${iconHTML('arrowDown',14)} ×${mult} Reduced</span>`
     : '';
 
-  $('complete-emoji').textContent = emoji;
+  $('complete-emoji').innerHTML = emojiHtml;
   $('complete-title').textContent = title;
   $('complete-sub').textContent = sub;
   $('complete-score').textContent = `${score} / ${maxScore}`;
   $('complete-pct').textContent = pct + '%';
   $('complete-time').textContent = timeTaken + 's';
-  $('complete-stars').textContent = stars;
+  $('complete-stars').innerHTML = stars;
   $('complete-xp').innerHTML = `+${effectiveXP} XP${multLabel}`;
 
   const badgeRow = $('complete-new-badges');
   badgeRow.innerHTML = newBadges.length
-    ? newBadges.map(b => `<div class="badge-earned"><span>${b.emoji}</span><span>${b.label}</span></div>`).join('')
+    ? newBadges.map(b => `<div class="badge-earned"><span>${iconHTML(b.icon, 20)}</span><span>${b.label}</span></div>`).join('')
     : '<span style="color:var(--muted)">Play more missions to earn badges!</span>';
 }
 
@@ -1324,7 +1325,7 @@ function renderProfilePage() {
 
   $('prof-avatar').textContent = p.avatar;
   $('prof-username').textContent = p.username;
-  $('prof-group').textContent = `${group.emoji} ${group.label}`;
+  $('prof-group').innerHTML = `${iconHTML(group.icon, 18)} ${group.label}`;
   $('prof-score').textContent = formatScore(p.total_score);
   $('prof-missions').textContent = p.missions_completed;
 
@@ -1355,7 +1356,7 @@ function renderProfilePage() {
     const earned = (p.badges || []).includes(b.id);
     const card = el('div', `badge-card ${earned ? 'badge-earned' : 'badge-locked'}`);
     card.innerHTML = `
-      <span class="badge-emoji">${earned ? b.emoji : '🔒'}</span>
+      <span class="badge-emoji">${earned ? iconHTML(b.icon, 24) : iconHTML('lock', 24)}</span>
       <div class="badge-name">${b.label}</div>
       <div class="badge-desc">${earned ? b.desc : 'Keep playing to unlock'}</div>
     `;
@@ -1413,7 +1414,7 @@ function renderProfileSetup() {
   if (!groupGrid) return;
   groupGrid.innerHTML = '';
   Object.entries(AGE_GROUPS).forEach(([key, g]) => {
-    const btn = el('button', 'group-btn', `<span>${g.emoji}</span><span>${g.label}</span><small>${g.range}</small>`);
+    const btn = el('button', 'group-btn', `<span>${iconHTML(g.icon, 24)}</span><span>${g.label}</span><small>${g.range}</small>`);
     btn.dataset.group = key;
     btn.onclick = () => { document.querySelectorAll('.group-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
     groupGrid.appendChild(btn);
@@ -1424,7 +1425,7 @@ function renderProfileSetup() {
   if (levelGrid) {
     levelGrid.innerHTML = '';
     Object.entries(LEVELS).forEach(([key, lv]) => {
-      const btn = el('button', 'group-btn level-btn', `<span>${lv.emoji}</span><span>${lv.label}</span><small>${lv.desc}</small>`);
+      const btn = el('button', 'group-btn level-btn', `<span>${iconHTML(lv.icon, 20)}</span><span>${lv.label}</span><small>${lv.desc}</small>`);
       btn.dataset.level = key;
       btn.onclick = () => { document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
       if (key === 'beginner') btn.classList.add('selected'); // default
@@ -1437,7 +1438,7 @@ function renderProfileSetup() {
   if (hobbyGrid) {
     hobbyGrid.innerHTML = '';
     HOBBIES.forEach(h => {
-      const btn = el('button', 'hobby-btn', `${h.emoji} ${h.label}`);
+      const btn = el('button', 'hobby-btn', `${iconHTML(h.icon, 20)} ${h.label}`);
       btn.dataset.hobby = h.id;
       btn.onclick = () => { document.querySelectorAll('.hobby-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
       if (h.id === 'general') btn.classList.add('selected'); // default
@@ -1514,7 +1515,7 @@ function togglePw(inputId, btn) {
   const input = $(inputId);
   const show = input.type === 'password';
   input.type = show ? 'text' : 'password';
-  btn.textContent = show ? '🙈' : '👁';
+  btn.innerHTML = show ? ICONS.eyeOff(16) : ICONS.eye(16);
 }
 
 function switchAuthTab(tab) {
@@ -1609,7 +1610,7 @@ function renderAdminUsersTable(users) {
     tr.innerHTML = `
       <td>${i + 1}</td>
       <td><span class="admin-avatar">${esc(u.avatar)}</span> <strong>${esc(u.username)}</strong>${u.id === App.user?.id ? ' <span class="badge" style="font-size:.65rem">You</span>' : ''}</td>
-      <td>${AGE_GROUPS[u.age_group]?.emoji || ''} ${groupLabel}</td>
+      <td>${iconHTML(AGE_GROUPS[u.age_group]?.icon, 16)} ${groupLabel}</td>
       <td>${formatScore(u.total_score)}</td>
       <td>${u.missions_completed}</td>
       <td>${(u.badges || []).slice(0, 5).join(' ') || '—'}</td>
@@ -1667,7 +1668,7 @@ async function loadAdminSessions() {
     return;
   }
 
-  const typeIcon = { quiz: '❓', 'spot-threat': '🔍', 'decision-tree': '🌿' };
+  const typeIcon = { quiz: iconHTML('quiz',14), 'spot-threat': iconHTML('searchPlus',14), 'decision-tree': iconHTML('gitBranch',14) };
   data.forEach(s => {
     const tr = document.createElement('tr');
     const date    = new Date(s.created_at).toLocaleDateString('en-SG', { day: '2-digit', month: 'short' });
@@ -1679,7 +1680,7 @@ async function loadAdminSessions() {
       <td>${user}</td>
       <td style="font-size:.82rem">${mission}</td>
       <td>${typeIcon[s.mission_type] || ''} ${s.mission_type}</td>
-      <td>${AGE_GROUPS[s.age_group]?.emoji || ''} ${s.age_group}</td>
+      <td>${iconHTML(AGE_GROUPS[s.age_group]?.icon, 16)} ${s.age_group}</td>
       <td>${s.score} / ${s.max_score}</td>
       <td><strong>${pct}</strong></td>
       <td>${time}</td>
