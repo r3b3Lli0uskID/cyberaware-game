@@ -3293,7 +3293,7 @@ button, input, select, textarea {
 .nav-btn:hover, .nav-btn.active { color:var(--color-text); background:var(--color-bg-elevated); }
 
 /* ─── Landing page ─────────────────────────────────────────────────────────── */
-.hero { display:flex; align-items:center; justify-content:space-between; gap:3rem; max-width:960px; margin:0 auto; padding:5rem 1.5rem 3rem; flex-wrap:wrap; }
+.hero { display:flex; align-items:center; justify-content:space-between; gap:3rem; max-width:960px; margin:0 auto; padding:5rem 1.5rem 3rem; flex-wrap:wrap; background-image:radial-gradient(circle at 1px 1px, rgba(52,211,153,0.03) 1px, transparent 0); background-size:32px 32px; }
 .hero-content { flex:1; min-width:280px; }
 .hero-visual { flex-shrink:0; }
 .hero-badge { display:inline-block; background:rgba(52,211,153,.1); color:var(--color-primary); border:1px solid rgba(52,211,153,.25); border-radius:20px; padding:.3rem .9rem; font-size:.8rem; font-weight:700; margin-bottom:1rem; letter-spacing:.04em; }
@@ -5114,6 +5114,58 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
 }
 .mission-type-card span { display: none !important; }
 
+/* ── Mission type card icons ─────────────────────────────────── */
+.mtc-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.12);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Card top gradient accent ────────────────────────────────── */
+.mission-type-card,
+.lnd-trust-card {
+  position: relative;
+  overflow: hidden;
+}
+.mission-type-card::before,
+.lnd-trust-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+.mission-type-card:hover::before,
+.lnd-trust-card:hover::before {
+  opacity: 1;
+}
+/* Age showcase cards already use ::before for left accent — use ::after for top gradient */
+.age-showcase-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+.age-showcase-card:hover::after {
+  opacity: 1;
+}
+
 /* ── Unified card hover effects ──────────────────────────────── */
 .mission-card,
 .lnd-trust-card,
@@ -5681,7 +5733,18 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   border-radius: var(--radius-lg); padding: var(--space-6);
   text-align: center;
 }
-.lnd-trust-icon { font-size: 2rem; display: block; margin-bottom: var(--space-3); }
+.lnd-trust-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.15);
+  color: var(--color-primary);
+}
 .lnd-trust-card h3 { font-size: var(--font-size-lg); margin-bottom: var(--space-2); color: var(--color-text); }
 .lnd-trust-card p { font-size: var(--font-size-sm); color: var(--color-text-muted); line-height: 1.6; }
 
