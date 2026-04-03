@@ -25,6 +25,31 @@ const App = {
 const $ = id => document.getElementById(id);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
 
+// ─── XSS SANITIZATION ──────────────────────────────────────────────────────
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// Username validation: alphanumeric + underscores/hyphens, 3-20 chars
+function isValidUsername(name) {
+  return /^[a-zA-Z0-9_-]{3,20}$/.test(name);
+}
+
+// ─── RATE LIMITING ──────────────────────────────────────────────────────────
+const _rateLimits = {};
+function rateLimit(action, maxAttempts, windowMs) {
+  const now = Date.now();
+  if (!_rateLimits[action]) _rateLimits[action] = [];
+  // Purge expired entries
+  _rateLimits[action] = _rateLimits[action].filter(t => now - t < windowMs);
+  if (_rateLimits[action].length >= maxAttempts) return false;
+  _rateLimits[action].push(now);
+  return true;
+}
+
 // ─── XP MULTIPLIER ───────────────────────────────────────────────────────────
 // Age group difficulty: kids=1, teens=2, adults=3, seniors=4, expert=5
 // Mission difficulty level: beginner=1, intermediate=2, hard=3, expert=4
@@ -206,6 +231,10 @@ async function initAuth() {
 }
 
 async function signUp(email, password) {
+  if (!rateLimit('signUp', 3, 120000)) {
+    toast('Too many signup attempts — wait 2 minutes', 'error');
+    return false;
+  }
   loading(true);
   const { data, error } = await db.auth.signUp({ email, password });
   loading(false);
@@ -262,6 +291,10 @@ async function resendOtp() {
 }
 
 async function signIn(username, password) {
+  if (!rateLimit('signIn', 5, 60000)) {
+    toast('Too many login attempts — wait 1 minute', 'error');
+    return false;
+  }
   loading(true);
   try {
     // Look up email by username from profiles table
@@ -1152,7 +1185,7 @@ async function renderLeaderboard() {
     const tr = el('tr', isMe ? 'lb-me' : '');
     tr.innerHTML = `
       <td>${rankEmoji}</td>
-      <td>${row.avatar} <strong>${row.username}</strong>${isMe ? ' <span class="badge" style="font-size:.65rem">You</span>' : ''}</td>
+      <td>${esc(row.avatar)} <strong>${esc(row.username)}</strong>${isMe ? ' <span class="badge" style="font-size:.65rem">You</span>' : ''}</td>
       <td>${formatScore(row.total_score)}</td>
       <td>${row.missions_completed}</td>
       <td>${(row.badges || []).slice(0,4).join(' ')}</td>
@@ -1299,6 +1332,7 @@ async function submitProfileSetup() {
   const hobbyBtn  = document.querySelector('.hobby-btn.selected');
 
   if (!username || username.length < 3) { toast('Username must be at least 3 characters', 'error'); return; }
+  if (!isValidUsername(username)) { toast('Username: letters, numbers, _ and - only (3-20 chars)', 'error'); return; }
   if (!avatarBtn) { toast('Please choose an avatar', 'error'); return; }
   if (!groupBtn)  { toast('Please choose your skill track', 'error'); return; }
 
@@ -1318,6 +1352,10 @@ function hideForgotPassword() {
   $('login-form').style.display  = 'flex';
 }
 async function sendPasswordReset() {
+  if (!rateLimit('passwordReset', 3, 300000)) {
+    toast('Too many reset attempts — wait 5 minutes', 'error');
+    return;
+  }
   const email = $('forgot-email').value.trim();
   if (!email) { toast('Enter your email', 'error'); return; }
   loading(true);
@@ -1448,7 +1486,7 @@ function renderAdminUsersTable(users) {
     const groupLabel = AGE_GROUPS[u.age_group]?.label || u.age_group;
     tr.innerHTML = `
       <td>${i + 1}</td>
-      <td><span class="admin-avatar">${u.avatar}</span> <strong>${u.username}</strong>${u.id === App.user?.id ? ' <span class="badge" style="font-size:.65rem">You</span>' : ''}</td>
+      <td><span class="admin-avatar">${esc(u.avatar)}</span> <strong>${esc(u.username)}</strong>${u.id === App.user?.id ? ' <span class="badge" style="font-size:.65rem">You</span>' : ''}</td>
       <td>${AGE_GROUPS[u.age_group]?.emoji || ''} ${groupLabel}</td>
       <td>${formatScore(u.total_score)}</td>
       <td>${u.missions_completed}</td>
