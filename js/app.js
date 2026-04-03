@@ -21,6 +21,105 @@ const App = {
   },
 };
 
+// ─── GUEST MODE ─────────────────────────────────────────────────────────────
+const DEMO_MISSION_IDS = []; // populated in initGuestMissions()
+
+function initGuestMissions() {
+  // Pick 3 beginner-friendly missions from the loaded data
+  const candidates = (MISSIONS.kids || []).concat(Object.values(FOUNDATION_MISSIONS || {}).flat());
+  const types = ['quiz', 'spot-threat', 'decision-tree'];
+  types.forEach(t => {
+    const match = candidates.find(m => m.type === t && !DEMO_MISSION_IDS.includes(m.id));
+    if (match) DEMO_MISSION_IDS.push(match.id);
+  });
+  // Fallback: if not enough variety, just take first 3
+  while (DEMO_MISSION_IDS.length < 3 && candidates.length > DEMO_MISSION_IDS.length) {
+    const m = candidates.find(c => !DEMO_MISSION_IDS.includes(c.id));
+    if (m) DEMO_MISSION_IDS.push(m.id);
+    else break;
+  }
+}
+
+function startGuestMode() {
+  App.guestMode = true;
+  App.guestMissionsPlayed = 0;
+  App.user = null;
+  App.profile = {
+    username: 'Guest',
+    age_group: 'kids',
+    avatar: '\u{1F6E1}\u{FE0F}',
+    level: 'beginner',
+    hobby: 'general',
+    total_score: 0,
+    missions_completed: 0,
+    badges: [],
+    foundational_completed: false,
+  };
+  initGuestMissions();
+  setTheme('kids');
+  renderGuestDashboard();
+  showScreen('screen-dashboard');
+}
+
+function renderGuestDashboard() {
+  // Find the dashboard content area - reuse the existing dashboard but with limited missions
+  const allMissions = (MISSIONS.kids || []).concat(Object.values(FOUNDATION_MISSIONS || {}).flat());
+  const demoMissions = allMissions.filter(m => DEMO_MISSION_IDS.includes(m.id));
+
+  // Render a simplified dashboard
+  const grid = $('mission-grid');
+  if (!grid) return;
+
+  // Set dashboard header info for guest
+  const dashAvatar = $('dash-avatar');
+  const dashUsername = $('dash-username');
+  const dashScore = $('dash-score');
+  const dashMissions = $('dash-missions');
+  const dashBadges = $('dash-badges');
+  const dashGroup = $('dash-group');
+
+  if (dashAvatar) dashAvatar.textContent = '\u{1F6E1}\u{FE0F}';
+  if (dashUsername) dashUsername.textContent = 'Guest Explorer';
+  if (dashScore) dashScore.textContent = '0';
+  if (dashMissions) dashMissions.textContent = '0';
+  if (dashBadges) dashBadges.textContent = '0';
+  if (dashGroup) dashGroup.textContent = '\u{1F331} Demo Mode';
+
+  // Add guest banner
+  let banner = document.getElementById('guest-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'guest-banner';
+    banner.className = 'guest-banner';
+    banner.innerHTML = `
+      <div class="guest-banner-content">
+        <span>\u{1F3AE} You're in Demo Mode \u2014 try ${DEMO_MISSION_IDS.length} free missions!</span>
+        <button class="btn btn-primary btn-sm" onclick="showScreen('screen-auth')">Sign Up to Unlock All</button>
+      </div>
+    `;
+    const dashEl = $('screen-dashboard');
+    if (dashEl) dashEl.insertBefore(banner, dashEl.firstChild);
+  }
+
+  // Render only demo missions
+  renderDashboard('kids', 'all');
+}
+
+function showGuestConversionPrompt() {
+  const overlay = document.createElement('div');
+  overlay.className = 'guest-convert-overlay';
+  overlay.innerHTML = `
+    <div class="guest-convert-card">
+      <div class="guest-convert-emoji">\u{1F389}</div>
+      <h2>Great job!</h2>
+      <p>You've completed the demo. Sign up free to unlock 80+ missions, track your progress, and compete on the leaderboard!</p>
+      <button class="btn btn-primary btn-lg" onclick="this.closest('.guest-convert-overlay').remove(); showScreen('screen-auth');">Create Free Account</button>
+      <button class="btn btn-ghost btn-sm" onclick="this.closest('.guest-convert-overlay').remove(); showScreen('screen-landing');">Maybe Later</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
@@ -83,7 +182,7 @@ function xpMultiplier(playerGroup, missionGroup, playerLevel, missionDifficulty)
 
 // ─── INTRO STORYLINE ─────────────────────────────────────────────────────────
 let _introSlide = 0;
-const INTRO_TOTAL = 5;
+const INTRO_TOTAL = 3;
 
 function showIntro() {
   _introSlide = 0;
@@ -529,6 +628,15 @@ function renderDashboard(overrideGroup, overrideRegion) {
       grid.appendChild(card);
     });
   }
+
+  // First-mission highlight for new players
+  if (App.profile && App.profile.missions_completed === 0 && !App.guestMode) {
+    const firstCard = grid.querySelector('.mission-card');
+    if (firstCard) {
+      firstCard.classList.add('mission-first-highlight');
+      firstCard.insertAdjacentHTML('beforeend', '<div class="first-mission-tag">\u{1F446} Start here!</div>');
+    }
+  }
 }
 
 function buildMissionCard(mission, ageGroup) {
@@ -639,17 +747,21 @@ async function startMission(missionId, ageGroup) {
     answered:     false,
   };
 
-  // Create DB session
-  const { data, error } = await db.from('game_sessions').insert({
-    user_id:      App.user.id,
-    age_group:    group,
-    mission_id:   mission.id,
-    mission_type: mission.type,
-    score:        0,
-    max_score:    App.game.maxScore,
-  }).select().single();
+  // Create DB session (skip for guest mode)
+  if (!App.guestMode) {
+    const { data, error } = await db.from('game_sessions').insert({
+      user_id:      App.user.id,
+      age_group:    group,
+      mission_id:   mission.id,
+      mission_type: mission.type,
+      score:        0,
+      max_score:    App.game.maxScore,
+    }).select().single();
 
-  if (!error) App.session = data;
+    if (!error) App.session = data;
+  } else {
+    App.session = { id: 'guest-' + Date.now() };
+  }
 
   renderMissionBriefing(mission);
   showScreen('screen-mission-briefing');
@@ -771,8 +883,8 @@ async function selectQuizAnswer(btn, opt, q) {
   const scoreEl = $('game-score');
   if (scoreEl) { scoreEl.classList.add('score-pop'); setTimeout(() => scoreEl.classList.remove('score-pop'), 600); }
 
-  // DB: log attempt
-  if (App.session) {
+  // DB: log attempt (skip for guest mode)
+  if (App.session && !App.guestMode) {
     await db.from('level_attempts').insert({
       session_id:    App.session.id,
       user_id:       App.user.id,
@@ -1020,35 +1132,45 @@ async function completeMission() {
   const effectiveScore = Math.round(score * mult);
   const bonus = effectiveScore - score; // positive = bonus, negative = penalty
 
-  // Update DB session (trigger adds raw score to total_score)
-  if (App.session) {
-    await db.from('game_sessions').update({
-      score,
-      completed:  true,
-      time_taken: timeTaken,
-    }).eq('id', App.session.id);
-  }
+  // Update DB session (trigger adds raw score to total_score) — skip for guest
+  if (!App.guestMode) {
+    if (App.session) {
+      await db.from('game_sessions').update({
+        score,
+        completed:  true,
+        time_taken: timeTaken,
+      }).eq('id', App.session.id);
+    }
 
-  // Apply bonus/penalty on top of what the trigger already added
-  if (bonus !== 0 && App.user) {
-    const { data: fresh } = await db.from('profiles').select('total_score').eq('id', App.user.id).single();
-    if (fresh) {
-      await db.from('profiles').update({ total_score: fresh.total_score + bonus }).eq('id', App.user.id);
+    // Apply bonus/penalty on top of what the trigger already added
+    if (bonus !== 0 && App.user) {
+      const { data: fresh } = await db.from('profiles').select('total_score').eq('id', App.user.id).single();
+      if (fresh) {
+        await db.from('profiles').update({ total_score: fresh.total_score + bonus }).eq('id', App.user.id);
+      }
+    }
+
+    // Mark foundational course complete if this was the mandatory mission
+    if (mission.mandatory && App.user && !App.profile?.foundational_completed) {
+      db.from('profiles').update({ foundational_completed: true }).eq('id', App.user.id)
+        .then(() => { if (App.profile) App.profile.foundational_completed = true; })
+        .catch(() => {});
     }
   }
 
-  // Mark foundational course complete if this was the mandatory mission
-  if (mission.mandatory && App.user && !App.profile?.foundational_completed) {
-    db.from('profiles').update({ foundational_completed: true }).eq('id', App.user.id)
-      .then(() => { if (App.profile) App.profile.foundational_completed = true; })
-      .catch(() => {});
-  }
-
-  // Check + award badges
-  const newBadges = await awardBadges(pct, mission.type);
+  // Check + award badges (skip for guest)
+  const newBadges = App.guestMode ? [] : await awardBadges(pct, mission.type);
 
   renderMissionComplete(mission, score, maxScore, pct, timeTaken, newBadges, mult);
   showScreen('screen-mission-complete');
+
+  // Guest conversion prompt after 2 missions
+  if (App.guestMode) {
+    App.guestMissionsPlayed++;
+    if (App.guestMissionsPlayed >= 2) {
+      setTimeout(() => showGuestConversionPrompt(), 2000);
+    }
+  }
 
   // Sound + confetti
   if (newBadges.length > 0) {
@@ -1865,6 +1987,21 @@ function _updateThemePills(activeTheme) {
   });
 }
 
+// ─── LANDING PAGE STATS ──────────────────────────────────────────────────────
+async function loadLandingStats() {
+  try {
+    // Player count
+    const { count } = await db.from('profiles').select('*', { count: 'exact', head: true });
+    const el = document.getElementById('lp-player-count');
+    if (el && count != null) el.textContent = count > 0 ? count.toLocaleString() : 'New!';
+
+    // Mission count (client-side)
+    const totalMissions = Object.values(typeof MISSIONS !== 'undefined' ? MISSIONS : {}).flat().length;
+    const missionEl = document.getElementById('lp-mission-count');
+    if (missionEl && totalMissions > 0) missionEl.textContent = totalMissions + '+';
+  } catch(e) { /* silent fail — static fallbacks remain */ }
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   initThemeControls();
@@ -1893,6 +2030,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   await initAuth();
+  loadLandingStats(); // fire-and-forget — populate hero stats
 
   // Unlock HTML5 audio on first user interaction (browser autoplay policy)
   const unlockBGMOnce = () => {

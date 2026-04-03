@@ -43,17 +43,19 @@
     <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
 
     <div class="hero-content" style="position:relative;z-index:1">
-      <div class="hero-term-line" aria-hidden="true">
-        <span class="hero-term-ps">cyberguard@platform:~$</span>
-        <span class="hero-term-cmd"> connect --region all --level adaptive</span>
-        <span class="hero-term-cursor">█</span>
-      </div>
+      <p class="hero-welcome">Free cybersecurity training for everyone — no experience needed</p>
       <div class="hero-badge">ASEAN &nbsp;/&nbsp; APAC &nbsp;/&nbsp; GLOBAL</div>
-      <h1 class="hero-title">Learn to identify<br><span>every cyber threat.</span></h1>
+      <h1 class="hero-title">Stay safe online.<br><span>Learn at your own pace.</span></h1>
       <p class="hero-sub">Mission-based cybersecurity awareness training. 80+ real-world scenarios across 13+ countries. Five adaptive skill tiers — foundational through expert-level threat analysis.</p>
       <div class="hero-cta hero-cta--row">
         <button class="btn btn-primary btn-lg" onclick="showScreen('screen-auth')">Start Training</button>
         <button class="btn btn-outline btn-lg" onclick="scrollToFeatures()">Explore Modules ↓</button>
+        <button class="btn btn-outline btn-lg" onclick="startGuestMode()">🎮 Try a Free Mission</button>
+      </div>
+      <div class="hero-social-proof" id="hero-live-stats">
+        <div class="proof-stat"><span class="proof-num" id="lp-player-count">--</span><span class="proof-label">Players</span></div>
+        <div class="proof-stat"><span class="proof-num" id="lp-mission-count">80+</span><span class="proof-label">Missions</span></div>
+        <div class="proof-stat"><span class="proof-num" id="lp-region-count">13</span><span class="proof-label">Countries</span></div>
       </div>
     </div>
     <div class="hero-visual" style="position:relative;z-index:1">
@@ -65,7 +67,7 @@
   </section>
 
   <section class="features" id="features">
-    <h2 class="section-title lnd-section-title">// Training Tracks</h2>
+    <h2 class="section-title lnd-section-title">Training Tracks</h2>
     <div class="age-showcase">
       <div class="age-showcase-card" data-group="kids">
         <div class="asc-label">LEVEL 01 — BEGINNER</div>
@@ -94,7 +96,7 @@
       </div>
     </div>
 
-    <h2 class="section-title lnd-section-title" style="margin-top:4rem">// Platform Features</h2>
+    <h2 class="section-title lnd-section-title" style="margin-top:4rem">Platform Features</h2>
     <div class="mission-types">
       <div class="mission-type-card">
         <div class="mtc-tag">PROGRESSION</div>
@@ -128,7 +130,7 @@
       </div>
     </div>
 
-    <h2 class="section-title lnd-section-title" style="margin-top:4rem">// Mission Types</h2>
+    <h2 class="section-title lnd-section-title" style="margin-top:4rem">Mission Types</h2>
     <div class="mission-types">
       <div class="mission-type-card">
         <div class="mtc-tag">QUIZ</div>
@@ -148,9 +150,31 @@
     </div>
   </section>
 
+  <!-- ── YOUR DATA, YOUR SAFETY ─────────────────────────── -->
+  <section class="lnd-section">
+    <h2 class="lnd-section-title">Your Data, Your Safety</h2>
+    <div class="lnd-trust-grid">
+      <div class="lnd-trust-card">
+        <span class="lnd-trust-icon">🔒</span>
+        <h3>What We Store</h3>
+        <p>Only your username, email, and game scores. No tracking, no ads, no data selling.</p>
+      </div>
+      <div class="lnd-trust-card">
+        <span class="lnd-trust-icon">🌏</span>
+        <h3>Where It Lives</h3>
+        <p>Hosted on Supabase (Singapore) with Cloudflare CDN. Your data stays in the region.</p>
+      </div>
+      <div class="lnd-trust-card">
+        <span class="lnd-trust-icon">🗑️</span>
+        <h3>Your Control</h3>
+        <p>Delete your account anytime from your profile. We never share your information.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ── HOW TO BEGIN ─────────────────────────────────────── -->
   <section class="lnd-section lnd-howto" id="how-to-begin">
-    <h2 class="lnd-section-title-h">// How to Begin</h2>
+    <h2 class="lnd-section-title-h">How to Begin</h2>
     <div class="lnd-steps">
       <div class="lnd-step">
         <div class="lnd-step-num">01</div>
@@ -188,7 +212,7 @@
 
   <!-- ── THREAT COVERAGE ───────────────────────────────────── -->
   <section class="lnd-section lnd-threats">
-    <h2 class="lnd-section-title-h">// Threat Coverage</h2>
+    <h2 class="lnd-section-title-h">Threat Coverage</h2>
     <div class="lnd-threat-terminal">
       <div class="lnd-term-header">
         <span class="lnd-term-dot lnd-term-dot--red"></span>
@@ -267,7 +291,7 @@
 
   <!-- ── REGION COVERAGE ───────────────────────────────────── -->
   <section class="lnd-section lnd-regions">
-    <h2 class="lnd-section-title-h">// Active Regions</h2>
+    <h2 class="lnd-section-title-h">Active Regions</h2>
     <p class="lnd-regions-sub">Scenarios are grounded in each country's real threat landscape — local apps, local scams, local reporting authorities.</p>
     <div class="lnd-region-grid">
       <div class="lnd-region-group">
@@ -310,10 +334,9 @@
   <!-- ── FINAL CTA ─────────────────────────────────────────── -->
   <section class="lnd-section lnd-final-cta">
     <div class="lnd-cta-terminal">
-      <div class="lnd-term-cmd-line">$ sudo apt-get install cyber-awareness</div>
       <div class="lnd-cta-main">
-        <h2>Ready to start?</h2>
-        <p>100+ missions across 5 skill tiers — from scam awareness to professional threat analysis. Your first mission is waiting.</p>
+        <h2 class="lnd-cta-title">Ready to start?</h2>
+        <p class="lnd-cta-sub">Join the community. It's completely free.</p>
         <button class="btn btn-primary btn-lg lnd-cta-btn" onclick="showScreen('screen-auth')">Start Training Now</button>
       </div>
       <div class="lnd-cta-meta">
@@ -397,6 +420,12 @@
       </form>
 
       <button class="btn btn-ghost btn-sm" style="margin-top:1rem;width:100%" onclick="showScreen('screen-landing')">← Back to Home</button>
+
+      <div class="auth-trust">
+        <span>🔒 Encrypted connection</span>
+        <span>📧 Email never shared</span>
+        <span>🗑️ Delete account anytime</span>
+      </div>
     </div>
   </div>
 </div>
@@ -487,6 +516,7 @@
       <div class="form-group">
         <label>Choose Your Skill Track</label>
         <div id="group-picker" class="group-picker"></div>
+        <p class="setup-hint">Not sure? Start with Beginner — you can always take harder missions later.</p>
       </div>
 
       <div class="form-group">
@@ -498,6 +528,7 @@
       <div class="form-group">
         <label>Your Hobby / Interest <small>(personalises your missions)</small></label>
         <div id="hobby-picker" class="hobby-picker"></div>
+        <p class="setup-hint">This personalizes your mission feed. You can change it anytime.</p>
       </div>
 
       <div style="text-align:center;margin-top:1.5rem">
@@ -515,29 +546,19 @@
 <div id="screen-intro" class="screen">
   <div class="intro-wrap">
     <div class="intro-slide" id="intro-slide-0">
-      <div class="intro-icon">🌐</div>
-      <h2 class="intro-title">The Digital World is Under Attack</h2>
-      <p class="intro-body">Every day, thousands of people across ASEAN fall victim to scams, phishing attacks, and identity theft. In 2023 alone, Singaporeans lost over <strong>$660 million</strong> to scams — and the number keeps rising. Nation-state actors, organised cybercrime groups, and opportunistic fraudsters all share the same target: <em>you</em>.</p>
-    </div>
-    <div class="intro-slide" id="intro-slide-1" style="display:none">
-      <div class="intro-icon">🎯</div>
-      <h2 class="intro-title">Everyone Is a Target</h2>
-      <p class="intro-body">Cybercriminals don't just target banks and corporations. They target individuals through phishing, vishing, and account takeover — and they target professionals through APT campaigns, web application exploits, and cloud misconfigurations. Whether you're protecting yourself or your organisation, the threats are real and evolving.</p>
-    </div>
-    <div class="intro-slide" id="intro-slide-2" style="display:none">
       <div class="intro-icon">🛡️</div>
       <h2 class="intro-title">Welcome to CyberGuard</h2>
-      <p class="intro-body">You've just joined a network of cyber defenders. Five skill tracks cover every level — from foundational awareness to professional-grade threat analysis. Complete missions to earn XP, unlock badges, and climb the global leaderboard. Every scenario is grounded in real incidents, real platforms, and real consequences.</p>
+      <p class="intro-body">You've joined a community of cyber defenders. CyberGuard teaches you to spot scams, phishing, and online threats through hands-on missions based on real incidents. No prior experience needed — just curiosity and a willingness to learn.</p>
     </div>
-    <div class="intro-slide" id="intro-slide-3" style="display:none">
+    <div class="intro-slide" id="intro-slide-1" style="display:none">
       <div class="intro-icon">⚡</div>
-      <h2 class="intro-title">Five Tiers. One Platform.</h2>
-      <p class="intro-body">From <strong>Beginner</strong> (password hygiene, scam awareness) through <strong>Intermediate</strong>, <strong>Advanced</strong>, and <strong>Specialist</strong> — all the way to <strong>Expert</strong> track with CEH-aligned scenarios covering SQLi, APT incident response, malware analysis, wireless attacks, and cloud breach containment. Start where you are. Go as far as you can.</p>
+      <h2 class="intro-title">How It Works</h2>
+      <p class="intro-body">Five skill tiers take you from <strong>Beginner</strong> all the way to <strong>Expert</strong>. Complete missions to earn XP, unlock badges, and climb the leaderboard. Your skill track and difficulty level set your XP multipliers — harder challenges yield greater rewards.</p>
     </div>
-    <div class="intro-slide" id="intro-slide-4" style="display:none">
+    <div class="intro-slide" id="intro-slide-2" style="display:none">
       <div class="intro-icon">🚀</div>
-      <h2 class="intro-title">Agent, Your First Assignment Awaits</h2>
-      <p class="intro-body">Begin with the <strong>Foundational Briefing</strong> — a mandatory module that establishes your baseline. Complete it to unlock the full mission roster. Your <strong>skill track</strong> and <strong>difficulty level</strong> set your XP multipliers — harder challenges, greater rewards. In cybersecurity, <em>knowing is half the battle</em>.</p>
+      <h2 class="intro-title">Ready? Let's Start!</h2>
+      <p class="intro-body">Begin with the <strong>Foundational Briefing</strong> to establish your baseline, then unlock the full mission roster. Start where you are and go as far as you can. Your first mission is waiting.</p>
     </div>
 
     <div class="intro-nav">
