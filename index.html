@@ -59,10 +59,7 @@
       </div>
     </div>
     <div class="hero-visual" style="position:relative;z-index:1">
-      <div class="hero-logo-panel">
-        <img src="assets/brand/cyberguard-logo-darkbg.svg" alt="CyberGuard" width="320" style="display:block;filter:drop-shadow(0 0 24px rgba(0,200,240,.35));" />
-        <div class="hero-logo-scan" aria-hidden="true"></div>
-      </div>
+      <p class="hero-brand-text">CyberGuard</p>
     </div>
   </section>
 
@@ -347,10 +344,13 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <p class="footer-wordmark">[ CyberGuard ]</p>
-    <p>Security Awareness Platform &nbsp;·&nbsp; ASEAN &middot; APAC &middot; Global</p>
-    <p>Emergency: <strong>SPF 1800-255-0000</strong> &nbsp;|&nbsp; ScamShield: <strong>1800-722-6688</strong></p>
+  <footer class="lnd-footer">
+    <p>Built for cybersecurity awareness across ASEAN, APAC &amp; beyond.</p>
+    <p class="lnd-footer-links">
+      <a href="#" onclick="showScreen('screen-auth'); return false;">Sign In</a>
+      <span>&middot;</span>
+      <a href="#" onclick="startGuestMode(); return false;">Try Demo</a>
+    </p>
     <p class="footer-built">Built by <a href="https://ivanthan.uk" target="_blank" rel="noopener" class="footer-link">Ivan Than</a></p>
   </footer>
 </div>
@@ -949,6 +949,12 @@
     // Retry after scripts finish loading
     setTimeout(function() { if (typeof startGuestMode === 'function') startGuestMode(); }, 500);
   };
+
+  // Scroll-reveal for landing sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.lnd-section').forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
