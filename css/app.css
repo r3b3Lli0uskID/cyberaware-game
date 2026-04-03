@@ -4345,6 +4345,7 @@ button, input, select, textarea {
 .theme-pill[data-theme-val="teen"]    .theme-pill-dot { background: linear-gradient(135deg, #7c3aed, #06b6d4); }
 .theme-pill[data-theme-val="kiddy"]   .theme-pill-dot { background: linear-gradient(135deg, #ff6b6b, #ffd93d); }
 .theme-pill[data-theme-val="crimson"] .theme-pill-dot { background: linear-gradient(135deg, #FF3040, #8b0010); }
+.theme-pill[data-theme-val="calm"]    .theme-pill-dot { background: linear-gradient(135deg, #a6e3a1, #94e2d5); }
 
 /* Dark mode always on — mode toggle hidden */
 .theme-mode-btn { display: none !important; }
@@ -5458,6 +5459,79 @@ button, .btn, .nav-btn, .auth-tab, .admin-tab,
   --shadow-lg:   0 0 32px rgba(255,48,64,0.25);
   --shadow-glow: 0 0 20px rgba(255,48,64,0.4);
   --shadow-accent-glow: 0 0 20px rgba(255,96,112,0.35);
+}
+
+/* ── Calm Theme (Catppuccin Mocha — easy on the eyes) ─────── */
+[data-theme="calm"] {
+  --color-bg:           #1a1b26;
+  --color-bg-surface:   #1f2033;
+  --color-bg-elevated:  #292a3e;
+  --color-border:       #33354a;
+  --color-border-glow:  #a6e3a1;
+
+  --color-primary:      #a6e3a1;
+  --color-primary-dim:  #74c88a;
+  --color-primary-fg:   #1a1b26;
+
+  --color-accent:       #94e2d5;
+  --color-accent-dim:   #5ab8a9;
+
+  --color-success:      #a6e3a1;
+  --color-warning:      #f9e2af;
+  --color-danger:       #f38ba8;
+  --color-info:         #89b4fa;
+
+  --color-text:         #cdd6f4;
+  --color-text-muted:   #6c7086;
+  --color-text-faint:   #45475a;
+
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg:   0 8px 24px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 16px rgba(166,227,161,0.2);
+  --shadow-accent-glow: 0 0 16px rgba(148,226,213,0.2);
+}
+
+[data-theme="calm"] .hero-title span {
+  background: linear-gradient(90deg, #a6e3a1, #94e2d5) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+[data-theme="calm"] .hero-term-ps { color: #a6e3a1; }
+[data-theme="calm"] .hero-term-cursor { background: #a6e3a1; }
+[data-theme="calm"] .hero { background: radial-gradient(ellipse at 60% 40%, rgba(166,227,161,0.08) 0%, transparent 70%); }
+[data-theme="calm"] .nav {
+  background: rgba(31,32,51,0.95);
+  border-bottom-color: #33354a;
+}
+[data-theme="calm"] .card,
+[data-theme="calm"] .mission-card,
+[data-theme="calm"] .auth-card,
+[data-theme="calm"] .setup-card,
+[data-theme="calm"] .briefing-card,
+[data-theme="calm"] .complete-card {
+  background: #1f2033;
+  border-color: #33354a;
+}
+[data-theme="calm"] .card:hover,
+[data-theme="calm"] .mission-card:hover {
+  border-color: #a6e3a1;
+  box-shadow: 0 0 12px rgba(166,227,161,0.1);
+}
+[data-theme="calm"] .btn-primary,
+[data-theme="calm"] .btn.btn-primary {
+  background: linear-gradient(135deg, #a6e3a1, #74c88a);
+  color: #1a1b26;
+}
+[data-theme="calm"] .btn-primary:hover,
+[data-theme="calm"] .btn.btn-primary:hover {
+  background: linear-gradient(135deg, #b8f0b3, #a6e3a1);
+  box-shadow: 0 0 16px rgba(166,227,161,0.3);
+}
+[data-theme="calm"] .feedback-correct {
+  background: rgba(166,227,161,0.1);
+  border-color: #a6e3a1;
 }
 
 /* Hero title — Fjalla One + crimson gradient on span */

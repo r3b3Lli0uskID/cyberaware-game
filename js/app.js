@@ -1576,7 +1576,7 @@ async function loadAdminSessions() {
  * same data-theme attribute — the visual theme is only held in
  * localStorage and applied on non-gameplay screens.
  */
-const VISUAL_THEMES = ['teen', 'kiddy', 'crimson'];
+const VISUAL_THEMES = ['teen', 'kiddy', 'crimson', 'calm'];
 
 // ─── SOUND SYSTEM (Web Audio API) ────────────────────────────────────────────
 const SFX = (() => {
