@@ -1,0 +1,34 @@
+name: Supabase Keep-Alive
+
+# Ping Supabase every 3 days to prevent free-tier database pausing (7-day inactivity limit)
+on:
+  schedule:
+    - cron: '0 8 */3 * *'   # Every 3 days at 08:00 UTC
+  workflow_dispatch:          # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON: ${{ secrets.SUPABASE_ANON }}
+        run: |
+          echo "Pinging Supabase at $(date -u)"
+
+          # Query the profiles table (lightweight SELECT with LIMIT 1)
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${SUPABASE_URL}/rest/v1/profiles?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON}")
+
+          echo "Response code: $RESPONSE"
+
+          if [ "$RESPONSE" -ge 200 ] && [ "$RESPONSE" -lt 300 ]; then
+            echo "✅ Supabase is alive (HTTP $RESPONSE)"
+          else
+            echo "⚠️ Supabase returned HTTP $RESPONSE — database may be paused"
+            echo "Visit https://supabase.com/dashboard to unpause manually if needed"
+            exit 1
+          fi

@@ -136,6 +136,8 @@ function formatScore(n) { return n.toLocaleString(); }
 
 // ─── AUTH ────────────────────────────────────────────────────────────────────
 async function initAuth() {
+  let initDone = false; // guard against onAuthStateChange racing with init
+
   // Detect Supabase password recovery redirect (#type=recovery in hash)
   // Must check BEFORE getSession() so the recovery session doesn't trigger loadProfile()
   const hashHasRecovery = window.location.hash.includes('type=recovery');
@@ -145,14 +147,31 @@ async function initAuth() {
     history.replaceState(null, '', window.location.pathname + window.location.search);
     showScreen('screen-reset');
   } else {
-    const { data: { session } } = await db.auth.getSession();
-    if (session) {
-      App.user = session.user;
-      await loadProfile();
-    } else {
+    try {
+      const { data: { session }, error } = await db.auth.getSession();
+      if (error) {
+        console.warn('getSession error:', error.message);
+        showScreen('screen-landing');
+      } else if (session) {
+        // Refresh token if close to expiry (within 5 minutes)
+        const expiresAt = session.expires_at;
+        if (expiresAt && (expiresAt * 1000 - Date.now()) < 300000) {
+          const { data: refreshed } = await db.auth.refreshSession();
+          App.user = refreshed?.session?.user || session.user;
+        } else {
+          App.user = session.user;
+        }
+        await loadProfile();
+      } else {
+        showScreen('screen-landing');
+      }
+    } catch (e) {
+      console.error('initAuth error:', e);
       showScreen('screen-landing');
     }
   }
+
+  initDone = true;
 
   db.auth.onAuthStateChange(async (event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
@@ -163,6 +182,8 @@ async function initAuth() {
     }
     // USER_UPDATED fires when updateUser() is called — handled by the calling function
     if (event === 'USER_UPDATED') return;
+    // INITIAL_SESSION fires on page load — skip if init already handled it
+    if (event === 'INITIAL_SESSION' && initDone) return;
     // Suppress SIGNED_IN during password reset flow — the recovery screen must stay visible
     if (App.isRecovery) {
       App.user = session?.user || null;
@@ -171,7 +192,12 @@ async function initAuth() {
     }
     App.user = session?.user || null;
     if (App.user) {
-      await loadProfile();
+      try {
+        await loadProfile();
+      } catch (e) {
+        console.error('onAuthStateChange loadProfile error:', e);
+        toast('Something went wrong — please refresh', 'error');
+      }
     } else {
       App.profile = null;
       showScreen('screen-landing');
@@ -1808,6 +1834,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   BGM.initUI();
   initParticles();
   renderProfileSetup();
+
+  // Check if Supabase is reachable (free tier may be paused)
+  try {
+    const healthCheck = await Promise.race([
+      db.from('profiles').select('id', { count: 'exact', head: true }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+    ]);
+    if (healthCheck.error && healthCheck.error.message?.includes('project has been paused')) {
+      toast('Database is paused (free tier). Visit supabase.com to unpause it.', 'error');
+      showScreen('screen-landing');
+      return;
+    }
+  } catch (e) {
+    if (e.message === 'timeout') {
+      toast('Database is not responding — it may be paused. Try again in a minute.', 'error');
+      showScreen('screen-landing');
+      return;
+    }
+  }
+
   await initAuth();
 
   // Unlock HTML5 audio on first user interaction (browser autoplay policy)
