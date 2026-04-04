@@ -1,8 +1,16 @@
-# 🛡️ CyberGuard — Security Awareness Platform
+<p align="center">
+  <img src="assets/brand/cyberguard-logo-nav.svg" alt="CyberGuard" width="360" />
+</p>
 
-An interactive cybersecurity awareness game covering threats across **ASEAN, APAC, and Global** regions — with skill-based progression across **5 tiers from Beginner to Expert**.
+<h3 align="center">Security Awareness Platform</h3>
 
-**Built by:** [@r3b3Lli0uskID](https://github.com/r3b3Lli0uskID)
+<p align="center">
+An interactive cybersecurity awareness game covering threats across <b>ASEAN, APAC, and Global</b> regions — with skill-based progression across <b>5 tiers from Beginner to Expert</b>.
+</p>
+
+<p align="center">
+  <b>Built by:</b> <a href="https://github.com/r3b3Lli0uskID">@r3b3Lli0uskID</a>
+</p>
 
 ---
 
