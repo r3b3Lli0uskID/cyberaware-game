@@ -2,8 +2,7 @@
 
 An interactive cybersecurity awareness game covering threats across **ASEAN, APAC, and Global** regions — with skill-based progression across **5 tiers from Beginner to Expert**.
 
-**Live:** https://cyberguard.ivanthan.uk
-**Built by:** [Ivan Than](https://ivanthan.uk)
+**Built by:** [@r3b3Lli0uskID](https://github.com/r3b3Lli0uskID)
 
 ---
 
