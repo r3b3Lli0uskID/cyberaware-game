@@ -1,34 +1,65 @@
 name: Supabase Keep-Alive
 
-# Ping Supabase every 3 days to prevent free-tier database pausing (7-day inactivity limit)
+# Ping Supabase every 2 days to prevent free-tier database pausing.
+# Hits both READ and WRITE paths — pause logic is more responsive to
+# write activity on the public.keepalive_log table.
 on:
   schedule:
-    - cron: '0 8 */3 * *'   # Every 3 days at 08:00 UTC
+    - cron: '0 8 */2 * *'     # Every 2 days at 08:00 UTC (was every 3)
   workflow_dispatch:          # Allow manual trigger from GitHub Actions UI
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase REST API
+      - name: Ping Supabase (read + write)
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON: ${{ secrets.SUPABASE_ANON }}
         run: |
-          echo "Pinging Supabase at $(date -u)"
+          set -u
+          STAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Pinging Supabase at ${STAMP}"
 
-          # Query the profiles table (lightweight SELECT with LIMIT 1)
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+          # 1. READ — warm the API layer
+          READ=$(curl -s -o /dev/null -w "%{http_code}" \
             "${SUPABASE_URL}/rest/v1/profiles?select=id&limit=1" \
             -H "apikey: ${SUPABASE_ANON}" \
             -H "Authorization: Bearer ${SUPABASE_ANON}")
+          echo "READ  profiles -> HTTP ${READ}"
 
-          echo "Response code: $RESPONSE"
+          # 2. WRITE — insert into public.keepalive_log.
+          # This is the signal that Supabase's pause watchdog looks at.
+          # Requires the keepalive_log table + anon-insert policy from
+          # supabase/schema.sql. If the table doesn't exist yet the write
+          # will fail (HTTP 404) but the workflow still reports healthy
+          # based on the read.
+          WRITE_BODY=$(cat <<EOF
+          {"source":"github-actions","pinged_at":"${STAMP}"}
+          EOF
+          )
+          WRITE=$(curl -s -o /tmp/write.out -w "%{http_code}" \
+            -X POST "${SUPABASE_URL}/rest/v1/keepalive_log" \
+            -H "apikey: ${SUPABASE_ANON}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d "${WRITE_BODY}")
+          echo "WRITE keepalive_log -> HTTP ${WRITE}"
+          [ -s /tmp/write.out ] && echo "WRITE body: $(cat /tmp/write.out)"
 
-          if [ "$RESPONSE" -ge 200 ] && [ "$RESPONSE" -lt 300 ]; then
-            echo "✅ Supabase is alive (HTTP $RESPONSE)"
-          else
-            echo "⚠️ Supabase returned HTTP $RESPONSE — database may be paused"
-            echo "Visit https://supabase.com/dashboard to unpause manually if needed"
+          # Success = READ succeeded AND WRITE was 2xx or 4xx-with-table-missing.
+          # Only fail hard if READ fails (that means the whole API is down).
+          if [ "${READ}" -lt 200 ] || [ "${READ}" -ge 300 ]; then
+            echo "❌ READ failed — Supabase is likely paused"
             exit 1
+          fi
+
+          if [ "${WRITE}" -ge 200 ] && [ "${WRITE}" -lt 300 ]; then
+            echo "✅ READ ${READ} + WRITE ${WRITE} — Supabase is alive and registering writes"
+          elif [ "${WRITE}" = "404" ] || [ "${WRITE}" = "401" ] || [ "${WRITE}" = "403" ]; then
+            echo "⚠️ READ ${READ} OK, but WRITE ${WRITE} — run supabase/schema.sql to create"
+            echo "   the public.keepalive_log table + anon-insert policy, then writes will work."
+          else
+            echo "⚠️ READ ${READ} OK, WRITE ${WRITE} (unexpected) — keepalive continues on read alone"
           fi

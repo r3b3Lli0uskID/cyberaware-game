@@ -143,3 +143,51 @@ CREATE POLICY "sessions_read_admin"
 CREATE POLICY "attempts_read_admin"
   ON public.level_attempts FOR SELECT
   USING (auth.uid() = user_id OR public.is_admin());
+
+-- ─── KEEPALIVE LOG ───────────────────────────────────────────
+-- Dedicated table for the GitHub Actions keepalive workflow so the anon
+-- key can register WRITE activity (Supabase's pause logic can be more
+-- responsive to writes than read-only SELECTs). The workflow inserts a
+-- row every 3 days; trim old rows on insert to keep the table tiny.
+CREATE TABLE IF NOT EXISTS public.keepalive_log (
+  id          BIGSERIAL PRIMARY KEY,
+  source      TEXT        NOT NULL DEFAULT 'github-actions',
+  pinged_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Anon (public) can insert keepalive rows but cannot read other users' data
+ALTER TABLE public.keepalive_log ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "keepalive_insert_anyone" ON public.keepalive_log;
+CREATE POLICY "keepalive_insert_anyone"
+  ON public.keepalive_log FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (TRUE);
+
+DROP POLICY IF EXISTS "keepalive_select_admin" ON public.keepalive_log;
+CREATE POLICY "keepalive_select_admin"
+  ON public.keepalive_log FOR SELECT
+  USING (public.is_admin());
+
+-- Auto-trim: keep only last 30 rows. Trigger runs on every INSERT.
+CREATE OR REPLACE FUNCTION public.trim_keepalive_log()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  DELETE FROM public.keepalive_log
+  WHERE id IN (
+    SELECT id FROM public.keepalive_log
+    ORDER BY pinged_at DESC
+    OFFSET 30
+  );
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trim_keepalive_log_trigger ON public.keepalive_log;
+CREATE TRIGGER trim_keepalive_log_trigger
+  AFTER INSERT ON public.keepalive_log
+  FOR EACH STATEMENT
+  EXECUTE FUNCTION public.trim_keepalive_log();
