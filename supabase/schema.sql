@@ -165,7 +165,10 @@ CREATE TABLE IF NOT EXISTS public.keepalive_log (
   pinged_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Anon (public) can insert keepalive rows but cannot read other users' data
+-- Anon (public) can insert keepalive rows. Without a SELECT policy, RLS
+-- blocks all reads except via service_role (dashboard SQL editor).
+-- Deliberately does NOT depend on public.is_admin() — this block must
+-- run standalone on any Supabase project, even fresh ones.
 ALTER TABLE public.keepalive_log ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "keepalive_insert_anyone" ON public.keepalive_log;
@@ -174,10 +177,8 @@ CREATE POLICY "keepalive_insert_anyone"
   TO anon, authenticated
   WITH CHECK (TRUE);
 
-DROP POLICY IF EXISTS "keepalive_select_admin" ON public.keepalive_log;
-CREATE POLICY "keepalive_select_admin"
-  ON public.keepalive_log FOR SELECT
-  USING (public.is_admin());
+-- (No SELECT policy — keepalive_log is append-only for the workflow.
+--  To inspect manually, use the dashboard SQL editor which runs as service_role.)
 
 -- Auto-trim: keep only last 30 rows. Trigger runs on every INSERT.
 CREATE OR REPLACE FUNCTION public.trim_keepalive_log()
