@@ -79,17 +79,25 @@ ALTER TABLE public.game_sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.level_attempts ENABLE ROW LEVEL SECURITY;
 
 -- Profiles: users manage their own, all can read
+DROP POLICY IF EXISTS "profiles_read_all"   ON public.profiles;
 CREATE POLICY "profiles_read_all"   ON public.profiles FOR SELECT USING (true);
+DROP POLICY IF EXISTS "profiles_insert_own" ON public.profiles;
 CREATE POLICY "profiles_insert_own" ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
+DROP POLICY IF EXISTS "profiles_update_own" ON public.profiles;
 CREATE POLICY "profiles_update_own" ON public.profiles FOR UPDATE USING (auth.uid() = id);
 
 -- Game sessions: users manage their own
+DROP POLICY IF EXISTS "sessions_read_own"   ON public.game_sessions;
 CREATE POLICY "sessions_read_own"   ON public.game_sessions FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "sessions_insert_own" ON public.game_sessions;
 CREATE POLICY "sessions_insert_own" ON public.game_sessions FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "sessions_update_own" ON public.game_sessions;
 CREATE POLICY "sessions_update_own" ON public.game_sessions FOR UPDATE USING (auth.uid() = user_id);
 
 -- Level attempts: users manage their own
+DROP POLICY IF EXISTS "attempts_insert_own" ON public.level_attempts;
 CREATE POLICY "attempts_insert_own" ON public.level_attempts FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "attempts_read_own"   ON public.level_attempts;
 CREATE POLICY "attempts_read_own"   ON public.level_attempts FOR SELECT USING (auth.uid() = user_id);
 
 -- ─── AUTO-UPDATE PROFILE SCORE FUNCTION ──────────────────────
@@ -135,11 +143,13 @@ RETURNS BOOLEAN LANGUAGE SQL SECURITY DEFINER STABLE AS $$
 $$;
 
 -- Allow admins to read all game sessions
+DROP POLICY IF EXISTS "sessions_read_admin" ON public.game_sessions;
 CREATE POLICY "sessions_read_admin"
   ON public.game_sessions FOR SELECT
   USING (auth.uid() = user_id OR public.is_admin());
 
 -- Allow admins to read all level attempts
+DROP POLICY IF EXISTS "attempts_read_admin" ON public.level_attempts;
 CREATE POLICY "attempts_read_admin"
   ON public.level_attempts FOR SELECT
   USING (auth.uid() = user_id OR public.is_admin());
